@@ -50,5 +50,6 @@ Route::group(
     ],
     function() {
         Route::get('/', [ProductController::class, 'list'])->name('list');
+        Route::get('/{id}', [ProductController::class, 'show'])->name('show');
     }
 );

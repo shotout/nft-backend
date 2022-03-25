@@ -31,7 +31,7 @@ class CreateWalletsTable extends Migration
             $table->timestamps();
         });
 
-        // adding users
+        // adding wallets
         DB::table('wallets')->insert([
             ['uuid' => Uuid::uuid4(), 'name' => 'Metamask', 'image' => 'metamask.png', 'created_at' => now()],
             ['uuid' => Uuid::uuid4(), 'name' => 'Cardano', 'image' => 'cardano.png', 'created_at' => now()],
