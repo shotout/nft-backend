@@ -20,7 +20,8 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|string|email|max:100',
-            'wallet' => 'required'
+            'wallet' => 'required',
+            'fcm_token' => 'required'
         ]);
 
         // check if email has register
@@ -37,7 +38,7 @@ class AuthController extends Controller
                 $user->uuid = Uuid::uuid4();
                 $user->name = $request->name;
                 $user->email = $request->email;
-                // $user->wallet = $request->wallet;
+                $user->fcm_token = $request->fcm_token;
                 $user->remember_token = Str::random(16);
                 $user->save();
 

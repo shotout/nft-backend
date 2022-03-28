@@ -24,7 +24,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"user2\",\n    \"email\" : \"user2@mail.com\",\n    \"wallet\" : \"663a559e-05a7-4002-86a3-ac0faaef32c9\"\n}",
+							"raw": "{\n    \"name\" : \"user1\",\n    \"email\" : \"user1@mail.com\",\n    \"wallet\" : \"c9d399e8-37dd-4b31-96c7-3f3af8be6750\",\n    \"fcm_token\": \"jasgdkgkasd\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -124,6 +124,40 @@
 							],
 							"path": [
 								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|VrUJiJYtA3CmeetVf3fJm8WO6ZROjpGhuljkFo70",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/products/d935cab5-11d2-43c1-99d7-631d7c8e4966",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"d935cab5-11d2-43c1-99d7-631d7c8e4966"
 							]
 						}
 					},
