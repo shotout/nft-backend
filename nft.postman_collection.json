@@ -24,7 +24,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"user1\",\n    \"email\" : \"user1@mail.com\",\n    \"wallet\" : \"c9d399e8-37dd-4b31-96c7-3f3af8be6750\",\n    \"fcm_token\": \"jasgdkgkasd\"\n}",
+							"raw": "{\n    \"name\" : \"user1\",\n    \"email\" : \"user1@mail.com\",\n    \"wallet\" : \"486f2996-cf13-4cdf-99b8-de4463c29b6a\",\n    \"fcm_token\": \"cBStvPyy9JkNQLq2F_j1v3:APA91bF5kb0tlBxD2kPaDNw4zXj6V9sOEyIY78P-1gVb3ZPjUTIDvLY92x6R4hvs2VwxcziQ-M0OPz0gO2YEDL0pSujCdz7jjpka5CtYuIe-PV0OnErcOgHOqWRYNp6W6g09oeXg6ny5\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,19 +45,55 @@
 					"response": []
 				},
 				{
+					"name": "login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"user1@mail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "verify",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/auth/verify/Z3gtzjg2JdZOXs40",
+							"raw": "{{base_url}}/auth/verify/14oY360UcbfSletV",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"auth",
 								"verify",
-								"Z3gtzjg2JdZOXs40"
+								"14oY360UcbfSletV"
 							]
 						}
 					},
@@ -104,7 +140,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|VxOFnGk3kKtAoXwSofDzsQWGZ2Z2y7kWXjonvepQ",
+									"value": "1|UFRwUlWIxJ40QjxklYqjM4oZKVDPhI0lNkewNuZl",
 									"type": "string"
 								}
 							]
@@ -137,7 +173,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|VrUJiJYtA3CmeetVf3fJm8WO6ZROjpGhuljkFo70",
+									"value": "1|UFRwUlWIxJ40QjxklYqjM4oZKVDPhI0lNkewNuZl",
 									"type": "string"
 								}
 							]
@@ -151,13 +187,119 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/products/d935cab5-11d2-43c1-99d7-631d7c8e4966",
+							"raw": "{{base_url}}/products/a096396c-8e22-4364-bfc6-7fc8d92366d3",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"products",
-								"d935cab5-11d2-43c1-99d7-631d7c8e4966"
+								"a096396c-8e22-4364-bfc6-7fc8d92366d3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "watchlist",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|UFRwUlWIxJ40QjxklYqjM4oZKVDPhI0lNkewNuZl",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/watchlists",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"watchlists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|UFRwUlWIxJ40QjxklYqjM4oZKVDPhI0lNkewNuZl",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/watchlists/a096396c-8e22-4364-bfc6-7fc8d92366d3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"watchlists",
+								"a096396c-8e22-4364-bfc6-7fc8d92366d3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|UFRwUlWIxJ40QjxklYqjM4oZKVDPhI0lNkewNuZl",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/watchlists/6c54d9cc-8d48-4bc4-b759-04bc5da03f06",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"watchlists",
+								"6c54d9cc-8d48-4bc4-b759-04bc5da03f06"
 							]
 						}
 					},
