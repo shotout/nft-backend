@@ -26,8 +26,8 @@ class CreateWalletsTable extends Migration
         Schema::create('user_wallets', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique()->nullable();
-            $table->integer('user_id')->nullable();
-            $table->integer('wallet_id')->nullable();
+            $table->string('user_id')->nullable();
+            $table->string('wallet_id')->nullable();
             $table->timestamps();
         });
 

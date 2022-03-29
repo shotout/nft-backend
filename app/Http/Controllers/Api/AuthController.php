@@ -19,50 +19,83 @@ class AuthController extends Controller
         // validation
         $request->validate([
             'name' => 'required|string|max:100',
-            'email' => 'required|string|email|max:100',
+            'email' => 'required|email|max:100|unique:users,email',
             'wallet' => 'required',
             'fcm_token' => 'required'
         ]);
 
-        // check if email has register
-        $user = User::where('email', $request->email)->first();
+        $user = DB::transaction(function () use ($request) {
+            // add user
+            $user = new User;
+            $user->uuid = Uuid::uuid4();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->fcm_token = $request->fcm_token;
+            $user->remember_token = Str::random(16);
+            $user->save();
+
+            // find wallet
+            $wallet = Wallet::where('uuid', $request->wallet)->firstOrFail();
+
+            // add wallet
+            $userWallet = new UserWallet;
+            $userWallet->uuid = Uuid::uuid4();
+            $userWallet->user_id = $user->uuid;
+            $userWallet->wallet_id = $wallet->uuid;
+            $userWallet->save();
+
+            // return user
+            return $user;
+        });
 
         if ($user) {
-            // update user
-            $user->remember_token = Str::random(16);
-            $user->update();
-        } else {
-            $user = DB::transaction(function () use ($request) {
-                // add user
-                $user = new User;
-                $user->uuid = Uuid::uuid4();
-                $user->name = $request->name;
-                $user->email = $request->email;
-                $user->fcm_token = $request->fcm_token;
-                $user->remember_token = Str::random(16);
-                $user->save();
+            // sending email verification
+            SendConfirmEmail::dispatch($user);
 
-                // find wallet
-                $wallet = Wallet::where('uuid', $request->wallet)->firstOrFail();
-
-                // add wallet
-                $userWallet = new UserWallet;
-                $userWallet->uuid = Uuid::uuid4();
-                $userWallet->user_id = $user->id;
-                $userWallet->wallet_id = $wallet->id;
-                $userWallet->save();
-
-                // return user
-                return $user;
-            });
+            // retun response
+            return response()->json([
+                'status' => 'success',
+                'data' => $user
+            ]);
         }
+    }
+
+    public function login(Request $request)
+    {
+        // validation
+        $request->validate([
+            'email' => 'required|email|max:100',
+        ]);
+
+        // find email
+        $user = User::where('email', $request->email)->first();
+
+        // check if email has register
+        if (!$user) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'email account not registered',
+            ]);
+        }
+
+        // check if email has verify
+        if (!$user->email_verified_at) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'email account not verified',
+            ]);
+        }
+
+        // update user
+        $user->remember_token = Str::random(16);
+        $user->update();
 
         // sending email verification
         SendConfirmEmail::dispatch($user);
 
         // retun response
         return response()->json([
-            'message' => 'success',
+            'status' => 'success',
             'data' => $user
         ]);
     }
@@ -70,7 +103,15 @@ class AuthController extends Controller
     public function verify($token)
     {
         // check email token and update 
-        $user = User::where('remember_token', $token)->firstOrFail();
+        $user = User::where('remember_token', $token)->first();
+
+        if (!$user) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'token expired',
+            ]);
+        }
+
         $user->email_verified_at = now();
         $user->remember_token = null;
         $user->update();
@@ -80,7 +121,7 @@ class AuthController extends Controller
 
         // retun response
         return response()->json([
-            'message' => 'success',
+            'status' => 'success',
             'token' => $token,
             'data' => $user
         ]);

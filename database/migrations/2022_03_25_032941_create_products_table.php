@@ -27,8 +27,8 @@ class CreateProductsTable extends Migration
         Schema::create('user_watchlists', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique()->nullable();
-            $table->integer('user_id')->nullable();
-            $table->integer('product_id')->nullable();
+            $table->string('user_id')->nullable();
+            $table->string('product_id')->nullable();
             $table->timestamps();
         });
 

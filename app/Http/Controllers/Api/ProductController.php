@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use Ramsey\Uuid\Uuid;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Models\UserWatchlist;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
@@ -49,7 +47,7 @@ class ProductController extends Controller
 
         // retun response
         return response()->json([
-            'message' => 'success',
+            'status' => 'success',
             'data' => $products
         ]);
     }
@@ -57,24 +55,11 @@ class ProductController extends Controller
     public function show($id)
     {
         // find product
-        $product = Product::where('uuid', $id)->firstOrFail();
-
-        // add to watchlists if not exists
-        $hasWatch = UserWatchlist::where('user_id', auth()->user()->id)
-            ->where('product_id', $product->id)
-            ->first();
-
-        if (!$hasWatch) {
-            $wlist = new UserWatchlist;
-            $wlist->uuid = Uuid::uuid4();
-            $wlist->user_id = auth()->user()->id;
-            $wlist->product_id = $product->id;
-            $wlist->save();
-        } 
+        $product = Product::where('uuid', $id)->first();
 
         // retun response
         return response()->json([
-            'message' => 'success',
+            'status' => 'success',
             'data' => $product
         ]);
     }

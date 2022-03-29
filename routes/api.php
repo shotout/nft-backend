@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\WatchlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::group(
     ],
     function() {
         Route::post('/register', [AuthController::class, 'register'])->name('register');
+        Route::post('/login', [AuthController::class, 'login'])->name('login');
         Route::get('/verify/{token}', [AuthController::class, 'verify'])->name('verify');
     }
 );
@@ -51,5 +53,18 @@ Route::group(
     function() {
         Route::get('/', [ProductController::class, 'list'])->name('list');
         Route::get('/{id}', [ProductController::class, 'show'])->name('show');
+    }
+);
+
+Route::group(
+    [
+        'middleware' => 'auth:sanctum',
+        'prefix' => 'v1/watchlists',
+        'name' => 'watchlist.'
+    ],
+    function() {
+        Route::get('/', [WatchlistController::class, 'list'])->name('list');
+        Route::post('/{id}', [WatchlistController::class, 'store'])->name('store');
+        Route::delete('/{id}', [WatchlistController::class, 'destroy'])->name('destroy');
     }
 );

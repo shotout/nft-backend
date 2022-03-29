@@ -19,7 +19,7 @@ class WalletController extends Controller
 
         // retun response
         return response()->json([
-            'message' => 'success',
+            'status' => 'success',
             'data' => $wallets
         ]);
     }
