@@ -57,6 +57,14 @@ class ProductController extends Controller
         // find product
         $product = Product::where('uuid', $id)->first();
 
+        // if not found
+        if (!$product) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'data not found',
+            ]);
+        }
+
         // retun response
         return response()->json([
             'status' => 'success',

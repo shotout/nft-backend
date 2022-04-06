@@ -24,7 +24,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"user1\",\n    \"email\" : \"user1@mail.com\",\n    \"wallet\" : \"486f2996-cf13-4cdf-99b8-de4463c29b6a\",\n    \"fcm_token\": \"cBStvPyy9JkNQLq2F_j1v3:APA91bF5kb0tlBxD2kPaDNw4zXj6V9sOEyIY78P-1gVb3ZPjUTIDvLY92x6R4hvs2VwxcziQ-M0OPz0gO2YEDL0pSujCdz7jjpka5CtYuIe-PV0OnErcOgHOqWRYNp6W6g09oeXg6ny5\"\n}",
+							"raw": "{\n    \"name\" : \"padliyulian\",\n    \"email\" : \"padliyulian@gmail.com\",\n    \"wallet\" : [\"945b20fc-4285-47c5-a488-c2c06eb6543c\", \"54d5cefe-fd84-4cbc-83ab-2ed0568a7bb1\"],\n    \"fcm_token\": \"cBStvPyy9JkNQLq2F_j1v3:APA91bF5kb0tlBxD2kPaDNw4zXj6V9sOEyIY78P-1gVb3ZPjUTIDvLY92x6R4hvs2VwxcziQ-M0OPz0gO2YEDL0pSujCdz7jjpka5CtYuIe-PV0OnErcOgHOqWRYNp6W6g09oeXg6ny5\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -140,7 +140,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|UFRwUlWIxJ40QjxklYqjM4oZKVDPhI0lNkewNuZl",
+									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
 									"type": "string"
 								}
 							]
@@ -212,7 +212,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|UFRwUlWIxJ40QjxklYqjM4oZKVDPhI0lNkewNuZl",
+									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
 									"type": "string"
 								}
 							]
@@ -245,7 +245,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|UFRwUlWIxJ40QjxklYqjM4oZKVDPhI0lNkewNuZl",
+									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
 									"type": "string"
 								}
 							]
@@ -259,13 +259,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/watchlists/a096396c-8e22-4364-bfc6-7fc8d92366d3",
+							"raw": "{{base_url}}/watchlists/329608dd-09de-40ec-8632-2897ac9feae4",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"watchlists",
-								"a096396c-8e22-4364-bfc6-7fc8d92366d3"
+								"329608dd-09de-40ec-8632-2897ac9feae4"
 							]
 						}
 					},
@@ -279,7 +279,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|UFRwUlWIxJ40QjxklYqjM4oZKVDPhI0lNkewNuZl",
+									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
 									"type": "string"
 								}
 							]
@@ -293,13 +293,165 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/watchlists/6c54d9cc-8d48-4bc4-b759-04bc5da03f06",
+							"raw": "{{base_url}}/watchlists/506b2f52-e12d-42ad-b5f7-a1227c89e0e6",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"watchlists",
-								"6c54d9cc-8d48-4bc4-b759-04bc5da03f06"
+								"506b2f52-e12d-42ad-b5f7-a1227c89e0e6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "faq",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/faqs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"faqs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/faqs/550c462d-ec4d-4d6e-9790-855987a026c9",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"faqs",
+								"550c462d-ec4d-4d6e-9790-855987a026c9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"wallet\" : [\"59786eda-58c4-483f-adfa-59d5719e420c\", \"945b20fc-4285-47c5-a488-c2c06eb6543c\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
 							]
 						}
 					},

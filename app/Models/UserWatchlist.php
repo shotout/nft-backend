@@ -11,4 +11,9 @@ class UserWatchlist extends Model
 
     protected $table = 'user_watchlists';
     protected $guarded = [];
+
+    public function product()
+    {
+        return $this->belongsTo('\App\Models\Product');
+    }
 }

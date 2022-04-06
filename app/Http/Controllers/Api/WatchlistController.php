@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Ramsey\Uuid\Uuid;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\UserWatchlist;
 use App\Http\Controllers\Controller;
@@ -33,7 +34,9 @@ class WatchlistController extends Controller
         }
 
         // order by
-        $query = UserWatchlist::where('user_id', auth()->user()->uuid)->orderBy($column, $dir);
+        $query = UserWatchlist::where('user_id', auth('sanctum')->user()->id)
+            ->with('product')
+            ->orderBy($column, $dir);
 
         // search
         if ($request->has('search') && $request->input('search') != '') {
@@ -55,16 +58,26 @@ class WatchlistController extends Controller
 
     public function store($id)
     {
+        // find product
+        $product = Product::where('uuid', $id)->first();
+
+        if (!$product) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'product not found',
+            ]);
+        }
+
         // add to watchlists if not exists
-        $hasWatch = UserWatchlist::where('user_id', auth()->user()->uuid)
-            ->where('product_id', $id)
+        $hasWatch = UserWatchlist::where('user_id', auth()->user()->id)
+            ->where('product_id', $product->id)
             ->first();
 
         if (!$hasWatch) {
             $wlist = new UserWatchlist;
             $wlist->uuid = Uuid::uuid4();
-            $wlist->user_id = auth()->user()->uuid;
-            $wlist->product_id = $id;
+            $wlist->user_id = auth()->user()->id;
+            $wlist->product_id = $product->id;
             $wlist->save();
 
             // retun response

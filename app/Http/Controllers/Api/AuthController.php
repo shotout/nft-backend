@@ -34,15 +34,11 @@ class AuthController extends Controller
             $user->remember_token = Str::random(16);
             $user->save();
 
-            // find wallet
-            $wallet = Wallet::where('uuid', $request->wallet)->firstOrFail();
+            // wallets id
+            $wallets = Wallet::whereIn('uuid', $request->wallet)->pluck('id')->toArray();
 
-            // add wallet
-            $userWallet = new UserWallet;
-            $userWallet->uuid = Uuid::uuid4();
-            $userWallet->user_id = $user->uuid;
-            $userWallet->wallet_id = $wallet->uuid;
-            $userWallet->save();
+            // add wallets
+            $user->wallets()->sync($wallets);
 
             // return user
             return $user;

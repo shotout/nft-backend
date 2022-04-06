@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\WatchlistController;
@@ -46,6 +48,17 @@ Route::group(
 
 Route::group(
     [
+        'prefix' => 'v1/users',
+        'name' => 'user.'
+    ],
+    function() {
+        Route::get('/', [UserController::class, 'show'])->name('show');
+        Route::patch('/', [UserController::class, 'update'])->name('update');
+    }
+);
+
+Route::group(
+    [
         'middleware' => 'auth:sanctum',
         'prefix' => 'v1/products',
         'name' => 'product.'
@@ -66,5 +79,17 @@ Route::group(
         Route::get('/', [WatchlistController::class, 'list'])->name('list');
         Route::post('/{id}', [WatchlistController::class, 'store'])->name('store');
         Route::delete('/{id}', [WatchlistController::class, 'destroy'])->name('destroy');
+    }
+);
+
+Route::group(
+    [
+        'middleware' => 'auth:sanctum',
+        'prefix' => 'v1/faqs',
+        'name' => 'faq.'
+    ],
+    function() {
+        Route::get('/', [FaqController::class, 'list'])->name('list');
+        Route::get('/{id}', [FaqController::class, 'show'])->name('show');
     }
 );
