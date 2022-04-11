@@ -1,0 +1,107 @@
+.custom-btn-small {
+  margin-top: 0px;
+  margin-right: 0px;
+  border-radius: 0px 3px 3px 0px;
+}
+.select2-container--default .select2-selection--single {
+  border-radius: 4px 0px 0px 4px !important;
+}
+.input-group {
+  background: transparent;
+}
+.input-group-text{
+  background-color: #f4f7fa !important;
+}
+#variant label.error, #stock label.error {
+  width: 100%;
+}
+.control-label.require::after {
+  content: "*";
+  color: #ff4d4d;
+}
+.col-form-label.require::after {
+  content: "*";
+  color: #ff4d4d;
+}
+.control-label{
+  text-align: left;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.swtich-label {
+  color:#00acd6; 
+  font-size: 16px;
+  margin-top: .65rem !important;
+}
+.mobile-margin {
+  margin-top: 1rem !important;
+}
+.weight_unit {
+  width: 107%;
+}
+.width-100 {
+  width: 100%;
+}
+.wholesale-level {
+  margin-top: 0.75rem !important;
+}
+
+#multiVariantsBlock label.error {
+  width: 100%;
+}
+label.error {
+  width: 100%;
+}
+
+@media only screen and (max-width: 574px) {
+  .row {
+    margin-bottom: 0px !important;
+  }
+}
+
+/*CSS of datatable for pagination*/
+@media only screen and (min-width: 400px) {    
+  #variant-list-info_info.dataTables_info{
+    max-width: 50%;
+    float: left;
+  }
+  #variant-list-info_paginate.dataTables_paginate.paging_simple_numbers{
+    margin: 20px 0px;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .paginate_button.disabled {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+    border-color: #dee2e6;
+  }
+}
+
+.select2-container--default .select2-selection--single {
+    border-radius: 0px;
+    height: 36px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #aaaaaa52 !important;
+}
+
+table.dataTable th:nth-child(2) {
+    max-width: 190px;
+    word-wrap: break-word;
+    white-space: pre-line;
+  }
+
+  table.dataTable td:nth-child(2) {
+    max-width: 190px;
+    word-break: break-all;
+    white-space: pre-line;
+  }
+
+  .pt-2{
+    padding-top: 0px !important;
+  }
