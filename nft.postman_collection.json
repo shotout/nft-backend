@@ -318,7 +318,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
+									"value": "1|t9lM8iTizvBJFilRSQaxuRRh9HPKEiUVBX5s00Pv",
 									"type": "string"
 								}
 							]
@@ -351,7 +351,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
+									"value": "1|t9lM8iTizvBJFilRSQaxuRRh9HPKEiUVBX5s00Pv",
 									"type": "string"
 								}
 							]
@@ -365,13 +365,48 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/faqs/550c462d-ec4d-4d6e-9790-855987a026c9",
+							"raw": "{{base_url}}/faqs/show/ffd2ab24-9877-4688-92f9-2ed28d05237f",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"faqs",
-								"550c462d-ec4d-4d6e-9790-855987a026c9"
+								"show",
+								"ffd2ab24-9877-4688-92f9-2ed28d05237f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "flag",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|t9lM8iTizvBJFilRSQaxuRRh9HPKEiUVBX5s00Pv",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/faqs/guideline",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"faqs",
+								"guideline"
 							]
 						}
 					},

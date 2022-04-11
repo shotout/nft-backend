@@ -90,6 +90,7 @@ Route::group(
     ],
     function() {
         Route::get('/', [FaqController::class, 'list'])->name('list');
-        Route::get('/{id}', [FaqController::class, 'show'])->name('show');
+        Route::get('/show/{id}', [FaqController::class, 'show'])->name('show');
+        Route::get('/{flag}', [FaqController::class, 'flag'])->name('flag');
     }
 );

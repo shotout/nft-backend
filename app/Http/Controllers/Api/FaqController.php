@@ -38,4 +38,24 @@ class FaqController extends Controller
             'data' => $faq
         ]);
     }
+
+    public function flag($flag)
+    {
+        // find faq
+        $faq = Faq::whereNull('parent')->where('flag', $flag)->with('childs')->first();
+
+        // if not found
+        if (!$faq) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'data not found',
+            ]);
+        }
+
+        // retun response
+        return response()->json([
+            'status' => 'success',
+            'data' => $faq
+        ]);
+    }
 }
