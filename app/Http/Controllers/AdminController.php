@@ -94,6 +94,17 @@ class AdminController extends Controller
     }
 
 
+    public function edit($id)
+    {
+        $data['menu'] = 'Admins';
+        $data['sub_menu'] = 'Admins';
+        $data['page_title'] = __('Admins Edit');
+        $data['adminData'] = Admins::find($id);        
+        $data['status_tab'] = 'active';
+
+        return view('admin.admin_edit', $data);
+    }
+
     //change status of admin
     public function changeStatus(Request $request)
     {

@@ -3,7 +3,6 @@
 if ($('.main-body .page-wrapper').find('#list-layout-container').length) {
   $('.selectpicker').selectpicker();
   $(".select2").select2();
-  $('#daterange-btn').daterangepicker(daterangeConfig(startDate, endDate), cbRange);
   cbRange(startDate, endDate);
   $(document).on("click", "#tablereload", function(event) {
     event.preventDefault();

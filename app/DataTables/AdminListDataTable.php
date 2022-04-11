@@ -54,7 +54,6 @@ class AdminListDataTable extends DataTable
         return $this->builder()
         ->addColumn(['data' => 'id', 'name' => 'id', "visible" => false])
         ->addColumn(['data' => 'name', 'name' => 'name', 'title' => __('Name')])
-        ->addColumn(['data' => 'email', 'name' => 'dosen_email', 'title' => __('Email')])
         ->addColumn(['data' => 'inactive', 'name' => 'inactive', 'title' => __('Status'), 'orderable' => false])
             ->parameters([
             'pageLength' => $this->row_per_page,            

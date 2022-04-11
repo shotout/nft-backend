@@ -32,6 +32,7 @@ Route::prefix('admin')->middleware('auth:web')->group(function () {
     Route::post('/change-status', [AdminController::class, 'changeStatus']);
     Route::get('/create-admin', [AdminController::class, 'create']);
     Route::post('save-admin', [AdminController::class, 'store']);
+    Route::get('edit/{id}', [AdminController::class, 'edit']);
 });
 
 //login
