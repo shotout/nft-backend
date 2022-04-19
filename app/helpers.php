@@ -62,6 +62,12 @@ use App\Models\Preference;
     return $image;
 }
 
+function weblogo()
+{
+    $image = url("dist/img/Logo.png");   
+    return $image;
+}
+
 function stripBeforeSave($string = null, $options = ['skipAllTags' => true, 'mergeTags' => false]) 
 {
     $finalString = [];
@@ -90,5 +96,70 @@ function stripBeforeSave($string = null, $options = ['skipAllTags' => true, 'mer
     }
     return !empty($finalString) ? $finalString : null;
 }
+
+function checkFileValidationOne($ext)
+{
+    return in_array($ext, getFileExtensions()) ? true : false;
+}
+
+
+function getFileExtensions($type = 0)
+{
+    $extensions = array(
+        0 => ['jpg', 'jpeg', 'png', 'gif', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'pdf'],
+        1 => ['jpg', 'jpeg', 'png', 'gif', 'doc', 'docx', 'pdf'],
+        2 => ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
+    );
+    return $extensions[$type];
+}
+
+function getFileIcon($file = null)
+{
+    if (empty($file)) {
+        return null;
+    }
+
+    $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+    switch ($ext) {
+        case 'docx':
+        case 'doc':
+            return 'far fa-file-word';
+            break;
+        case 'pdf':
+            return 'far fa-file-pdf';
+            break;
+        case 'xlsx':
+        case 'xls':
+        case 'csv':
+            return 'far fa-file-excel';
+            break;
+        case 'jpg':
+        case 'jpeg':
+        case 'png':
+        case 'gif':
+            return 'far fa-image';
+            break;
+        default:
+            return 'far fa-file';
+    }
+}
+
+
+function maxFileSize($fileSize)
+{
+    $data = [];
+    $maxfileSize = 50;
+    if (isset($maxfileSize) && !empty($maxfileSize)) {
+        $maxFileSize = (int) $maxfileSize;
+        if (($fileSize / 1024) <= $maxfileSize * 1024) {
+            $data['status'] = 1;
+        } else if (($fileSize / 1024) > $maxfileSize * 1024) {
+            $data['status'] = 0;
+            $data['message'] = __('Maximum File Size :? MB.', ['?' => $maxfileSize]);
+        }
+        return $data;
+    }
+}
+
 
 ?>

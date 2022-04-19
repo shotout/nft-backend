@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Wallet extends Model
 {
     use HasFactory;
+    protected $table = "wallets";
+    protected $primaryKey = 'id';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'uuid','name','image','created_at','updated_at'
+    ];
 }

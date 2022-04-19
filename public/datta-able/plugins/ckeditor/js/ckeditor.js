@@ -42,7 +42,7 @@ if ($.validator) {
 		$(element).val(editor);
 	}
 	return $(element).val().length > 0;
-}, jsLang('This field is required.'));
+},);
 } else {
 	console.error("CKEditor loaded before jquery validation, please load CKEditor after jquery validation.");
 }

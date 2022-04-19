@@ -30,7 +30,7 @@ class AdminController extends Controller
         $data['admin'] = $entry;
         $data['menu'] = 'Admin';
         $data['sub_menu'] = 'Admin';
-        $data['page_title'] = __('Lecturers');
+        $data['page_title'] = __('Admins');
         $data['total_admin'] = Admins::all()->count();
         $data['admin_active'] = Admins::where('is_active', 1)->count();
         $data['admin_inactive'] = Admins::where('is_active', 0)->count();

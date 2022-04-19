@@ -1,7 +1,6 @@
 <?php
 namespace App\DataTables;
 
-use App\Models\Admin;
 use App\Models\Admins;
 use Yajra\DataTables\Services\DataTable;
 

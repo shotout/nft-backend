@@ -6,7 +6,7 @@
                        <i class="feather icon-trending-up"></i>
                    </div>
                    <span class="b-title" title="
-                   ">{{ 'SI FISIKA' }}</span>
+                   ">{{ 'NFT of The Day' }}</span>
                </a>
         </div>
         <a class="mobile-menu" id="mobile-header" href="javascript:">

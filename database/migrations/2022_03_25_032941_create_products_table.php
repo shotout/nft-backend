@@ -16,12 +16,21 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('uuid')->unique()->nullable();
-            $table->string('sample')->nullable();
-            $table->dateTime('publish_date')->nullable();
-            $table->boolean('has_notif')->default(false);
-            $table->timestamps();
+            $table->increments('id');
+            $table->string('uuid')->unique();
+            $table->string('nft_title')->nullable();
+            $table->string('nft_type')->nullable();
+            $table->string('nft_price')->nullable();
+            $table->string('nft_amount')->nullable();
+            $table->text('nft_description')->nullable();
+            $table->text('nft_raffle')->nullable();
+            $table->text('nft_community')->nullable();
+            $table->date('nft_publish_date')->nullable();
+            $table->boolean('is_verified')->default(0); 
+            $table->boolean('is_published')->default(0);
+            $table->timestamp('created_at')->nullable()->useCurent();
+            $table->timestamp('updated_at')->nullable();
+            
         });
 
         Schema::create('user_watchlists', function (Blueprint $table) {
@@ -32,14 +41,6 @@ class CreateProductsTable extends Migration
             $table->timestamps();
         });
 
-        // adding products
-        DB::table('products')->insert([
-            ['uuid' => Uuid::uuid4(), 'sample' => 'data sample', 'publish_date' => now(), 'created_at' => now()],
-            ['uuid' => Uuid::uuid4(), 'sample' => 'data sample', 'publish_date' => now(), 'created_at' => now()],
-            ['uuid' => Uuid::uuid4(), 'sample' => 'data sample', 'publish_date' => now(), 'created_at' => now()],
-            ['uuid' => Uuid::uuid4(), 'sample' => 'data sample', 'publish_date' => now(), 'created_at' => now()],
-            ['uuid' => Uuid::uuid4(), 'sample' => 'data sample', 'publish_date' => now(), 'created_at' => now()],
-        ]);
     }
 
     /**

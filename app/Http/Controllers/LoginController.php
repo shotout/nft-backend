@@ -28,10 +28,6 @@ class LoginController extends Controller
         $data = $request->only('email', 'password');
         if (Auth::guard('web')->attempt($data)) {
 
-            if (! is_null($request->remember)) {
-                $ckkey = encrypt($this->ckname.Auth::user()->id.".user");
-                Cookie::queue($this->ckname, $ckkey, 2592000);
-            }
             return redirect()->intended('admin/list');
         }
         return back()->withInput()->withErrors(['email' => __("Invalid email or password")]);
@@ -39,13 +35,9 @@ class LoginController extends Controller
 
     public function logout()
     {
-        if(Cookie::has($this->ckname)){
-            $cookie = Cookie::forget($this->ckname);
-        }
-       
         Auth::guard('web')->logout();
         Session::flush();
-        return redirect('/')->withCookie($cookie);
+        return redirect('/');
     }
 
     /**

@@ -64,8 +64,8 @@ Route::group(
         'name' => 'product.'
     ],
     function() {
-        Route::get('/', [ProductController::class, 'list'])->name('list');
-        Route::get('/{id}', [ProductController::class, 'show'])->name('show');
+        Route::get('/', [ProductController::class, 'list'])->name('listproducts');
+        Route::get('/{id}', [ProductController::class, 'show'])->name('showproducts');
     }
 );
 
@@ -76,7 +76,7 @@ Route::group(
         'name' => 'watchlist.'
     ],
     function() {
-        Route::get('/', [WatchlistController::class, 'list'])->name('list');
+        Route::get('/', [WatchlistController::class, 'list'])->name('listwatchlists');
         Route::post('/{id}', [WatchlistController::class, 'store'])->name('store');
         Route::delete('/{id}', [WatchlistController::class, 'destroy'])->name('destroy');
     }
@@ -89,8 +89,8 @@ Route::group(
         'name' => 'faq.'
     ],
     function() {
-        Route::get('/', [FaqController::class, 'list'])->name('list');
-        Route::get('/show/{id}', [FaqController::class, 'show'])->name('show');
+        Route::get('/', [FaqController::class, 'list'])->name('listfaqs');
+        Route::get('/show/{id}', [FaqController::class, 'show'])->name('showfaqs');
         Route::get('/{flag}', [FaqController::class, 'flag'])->name('flag');
     }
 );

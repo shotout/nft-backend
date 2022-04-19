@@ -5,10 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    @if(!empty($favicon))
-        <link rel='shortcut icon' href="{{ URL::to('/') }}/uploads/companyIcon/{{ $favicon }}" type='image/x-icon' />
-    @endif
+    <link rel='shortcut icon' href="{{ weblogo() }}" type='image/x-icon' />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="{{ asset('datta-able/fonts/fontawesome/css/fontawesome-all.min.css') }}">
     <!-- Material icon -->
@@ -23,6 +21,15 @@
 
 
     <!--Custom CSS that was written on view-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
+   <style>
+      .dz-image img {
+         width: 120px;
+         height: 120px;
+      }
+
+   </style>
+
     @yield('css')
 
     @php
@@ -31,7 +38,11 @@
         <link rel="stylesheet" href="{{ asset('datta-able/css/layouts/dark.min.css') }}">
         <link rel="stylesheet" href="{{ asset('datta-able/css/layouts/dark-custom.min.css?v=1.0') }}">
     @php } @endphp
-   
+    <script type="text/javascript">
+        'use strict';
+        var SITE_URL              = "{{ URL::to('/') }}";
+
+    </script>
     <!-- Required Js -->
     <script src="{{ asset('datta-able/js/vendor-all.js') }}"></script>
 </head>
@@ -85,8 +96,11 @@
         var menu = "{{ $menu }}";
     </script>
     <!-- Required Js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script src="{{ asset('datta-able/js/pcoded.min.js') }}"></script>
     <script src="{{ asset('dist/js/custom/app-layout.min.js') }}"></script>
+
+    @yield('javascript')
     <!-- Custom Js -->
     @yield('js')
 </body>

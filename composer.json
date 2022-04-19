@@ -11,6 +11,8 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.5",
+        "realrashid/sweet-alert": "^5.0",
+        "spatie/laravel-medialibrary": "9.0.0",
         "yajra/laravel-datatables-buttons": "^4.13",
         "yajra/laravel-datatables-editor": "^1.25",
         "yajra/laravel-datatables-fractal": "^1.6",
