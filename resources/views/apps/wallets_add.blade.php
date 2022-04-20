@@ -59,7 +59,7 @@
             
           <div class="col-sm-8 pl-sm-3-custom px-0 mobile-margin">
             <button class="btn btn-primary custom-btn-small custom-variant-title-validation" type="submit" id="btnSubmit">{{  __('Submit')  }}</button>   
-            <a href="{{ url('magang') }}" class="btn btn-danger custom-btn-small">{{ __('Cancel') }}</a>
+            <a href="{{ url('wallet/list') }}" class="btn btn-danger custom-btn-small">{{ __('Cancel') }}</a>
           </div>
         </div>
       </form>

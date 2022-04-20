@@ -6,6 +6,7 @@ use App\DataTables\FaqListDataTable;
 use App\Models\Faq;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class FaqController extends Controller
@@ -26,6 +27,7 @@ class FaqController extends Controller
         $data['menu'] = 'app';
         $data['sub_menu'] = 'faq';
         $data['page_title'] = __('Create FAQ');
+        $data['faqData'] = Faq::where('parent',null)->get();
         return view('apps.faqs_add', $data);
     }
 
@@ -46,12 +48,26 @@ class FaqController extends Controller
                     return redirect()->back();
                 }
 
-                $faq = new Faq;
-                $faq->question = $request->faq_question;
-                $faq->answer = $request->faq_answer;
-                $faq->save();
+                if($request->parent == ""){
 
-                Alert::Success('Success', 'FAQ has been added successfully.');
+                    $faq = new Faq;
+                    $faq->uuid = Uuid::uuid4();
+                    $faq->question = $request->faq_question;
+                    $faq->answer = $request->faq_answer;
+                    $faq->save();
+                    Alert::Success('Success', 'FAQ has been added successfully.');
+                }else{
+
+                    $faq = new Faq;
+                    $faq->uuid = Uuid::uuid4();
+                    $faq->question = $request->faq_question;
+                    $faq->answer = $request->faq_answer;
+                    $faq->parent = $request->parent;
+                    $faq->save();
+                    Alert::Success('Success', 'Guidelines has been added successfully.');
+                }
+
+                
                 return redirect()->route('faq.list');
 
         }catch(\Exception $e){
@@ -66,6 +82,7 @@ class FaqController extends Controller
         $data['menu'] = 'app';
         $data['sub_menu'] = 'faq';
         $data['page_title'] = __('Edit FAQ');
+        $data['faqData'] = Faq::where('parent',null)->get();
         $data['faq'] = Faq::find($id);
         return view('apps.faqs_edit', $data);
     }

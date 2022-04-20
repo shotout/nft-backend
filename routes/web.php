@@ -46,6 +46,7 @@ Route::prefix('promotion')->middleware('auth:web')->group(function () {
     Route::get('/create', [PromotionController::class, 'create']);
     Route::post('/upload', [PromotionController::class, 'upload'])->name('images.upload');
     Route::post('/save-promotion', [PromotionController::class, 'store'])->name('promotion.store');
+    Route::post('/save-collection', [PromotionController::class, 'collection'])->name('promotion.collection');
 });
 
 Route::prefix('wallet')->middleware('auth:web')->group(function () {

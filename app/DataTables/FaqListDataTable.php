@@ -18,6 +18,15 @@ class FaqListDataTable extends DataTable
                 return  $faq . '<a href="'. url("wallet/edit/". $faqs->id) .'"  target="_blank"></a>';
 
             })
+            ->addColumn('parent', function ($faqs) {
+                $faq = '';
+                if($faqs->parent != null){
+                    $faq = 'Guidelines';
+                }else{
+                    $faq = 'FAQ';
+                }
+                return  $faq;
+            })
             ->addColumn('action', function ($faqs) {
                 $delete = '<form method="POST" action="'.url("faq/delete/".$faqs->id).'"accept-charset="UTF-8" class="display_inline" id="delete-item-'. $faqs->id .'">
                 ' . csrf_field() . '
@@ -28,7 +37,7 @@ class FaqListDataTable extends DataTable
                 </form>';
                 return $delete;
             })
-            ->rawColumns(['question','answer','action'])
+            ->rawColumns(['question','answer','parent','action'])
             ->make(true);
     }
 
@@ -43,6 +52,7 @@ class FaqListDataTable extends DataTable
         ->addColumn(['data' => 'id', 'name' => 'id', "visible" => false])
         ->addColumn(['data' => 'question', 'name' => 'question', 'title' => __('Question')])     
         ->addColumn(['data' => 'answer', 'name' => 'answer', 'title' => __('Answer')], 'width:500px')
+        ->addColumn(['data' => 'parent', 'name' => 'parent', 'title' => __('Parent Question')], 'width:500px')
         ->addColumn(['data' => 'action', 'name' => 'action', 'title' => __('Action'), 'orderable' => false, 'searchable' => false]) 
             ->parameters([
             'pageLength' => $this->row_per_page,            

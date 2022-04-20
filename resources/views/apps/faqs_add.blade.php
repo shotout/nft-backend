@@ -10,7 +10,7 @@
 <div class="col-sm-12" id="add-item-container">
   <div class="card user-list">
       <div class="card-header">
-        <h5><a href="{{ url('faq/list') }}">{{ __('FAQ') }}</a> >> {{ __('New FAQ') }}</h5>
+        <h5><a href="{{ url('faq/list') }}">{{ __('FAQ') }}</a> >> {{ __('New FAQ / Guidelines') }}</h5>
         <div class="card-header-right">
         </div>
       </div>
@@ -28,6 +28,18 @@
           <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
             <div class="row">
               <div class="col-md-8">
+              <div class="form-group row ">
+                     <label class="col-sm-2 control-label require ">{{ __('FAQ Question') }}</label>
+                      <div class="col-sm-10 pl-sm-3-custom ">
+                            <select class="js-example-basic-single form-control" id="status1" name="parent">
+                            <option value="">{{ __('Choose One If you Want Create Guidelines Otherwise Leave it Blank') }}</option>
+                                @foreach($faqData as $data)                      
+                                  <option value="{{ $data->id }}">{{ $data->question }} </option>
+                                @endforeach
+                            </select>
+                        <span id="checkMsg" class="text-danger"></span>
+                      </div>
+                </div>
                 <div class="form-group row ">
                   <label class="col-sm-2 control-label require">{{ __('Question') }}</label>
                   <div class="col-sm-10 pl-sm-3-custom">

@@ -18,7 +18,7 @@ class PromotionListDataTable extends DataTable
                 return  $promotion . '<a href="'. url("promotion/edit/". $promotions->id) .'"  target="_blank"></a>';
 
             })
-            ->rawColumns(['nft_title'])
+            ->rawColumns(['nft_title','nft_type','nft_publish_date','nft_price'])
             ->make(true);
     }
 

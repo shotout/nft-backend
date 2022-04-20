@@ -19,13 +19,13 @@
         <div class="form-tabs">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ __('Promotion Information') }}</a>
+              <a class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">{{ __('Promotion Information') }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-uppercase" id="color-tab" data-toggle="tab" data-rel="{{ $promotion->id }}" href="#color" role="tab" aria-controls="profile" aria-selected="false">{{ __('Theme Setting') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-uppercase" id="collection-tab" data-toggle="tab" data-rel="{{ $promotion->id }}" href="#profile" role="tab" aria-controls="profile" aria-selected="false">{{ __('Collection') }}</a>
+                <a class="nav-link text-uppercase" id="collection-tab" data-toggle="tab" data-rel="{{ $promotion->id }}" href="#collection" role="tab" aria-controls="profile" aria-selected="false">{{ __('Collection') }}</a>
             </li>
           </ul>
         </div>
@@ -100,8 +100,69 @@
       </form>
     </div>
   </div>
-  <div class="tab-pane fade" id="color" role="tabpanel" aria-labelledby="color-tab">
+
+
+            <div class="tab-pane fade" id="collection" role="tabpanel" aria-labelledby="collection-tab">
+              
+                      
+                      <div class="row">
+                        <div class="col-md-12">
+                          <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th>{{ __('Collection') }}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($collection as $data)
+                                  <tr>
+                                    <td><img src="{{ url($data->image) }}" alt="" width="150" height="150"></td>
+                                  </tr>                        
+                                @endforeach
+                              <tr>
+                              </tr>
+                            </tbody>
+                            <form id="itemAddForm" class="form-horizontal" action="{{ url('promotion/save-collection') }}" method="post" enctype="multipart/form-data">
+                                <input type="hidden" value="{{ csrf_token() }}" name="_token" id="token">
+                                <input type="hidden" value="{{ $promotion->id }}" name="promotion_id" id="promotion_id">
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                      <div class="form-group row mb-xs-2">
+                                          <label class="col-sm-2 control-label">{{ __('Collections')  }}</label>
+                                          <div class="custom-file col-sm-8 pl-sm-3-custom">
+                                            <div class="custom-file">
+                                              <input type="file" class="custom-file-input" name="collection" id="validatedCustomFile" required>
+                                              <label class="custom-file-label overflow-hidden" for="validatedCustomFile">{{ __('Upload File')  }}</label>
+                                            </div>                    
+                                          </div>
+                                        </div>
+                                        <div class="form-group row" id="prvw" hidden="true">
+                                          <div class="col-md-4 offset-md-2">
+                                            <img id="blah" src="#" alt="" class="img-responsive img-thumbnail" hidden="true" />
+                                          </div>
+                                        </div>
+                                        <div class="form-group row">
+                                          <div class="col-md-8 offset-sm-2" id='note_txt_1'>
+                                            <span class="badge badge-danger">{{ __('Note')  }}!</span> {{ __(' Allowed File Extensions: JPG,PNG,JPEG') }} || {{__('Max File Size : 10 Mb') }}
+                                          </div>
+                                        </div>                
+                                      </div>
+                                    </div>
+                                                                      <div class="col-sm-8 pl-sm-3-custom px-0 mobile-margin">
+                                    <button class="btn btn-primary custom-btn-small custom-variant-title-validation" type="submit" id="btnSubmit">{{  __('Add')  }}</button>   
+                                    <a href="{{ url('magang') }}" class="btn btn-danger custom-btn-small">{{ __('Cancel') }}</a>
+                                  </div>
+                              </form>
+                          </table>
+                        </div>
+                      </div>
+
+                  
                     
+            </div>   
+  
+        
+  <div class="tab-pane fade" id="color" role="tabpanel" aria-labelledby="color-tab">                    
     <form id="itemAddForm" class="form-horizontal" action="{{ url('promotion/save-promotion') }}" method="post" enctype="multipart/form-data">
         <input type="hidden" value="{{ csrf_token() }}" name="_token" id="token">
         <input type="hidden" value="{{ $promotion->id }}" name="promotion_id" id="promotion_id">
@@ -139,11 +200,11 @@
           <div class="col-sm-8 pl-sm-3-custom px-0 mobile-margin">
             <button class="btn btn-primary custom-btn-small custom-variant-title-validation" type="submit" id="btnSubmit">{{  __('Submit')  }}</button>   
             <a href="{{ url('magang') }}" class="btn btn-danger custom-btn-small">{{ __('Cancel') }}</a>
-          
+          </div>
       </form>
-                
-                </div>   
-</div>
+  </div>   
+
+      
 
 
 @endsection
