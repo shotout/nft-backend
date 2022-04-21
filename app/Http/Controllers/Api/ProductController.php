@@ -21,7 +21,7 @@ class ProductController extends Controller
         if ($request->has('column') && $request->input('column') != '') {
             $column = $request->input('column');
         } else {
-            $column = 'publish_date';
+            $column = 'nft_publish_date';
         }
 
         // order direction
@@ -32,7 +32,7 @@ class ProductController extends Controller
         }
 
         // order by
-        $query = Product::whereDate('publish_date', '<=', now())->orderBy($column, $dir);
+        $query = Product::whereDate('nft_publish_date', '<=', now())->orderBy($column, $dir);
 
         // search
         if ($request->has('search') && $request->input('search') != '') {

@@ -25,7 +25,8 @@ class CreateProductsTable extends Migration
             $table->text('nft_description')->nullable();
             $table->text('nft_raffle')->nullable();
             $table->text('nft_community')->nullable();
-            $table->date('nft_publish_date')->nullable();
+            $table->dateTime('nft_publish_date')->nullable();
+            $table->boolean('has_notif')->default(false);
             $table->boolean('is_verified')->default(0); 
             $table->boolean('is_published')->default(0);
             $table->timestamp('created_at')->nullable()->useCurent();
