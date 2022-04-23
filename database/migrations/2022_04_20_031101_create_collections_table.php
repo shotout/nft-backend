@@ -16,7 +16,7 @@ class CreateCollectionsTable extends Migration
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique()->nullable();
-            $table->string('promotion_id')->nullable();
+            $table->string('product_id')->nullable();
             $table->string('image')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();

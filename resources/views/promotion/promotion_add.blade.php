@@ -56,7 +56,7 @@
                   </div>
                   <label class="col-sm-1 control-label require">{{ __('Publish Date') }}</label>
                   <div class="col-sm-4 pl-sm-3-custom">
-                    <input type="date" class="form-control" placeholder="{{ __('NFT Publish Date')  }}" name="nft_date" id="nft_date" value="{{ old('nft_date') }}">
+                    <input type="datetime-local" class="form-control" placeholder="{{ __('NFT Publish Date')  }}" name="nft_date" id="nft_date" value="{{ old('nft_date') }}">
                     <span id="checkMsg" class="text-danger"></span>
                   </div>
                 </div>

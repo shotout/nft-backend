@@ -126,7 +126,7 @@ class PromotionController extends Controller
            
             $newcolor = new AppPreferance();
             $newcolor->uuid = Uuid::uuid4();
-            $newcolor->promotion_id = $promotion_id;
+            $newcolor->product_id = $promotion_id;
             $newcolor->main_color = '#0DB7B7';
             $newcolor->background_color = '#BDBDCA';
             $newcolor->gradient1_color = '#0DB7B7';
@@ -141,7 +141,7 @@ class PromotionController extends Controller
 
             $newcollection = new Collections();
             $newcollection->uuid = Uuid::uuid4();
-            $newcollection->promotion_id = $promotion_id;
+            $newcollection->product_id = $promotion_id;
             $newcollection->image =  'storage/collection/'.$imageName;
             $newcollection->type = 1;
             $newcollection->created_at = date('Y-m-d H:i:s');   
@@ -149,7 +149,7 @@ class PromotionController extends Controller
 
             $newcommunities = new Communities();
             $newcommunities->uuid = Uuid::uuid4();
-            $newcommunities->promotion_id = $promotion_id;
+            $newcommunities->product_id = $promotion_id;
             $newcommunities->telegram = $request->nft_telegram;
             $newcommunities->discord = $request->nft_discord;
             $newcommunities->twitter = $request->nft_twitter;                                                                                                                                 
@@ -172,9 +172,11 @@ class PromotionController extends Controller
     {
         $data = ['menu' => 'promotions','sub_menu' => 'edit_promotion', 'page_title' => __('Edit Promotion')];
         $promotion = Products::where('id',$id)->first();
-        $data['color'] = AppPreferance::where('promotion_id',$id)->first();
-        $data['collection'] = Collections::where('promotion_id',$id)->get();
+        $data['color'] = AppPreferance::where('product_id',$id)->first();
+        $data['collection'] = Collections::where('product_id',$id)->get();
         $data['promotion'] = $promotion;
+        $data ['blockchainData'] = Blockchain::all();
+        $data ['selectedBlockchain'] = Blockchain::find($promotion->nft_blockchain);
         return view('promotion.promotion_edit',$data);
     }
 
@@ -199,7 +201,7 @@ class PromotionController extends Controller
 
             $newcollection = new Collections();
             $newcollection->uuid = Uuid::uuid4();
-            $newcollection->promotion_id = $request->promotion_id;
+            $newcollection->product_id = $request->promotion_id;
             $newcollection->image =  'storage/collection/'.$imageName;
             $newcollection->type = 1;
             $newcollection->created_at = date('Y-m-d H:i:s');   
@@ -207,6 +209,89 @@ class PromotionController extends Controller
 
             Alert::success('Success', 'Collection Add Successfully');
             return redirect()->back();
+        } catch (Exception $e) {
+            Alert::Error('Error', $e->getMessage());
+            return redirect()->back();
+        }
+    }
+
+
+
+    public function savetheme(Request $request)
+    {
+        try{ 
+            
+            $validator = Validator::make($request->all(), [
+                'main_color' => 'required',
+                'background_color' => 'required',
+                'gradient1' => 'required',
+                'gradient2' => 'required',
+            ]);
+
+            $validator->validate();
+
+            if ($validator->fails()) {
+                Alert::Error('Error', $validator->errors());
+                return redirect()->back();
+            }
+
+            $updatetheme = AppPreferance::where('product_id',$request->promotion_id)->first();
+            $updatetheme->main_color    =  $request->main_color;
+            $updatetheme->background_color =  $request->background_color;
+            $updatetheme->gradient1 =  $request->gradient1;
+            $updatetheme->gradient2 =  $request->gradient2;
+            $updatetheme->updated_at = date('Y-m-d H:i:s');   
+            $updatetheme->save();
+
+            Alert::success('Success', 'Theme Updated Successfully');
+            return redirect()->back();
+        } catch (Exception $e) {
+            Alert::Error('Error', $e->getMessage());
+            return redirect()->back();
+        }
+    }
+
+
+
+    public function update(Request $request){
+        try{ 
+            
+            $validator = Validator::make($request->all(), [
+                'nft_title' => 'required',
+                'nft_type' => 'required',
+                'nft_price' => 'required',
+                'nft_amount' => 'required',
+                'nft_date' => 'required',
+                'nft_desc' => 'required',
+                'nft_raffle' => 'required',
+                'nft_com' => 'required',
+                'nft_blockchain' => 'required',
+                'nft_mint' => 'required',
+            ]);
+
+            $validator->validate();
+
+            if ($validator->fails()) {
+                Alert::Error('Error', $validator->errors());
+                return redirect()->back();
+            }
+
+            $updatepromotion = Products::where('id',$request->promotion_id)->first();
+            $updatepromotion->nft_title = $request->nft_title;
+            $updatepromotion->nft_type = $request->nft_type;
+            $updatepromotion->nft_price = $request->nft_price;
+            $updatepromotion->nft_amount = $request->nft_amount;
+            $updatepromotion->nft_publish_date = $request->nft_date;
+            $updatepromotion->nft_description = $request->nft_desc;
+            $updatepromotion->nft_raffle = $request->nft_raffle;
+            $updatepromotion->nft_community = $request->nft_com;
+            $updatepromotion->nft_blockchain = $request->nft_blockchain;
+            $updatepromotion->nft_mint = $request->nft_mint;
+            $updatepromotion->updated_at = date('Y-m-d H:i:s');
+            $updatepromotion->save();
+
+            Alert::success('Success', 'Promotion Updated Successfully');
+            return redirect('/promotion/list');
         } catch (Exception $e) {
             Alert::Error('Error', $e->getMessage());
             return redirect()->back();

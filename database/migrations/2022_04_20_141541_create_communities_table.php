@@ -16,7 +16,7 @@ class CreateCommunitiesTable extends Migration
         Schema::create('communities', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique()->nullable();
-            $table->string('promotion_id')->nullable();
+            $table->string('product_id')->nullable();
             $table->string('twitter')->nullable();
             $table->string('discord')->nullable();
             $table->string('telegram')->nullable();

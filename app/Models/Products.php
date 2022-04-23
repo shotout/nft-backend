@@ -14,4 +14,9 @@ class Products extends Model
     protected $fillable = [
         'uuid','nft_title','nft_type','nft_price','nft_ammount','nft_description','nft_raffle','nft_community','nft_publish_date','is_published','created_at','updated_at'
     ];
+
+    public function blockchain()
+    {
+        return $this->hasMany('App\Models\products', 'product_id', 'id');
+    }
 }

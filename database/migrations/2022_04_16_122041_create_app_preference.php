@@ -16,7 +16,7 @@ class CreateAppPreference extends Migration
         Schema::create('app_preference', function (Blueprint $table) {
             $table->increments('id');
             $table->string('uuid')->unique();
-            $table->foreignUuid('promotion_id')->index('app_preference_promotion_id_foreign');
+            $table->foreignUuid('product_id')->index('app_preference_promotion_id_foreign');
             $table->string('main_color')->nullable();
             $table->string('background_color')->nullable();
             $table->string('gradient1_color')->nullable();

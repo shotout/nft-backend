@@ -22,10 +22,10 @@ class WalletsListDataTable extends DataTable
                     if (file_exists($wallets->image)) {
                         $img = '<img src="'. url($wallets->image) .'" alt="" width="50" height="50">';
                     } else {
-                        $img = '<img src="'. url("public/dist/img/default-image.png") .'" alt="" width="50" height="50">';
+                        $img = '<img src="'. url("dist/img/default-image.png") .'" alt="" width="50" height="50">';
                     }
                 } else {
-                        $img = '<img src="'. url("public/dist/img/default-image.png") .'" alt="" width="50" height="50">';
+                        $img = '<img src="'. url("dist/img/default-image.png") .'" alt="" width="50" height="50">';
                 }
                 return $img;
             })

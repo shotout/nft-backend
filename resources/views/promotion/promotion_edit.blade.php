@@ -29,7 +29,7 @@
             </li>
           </ul>
         </div>
-      <form id="itemAddForm" class="form-horizontal" action="{{ url('promotion/save-promotion') }}" method="post" enctype="multipart/form-data">
+      <form id="itemAddForm" class="form-horizontal" action="{{ url('promotion/update') }}" method="post" enctype="multipart/form-data">
         <input type="hidden" value="{{ csrf_token() }}" name="_token" id="token">
         <input type="hidden" value="{{ $promotion->id }}" name="promotion_id" id="promotion_id">
         <div class="tab-content" id="myTabContent">
@@ -63,7 +63,24 @@
                   </div>
                   <label class="col-sm-1 control-label require">{{ __('Publish Date') }}</label>
                   <div class="col-sm-4 pl-sm-3-custom">
-                    <input type="date" class="form-control" placeholder="{{ __('NFT Publish Date')  }}" name="nft_date" id="nft_date" value="{{ $promotion->nft_publish_date }}">
+                    <input type="datetime-local" class="form-control" placeholder="{{ __('NFT Publish Date')  }}" name="nft_date" id="nft_date" value="{{ date('Y-m-d\TH:i', strtotime($promotion->nft_publish_date)) }}">
+                    <span id="checkMsg" class="text-danger"></span>
+                  </div>
+                </div>
+                <div class="form-group row ">
+                  <label class="col-sm-2 control-label require">{{ __('Mint') }}</label>
+                  <div class="col-sm-4 pl-sm-3-custom">
+                    <input type="text" class="form-control" placeholder="{{ __('NFT Mint')  }}" name="nft_mint" id="nft_mint" value="{{ $promotion->nft_mint }}">
+                    <span id="checkMsg" class="text-danger"></span>
+                  </div>
+                  <label class="col-sm-1 control-label require ">{{ __('Blockchain') }}</label>
+                  <div class="col-sm-4 pl-sm-3-custom ">
+                        <select class="js-example-basic-single form-control" id="status1" name="nft_blockchain">
+                        <option value="{{ $selectedBlockchain->id }}">{{ $selectedBlockchain->name }}</option>
+                            @foreach($blockchainData as $data)                      
+                              <option value="{{ $data->id }}">{{ $data->name }} </option>
+                            @endforeach
+                        </select>
                     <span id="checkMsg" class="text-danger"></span>
                   </div>
                 </div>
@@ -94,7 +111,7 @@
             
           <div class="col-sm-8 pl-sm-3-custom px-0 mobile-margin">
             <button class="btn btn-primary custom-btn-small custom-variant-title-validation" type="submit" id="btnSubmit">{{  __('Submit')  }}</button>   
-            <a href="{{ url('magang') }}" class="btn btn-danger custom-btn-small">{{ __('Cancel') }}</a>
+            <a href="{{ url('promotion/list') }}" class="btn btn-danger custom-btn-small">{{ __('Cancel') }}</a>
           </div>
         </div>
       </form>
@@ -163,7 +180,7 @@
   
         
   <div class="tab-pane fade" id="color" role="tabpanel" aria-labelledby="color-tab">                    
-    <form id="itemAddForm" class="form-horizontal" action="{{ url('promotion/save-promotion') }}" method="post" enctype="multipart/form-data">
+    <form id="itemAddForm" class="form-horizontal" action="{{ url('promotion/save-theme') }}" method="post" enctype="multipart/form-data">
         <input type="hidden" value="{{ csrf_token() }}" name="_token" id="token">
         <input type="hidden" value="{{ $promotion->id }}" name="promotion_id" id="promotion_id">
             <div class="row">
@@ -185,14 +202,14 @@
                 <div class="form-group row ">
                   <label class="col-sm-2 control-label ">{{ __('Gradient Color #1') }}</label>
                   <div class="col-sm-4 pl-sm-3-custom">
-                    <input type="text" class="form-control colorpicker" placeholder="{{ __('Main Color')  }}" name="main_color" id="main_color" value="{{ $color->gradient1_color }}">
+                    <input type="text" class="form-control colorpicker" placeholder="{{ __('Main Color')  }}" name="gradient1" id="gradient1" value="{{ $color->gradient1_color }}">
                     <span id="checkMsg" class="text-danger"></span>
                   </div>
                 </div>
                 <div class="form-group row ">
                   <label class="col-sm-2 control-label ">{{ __('Gradient Color #2') }}</label>
                   <div class="col-sm-4 pl-sm-3-custom">
-                    <input type="text" class="form-control colorpicker" placeholder="{{ __('Main Color')  }}" name="main_color" id="main_color" value="{{ $color->gradient2_color }}">
+                    <input type="text" class="form-control colorpicker" placeholder="{{ __('Main Color')  }}" name="gradient2" id="gradient2" value="{{ $color->gradient2_color }}">
                     <span id="checkMsg" class="text-danger"></span>
                   </div>
                 </div>

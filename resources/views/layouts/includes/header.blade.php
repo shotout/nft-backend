@@ -30,7 +30,6 @@
                                 </a>
                             </div>
                             <ul class="pro-body">
-                                <li><a href="{{ url('profile') }}" class="dropdown-item"><i class="feather icon-user"></i> {{ __('Profile') }}</a></li>
                                 <li><a href="{{ url('/logout') }}" class="dropdown-item"><i class="feather icon-lock"></i> {{ __('Sign Out') }}</a></li>
                             </ul>
                         </div>
