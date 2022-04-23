@@ -52,15 +52,17 @@ class WalletsController extends Controller
                     return redirect()->back();
                 }
 
-
+                $dir = createDirectory("storage/wallet_logo/thumbnail/");
                 $imageName ='logo_wallet_'. time().'.'.$request->wallet_logo->extension();       
                 $request->wallet_logo->move(public_path('storage/wallet_logo/'), $imageName);
                 $destination_path = public_path('storage/wallet_logo/');
                 $new_path = public_path('storage/wallet_logo/thumbnail/');
                 copy($destination_path.$imageName, $new_path.$imageName);
 
+                
+
                 // //create thumbnail
-                $largethumbnailpath = public_path('storage/wallet_logo/thumbnail/'.$imageName);
+                $largethumbnailpath = public_path($dir.$imageName);
                 $this->createThumbnail($largethumbnailpath, 300, 185);
 
 

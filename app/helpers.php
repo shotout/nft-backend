@@ -144,6 +144,20 @@ function getFileIcon($file = null)
     }
 }
 
+function createDirectory($path = '', $permission = null)
+{
+    if (empty($path)) {
+        return $path;
+    }
+
+    $permission = empty($permission) ? config('app.filePermission') : $permission;
+
+    if (!file_exists($path)) {
+        mkdir($path, $permission, true);
+    }
+
+    return $path;
+}
 
 function maxFileSize($fileSize)
 {

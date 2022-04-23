@@ -60,6 +60,7 @@ class BlockchainsController extends Controller
                     return redirect()->back();
                 }
 
+                $dir = createDirectory("storage/blockchain_logo/thumbnail/");
                 $imageName ='logo_blockchain_'. time().'.'.$request->blockchain_logo->extension();       
                 $request->blockchain_logo->move(public_path('storage/blockchain_logo/'), $imageName);
                 $destination_path = public_path('storage/blockchain_logo/');
