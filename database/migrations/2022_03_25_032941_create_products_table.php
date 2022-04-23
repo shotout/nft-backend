@@ -22,8 +22,6 @@ class CreateProductsTable extends Migration
             $table->string('nft_type')->nullable();
             $table->string('nft_price')->nullable();
             $table->string('nft_amount')->nullable();
-            $table->string('nft_mint')->nullable();
-            $table->integer('nft_blockchain')->nullable();
             $table->text('nft_description')->nullable();
             $table->text('nft_raffle')->nullable();
             $table->text('nft_community')->nullable();

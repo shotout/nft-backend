@@ -23,16 +23,12 @@ class CreateAdminsTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->boolean('is_active')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
 
         // adding admins
-        $password = Hash::make('admin@nftcms');
-        DB::table('admins')->insert([
-            ['uuid' => Uuid::uuid4(), 'name' => 'admin', 'email' => 'admin@mail.com', 'password' => $password,'is_active' => '1', 'created_at' => now()],
-        ]);
+       
     }
 
     /**
