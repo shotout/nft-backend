@@ -14,7 +14,7 @@ class WalletController extends Controller
 
         // add image url
         foreach ($wallets as $wallet) {
-            $wallet->image_url = env('APP_URL').env('IMG_WALLET_URL').$wallet->image;
+            $wallet->image_url = env('APP_URL').'/'.$wallet->image;
         }
 
         // retun response

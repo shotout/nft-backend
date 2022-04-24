@@ -32,7 +32,9 @@ class ProductController extends Controller
         }
 
         // order by
-        $query = Product::whereDate('nft_publish_date', '<=', now())->orderBy($column, $dir);
+        $query = Product::with('collections','blockchain','preferance','community')
+            ->whereDate('nft_publish_date', '<=', now())
+            ->orderBy($column, $dir);
 
         // search
         if ($request->has('search') && $request->input('search') != '') {
@@ -55,7 +57,7 @@ class ProductController extends Controller
     public function show($id)
     {
         // find product
-        $product = Product::where('uuid', $id)->first();
+        $product = Product::with('collections','blockchain','preferance','community')->where('uuid', $id)->first();
 
         // if not found
         if (!$product) {
