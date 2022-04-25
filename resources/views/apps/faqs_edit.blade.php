@@ -37,9 +37,9 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                      <label class="col-sm-2 control-label require">{{ __('Message') }}</label>
+                      <label class="col-sm-2 control-label require">{{ __('Answer') }}</label>
                           <div class="col-sm-10">
-                              <textarea class="ticket_message form-control" name="faq_answer" id="faq_answer" placeholder="{{ __('Answer')  }}">{{ $faq->answer }}</textarea>
+                              <textarea class="ticket_message form-control" name="faq_answer" id="faq_answer" placeholder="{{ __('Answer')  }}" rows = "5">{{ $faq->answer }} </textarea>
                           <label id="ticket_messages-error" class="error" for="ticket_messages"></label>
                       </div>
                 </div>                        

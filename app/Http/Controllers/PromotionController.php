@@ -118,6 +118,7 @@ class PromotionController extends Controller
             $newpromotion->nft_community = $request->nft_com;
             $newpromotion->nft_blockchain = $request->nft_blockchain;
             $newpromotion->nft_mint = $request->nft_mint;
+            $newpromotion->nft_exp_promo = $request->nft_exp_promo;
             $newpromotion->created_at = date('Y-m-d H:i:s');
             $newpromotion->save();     
 
@@ -266,6 +267,7 @@ class PromotionController extends Controller
                 'nft_raffle' => 'required',
                 'nft_com' => 'required',
                 'nft_blockchain' => 'required',
+                'nft_exp_promo' => 'required',
                 'nft_mint' => 'required',
             ]);
 
@@ -287,6 +289,7 @@ class PromotionController extends Controller
             $updatepromotion->nft_community = $request->nft_com;
             $updatepromotion->nft_blockchain = $request->nft_blockchain;
             $updatepromotion->nft_mint = $request->nft_mint;
+            $updatepromotion->nft_exp_promo = $request->nft_exp_promo;
             $updatepromotion->updated_at = date('Y-m-d H:i:s');
             $updatepromotion->save();
 

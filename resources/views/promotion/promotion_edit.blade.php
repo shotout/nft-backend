@@ -84,6 +84,13 @@
                     <span id="checkMsg" class="text-danger"></span>
                   </div>
                 </div>
+                <div class="form-group row ">
+                  <label class="col-sm-2 control-label require">{{ __('Expired Promo Date') }}</label>
+                  <div class="col-sm-4 pl-sm-3-custom">
+                  <input type="datetime-local" class="form-control" placeholder="{{ __('NFT Expired Promo')  }}" name="nft_exp_promo" id="nft_exp_promo" value="{{ date('Y-m-d\TH:i', strtotime($promotion->nft_exp_promo)) }}">
+                    <span id="checkMsg" class="text-danger"></span>
+                  </div>
+                </div>
                 <div class="form-group row mb-xs-2">
                   <label class="col-sm-2 control-label">{{ __('Description')  }}</label>
                   <div class="col-sm-6 pl-sm-3-custom">

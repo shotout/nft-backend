@@ -12,7 +12,7 @@ class Products extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'uuid','nft_title','nft_type','nft_price','nft_ammount','nft_description','nft_raffle','nft_community','nft_publish_date','is_published','created_at','updated_at'
+        'uuid','nft_title','nft_type','nft_price','nft_ammount','nft_description','nft_raffle','nft_community','nft_publish_date','is_published','created_at','updated_at','nft_blockchain','nft_mint','nft_exp_promo'
     ];
 
     public function blockchain()

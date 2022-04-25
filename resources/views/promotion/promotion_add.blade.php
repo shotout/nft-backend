@@ -61,9 +61,9 @@
                   </div>
                 </div>
                 <div class="form-group row ">
-                  <label class="col-sm-2 control-label require">{{ __('Mint') }}</label>
+                  <label class="col-sm-2 control-label require">{{ __('Expired Promo Date') }}</label>
                   <div class="col-sm-4 pl-sm-3-custom">
-                    <input type="text" class="form-control" placeholder="{{ __('NFT Mint')  }}" name="nft_mint" id="nft_mint" value="{{ old('nft_mint') }}">
+                  <input type="datetime-local" class="form-control" placeholder="{{ __('NFT Expired Promo')  }}" name="nft_exp_promo" id="nft_exp_promo" value="{{ old('nft_exp_promo') }}">
                     <span id="checkMsg" class="text-danger"></span>
                   </div>
                   <label class="col-sm-1 control-label require ">{{ __('Blockchain') }}</label>
@@ -93,6 +93,11 @@
                   <label class="col-sm-2 control-label require">{{ __('Twitter') }}</label>
                   <div class="col-sm-4 pl-sm-3-custom">
                     <input type="text" class="form-control" placeholder="{{ __('NFT Twitter')  }}" name="nft_twitter" id="nft_twitter" value="{{ old('nft_twitter ') }}">
+                    <span id="checkMsg" class="text-danger"></span>
+                  </div>
+                  <label class="col-sm-1 control-label require">{{ __('Mint') }}</label>
+                  <div class="col-sm-4 pl-sm-3-custom">
+                    <input type="text" class="form-control" placeholder="{{ __('NFT Mint')  }}" name="nft_mint" id="nft_mint" value="{{ old('nft_mint') }}">
                     <span id="checkMsg" class="text-danger"></span>
                   </div>
                 </div>
