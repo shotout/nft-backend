@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\UserWatchlist;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
@@ -46,6 +47,13 @@ class ProductController extends Controller
 
         // pagination
         $products = $query->paginate($length);
+
+        // is watch list
+        foreach ($products as $product) {
+            $product->watch_list = UserWatchlist::where('user_id', auth('sanctum')->user()->id)
+                ->where('product_id', $product->id)
+                ->exists();
+        }
 
         // retun response
         return response()->json([
