@@ -96,8 +96,13 @@ class AuthController extends Controller
         ]);
     }
 
-    public function verify($token)
+    public function verify(Request $request, $token)
     {
+        // deep link
+        if ($request->has('deeplink') && $request->deeplink != '') {
+            return redirect()->to(env('DEEP_URL').'/auth/verify/'.$request->deeplink);
+        }
+
         // check email token and update 
         $user = User::where('remember_token', $token)->first();
 

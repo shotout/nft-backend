@@ -71,13 +71,8 @@
                                     </div>
                                     <div style="Margin-left:20px;Margin-right:20px">
                                     <div style="Margin-bottom:20px;text-align:left">
-                                        @if (env('APP_ENV') === 'local')
-                                            <a href="{{env('API_URL')}}/auth/verify/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 24px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif"
+                                        <a href="{{env('API_URL')}}/auth/verify/{{$user->remember_token}}?deeplink={{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 24px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif"
                                             target="_blank">Email Verification</a>
-                                        @else
-                                            <a href="{{env('DEEP_URL')}}/auth/verify/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 24px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif"
-                                            target="_blank">Email Verification</a>
-                                        @endif
                                     </div>
                                     </div>
                                     
