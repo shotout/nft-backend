@@ -21,7 +21,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:100|unique:users,email',
             'wallet' => 'required',
-            'fcm_token' => 'required'
+            // 'fcm_token' => 'required'
         ]);
 
         $user = DB::transaction(function () use ($request) {
@@ -30,7 +30,7 @@ class AuthController extends Controller
             $user->uuid = Uuid::uuid4();
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->fcm_token = $request->fcm_token;
+            // $user->fcm_token = $request->fcm_token;
             $user->remember_token = Str::random(16);
             $user->save();
 

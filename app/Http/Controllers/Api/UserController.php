@@ -65,6 +65,12 @@ class UserController extends Controller
             $user->wallets()->sync($wallets);
         }
 
+        // enable notif
+        if ($request->has('fcm_token') && $request->fcm_token != '') {
+            $user->fcm_token = $request->fcm_token;
+            $user->update();
+        }
+
         // update user content
         $user = User::where('id', auth('sanctum')->user()->id)->with('wallets')->first();
 

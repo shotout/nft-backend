@@ -44,7 +44,7 @@ class BroadcastProductNotif implements ShouldQueue
             // broadcast notif to firebase
             $firebaseToken = User::whereNotNull('fcm_token')->pluck('fcm_token')->all();
           
-            $SERVER_API_KEY = "AAAADoXPA1I:APA91bFH-rUX_fHzb7Py85TkPE2w5aI72lp4E6cJyiEjk04pGFwhSny_3pv-rh-PHtYXxHlu0BBFROTshP2Z7dN11vslUHl8OPUHnA-HxAQwpCTYQnglZaUhKSG5mozkuzXc_6wfU93v";
+            $SERVER_API_KEY = env('FIREBASE_SERVER_API_KEY');
     
             $data = [
                 "registration_ids" => $firebaseToken,
