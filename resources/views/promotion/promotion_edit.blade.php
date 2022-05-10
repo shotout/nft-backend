@@ -91,6 +91,16 @@
                     <span id="checkMsg" class="text-danger"></span>
                   </div>
                 </div>
+                <div class="form-group row ">
+                  <label class="col-sm-2 control-label require">{{ __('Is Verified') }}</label>
+                  <div class="col-sm-4 pl-sm-3-custom">
+                  <select class="js-example-basic-single form-control" id="nft_verify" name="nft_verify" required>
+                        <option value="{{ $promotion->is_verified }}">@if( $promotion->is_verified == 1 ) Yes @else No @endif</option>
+                        <option value="1">{{ __('Yes') }}</option>
+                        <option value="0">{{ __('No') }}</option>
+                        </select>
+                  </div>
+                </div>
                 <div class="form-group row mb-xs-2">
                   <label class="col-sm-2 control-label">{{ __('Description')  }}</label>
                   <div class="col-sm-6 pl-sm-3-custom">
