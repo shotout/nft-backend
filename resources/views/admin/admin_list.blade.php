@@ -10,7 +10,7 @@
   @endphp
   <div class="col-md-12 col-sm-12 col-xs-12 m-l-10 m-b-0">
     <div class="buttonRelation mt-3">      
-      <a href="{{ url('admin/create-admin') }}" class="btn btn-outline-primary custom-btn-small"><span class="fa fa-plus"> &nbsp;</span>{{ $admin->deleteAdmin }}</a>
+      <a href="{{ url('admin/create-admin') }}" class="btn btn-outline-primary custom-btn-small"><span class="fa fa-plus"> &nbsp;</span>Add New Admin</a>
     </div>
     
     <div class="row mt-3">
