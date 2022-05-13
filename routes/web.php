@@ -85,3 +85,5 @@ Route::post('/authenticate',  [LoginController::class, 'authenticate'])->name('l
 
 Route::get('/', [LoginController::class, 'index'])->name('logincms');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::webhooks('webhook-receiving-url');
