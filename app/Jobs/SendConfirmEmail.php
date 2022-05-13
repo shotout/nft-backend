@@ -35,7 +35,7 @@ class SendConfirmEmail implements ShouldQueue
     {
         // send email verification
         Mail::send('email.confirm', ['user' => $this->user], function($message) {
-            $message->to($this->user->email, $this->user->name)->subject('Email Verification');
+            $message->to($this->user->email, $this->user->name)->subject('NFT Daily account activation');
             $message->from(env('MAIL_FROM_ADDRESS'));
         });
     }
