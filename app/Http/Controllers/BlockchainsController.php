@@ -50,7 +50,7 @@ class BlockchainsController extends Controller
 
                 $validator = Validator::make($request->all(), [
                     'blockchain_name' => 'required|max:80',
-                    'blockchain_logo' => 'required|mimes:jpg,png,svg,jpeg|max:11148',
+                    'blockchain_logo' => 'required|mimes:jpg,png,svg,jpeg',
                 ]);
 
                 $validator->validate();
@@ -68,8 +68,8 @@ class BlockchainsController extends Controller
                 copy($destination_path.$imageName, $new_path.$imageName);
 
                 // //create thumbnail
-                $largethumbnailpath = public_path('storage/blockchain_logo/thumbnail/'.$imageName);
-                $this->createThumbnail($largethumbnailpath, 300, 185);
+                // $largethumbnailpath = public_path('storage/blockchain_logo/thumbnail/'.$imageName);
+                // $this->createThumbnail($largethumbnailpath, 300, 185);
                 
                 $newblockchain = new Blockchain;
                 $newblockchain->uuid = Uuid::uuid4();
