@@ -4,6 +4,8 @@ namespace App\Handler;
 
 use App\Models\AppPreferance;
 use App\Models\Blockchain;
+use App\Models\Collections;
+use App\Models\Communities;
 use App\Models\Faq;
 use App\Models\Product;
 use App\Models\Wallet;
@@ -157,6 +159,25 @@ class WebhookHandler extends ProcessWebhookJob
                     {
                         logger('Store Data');
                         $data  = $this->webhookCall->payload;  
+                    
+                        $logoname = $data['highlightNft'];
+                        
+                        $response = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');
+                        
+                        
+                        
+                        $imagelink = 'Https:'.$response['fields']['file']['url'];
+                        $imagename = $response['fields']['file']['fileName'];
+
+                        logger($imagelink);                        
+
+                        $path = $imagelink;
+
+
+                        Image::make($path)->save('storage/collection/'.$imagename);
+
+                        $destination_path = 'storage/collection/';
+
                         
                         $this->client = $client;
                         $entry = $client->getEntry($data['entityId']);
@@ -170,10 +191,11 @@ class WebhookHandler extends ProcessWebhookJob
                        
                       
                        
-                        $find = Product::where('uuid',$data['entityId'])->first();
-                        if($find)
+                        $find = Product::where('uuid',$data['entityId'])->count();
+                        if($find > 0)
                             {
-                                $find->delete();
+                                $find2 = Product::where('uuid',$data['entityId'])->first();
+                                $find2->delete();
                                 $theme = AppPreferance::where('product_id',$find->id)->first();
                                 $theme->delete();
 
@@ -209,8 +231,139 @@ class WebhookHandler extends ProcessWebhookJob
                         $theme->gradient1_color = $entry->gradient1Color;;    
                         $theme->gradient2_color = $entry->gradient2Color;
                         $theme->save();
+
+                        $communities = new Communities();
+                        $communities->uuid = Uuid::uuid4();
+                        $communities->product_id = $product_id;
+                        $communities->twitter = $entry->twitterUserLink;
+                        $communities->discord = $entry->discordInvitationLink;
+                        $communities->telegram = $entry->telegramUserLink;
+                        $communities->instagram = $entry->instagramUserLink;
+                        $communities->opensea = $entry->openSeaUserLink;
+                        $communities->save();
+
+                        $collection = new Collections();
+                        $collection->uuid = Uuid::uuid4();
+                        $collection->product_id = $product_id;
+                        $collection->image = $destination_path.$imagename;
+                        $collection->type = 0;
+                        $collection->save();
+
+                        logger($data['highlightNft']);    
+
+
+                        if($data['collection1'])
+                            {
+                                $logoname1 = $data['collection1'];
                         
+                                $response1 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname1.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                        
+                                $imagelink1 = 'Https:'.$response1['fields']['file']['url'];
+                                $imagename1 = $response1['fields']['file']['fileName'];
+        
+                                $path = $imagelink1;
+        
+                                Image::make($path)->save('storage/collection/'.$imagename1);
+        
+                                $destination_path = 'storage/collection/';
+
+                                $collection = new Collections();
+                                $collection->uuid = Uuid::uuid4();
+                                $collection->product_id = $product_id;
+                                $collection->image = $destination_path.$imagename1;
+                                $collection->type = 1;
+                                $collection->save();
+                            }     
+                            
+                        if($data['collection2'])
+                            {
+                                $logoname2 = $data['collection2'];
                         
+                                $response2 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname2.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                        
+                                $imagelink2 = 'Https:'.$response2['fields']['file']['url'];
+                                $imagename2 = $response2['fields']['file']['fileName'];
+        
+                                $path = $imagelink2;
+        
+                                Image::make($path)->save('storage/collection/'.$imagename2);
+        
+                                $destination_path = 'storage/collection/';
+
+                                $collection = new Collections();
+                                $collection->uuid = Uuid::uuid4();
+                                $collection->product_id = $product_id;
+                                $collection->image = $destination_path.$imagename2;
+                                $collection->type = 1;
+                                $collection->save();
+                            } 
+                        if($data['collection3'])
+                            {
+                                $logoname3 = $data['collection3'];
+                        
+                                $response3 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname3.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                        
+                                $imagelink3 = 'Https:'.$response3['fields']['file']['url'];
+                                $imagename3 = $response3['fields']['file']['fileName'];
+        
+                                $path = $imagelink3;
+        
+                                Image::make($path)->save('storage/collection/'.$imagename3);
+        
+                                $destination_path = 'storage/collection/';
+
+                                $collection = new Collections();
+                                $collection->uuid = Uuid::uuid4();
+                                $collection->product_id = $product_id;
+                                $collection->image = $destination_path.$imagename3;
+                                $collection->type = 1;
+                                $collection->save();
+                            } 
+                        if($data['collection4'])
+                            {
+                                $logoname4 = $data['collection1'];
+                        
+                                $response4 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname4.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                        
+                                $imagelink4 = 'Https:'.$response4['fields']['file']['url'];
+                                $imagename4 = $response4['fields']['file']['fileName'];
+        
+                                $path = $imagelink4;
+        
+                                Image::make($path)->save('storage/collection/'.$imagename4);
+        
+                                $destination_path = 'storage/collection/';
+
+                                $collection = new Collections();
+                                $collection->uuid = Uuid::uuid4();
+                                $collection->product_id = $product_id;
+                                $collection->image = $destination_path.$imagename4;
+                                $collection->type = 1;
+                                $collection->save();
+                            } 
+                        if($data['collection5'])
+                            {
+                                $logoname5 = $data['collection1'];
+                        
+                                $response5 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname5.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                        
+                                $imagelink5 = 'Https:'.$response5['fields']['file']['url'];
+                                $imagename5 = $response5['fields']['file']['fileName'];
+        
+                                $path = $imagelink5;
+        
+                                Image::make($path)->save('storage/collection/'.$imagename5);
+        
+                                $destination_path = 'storage/collection/';
+
+                                $collection = new Collections();
+                                $collection->uuid = Uuid::uuid4();
+                                $collection->product_id = $product_id;
+                                $collection->image = $destination_path.$imagename5;
+                                $collection->type = 1;
+                                $collection->save();
+                            } 
+
                     }
             }
 
@@ -259,12 +412,17 @@ class WebhookHandler extends ProcessWebhookJob
                         $data  = $this->webhookCall->payload;
                         logger($data); 
 
-                        $delete = Product::where('uuid', $data['entityId'])->first();
-
-                        $delete->delete();
+                        $delete = Product::where('uuid', $data['entityId'])->first();                       
 
                         $theme = AppPreferance::where('product_id',$delete->id)->first();
                         $theme->delete();
+
+                        $communities = Communities::where('product_id',$delete->id)->first();
+                        $communities->delete();
+
+                        $collection = Collections::whereIn('product_id',[$delete->id])->delete();
+                        $collection->delete();
+                        $delete->delete();
                     }
                 
             }

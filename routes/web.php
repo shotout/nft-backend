@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/a', function () {
+Route::get('/', function () {
     return view('auth.login');
 });
 

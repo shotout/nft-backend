@@ -188,7 +188,7 @@ class PromotionController extends Controller
         try{ 
             
             $validator = Validator::make($request->all(), [
-                'collection' => 'mimes:jpg,jpeg,png|max:1148',
+                'collection' => 'mimes:jpg,jpeg,png',
             ]);
 
             $validator->validate();
