@@ -15,19 +15,14 @@ use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
     //prepare contentful api
-    public function __construct(DeliveryClient $client)
-    {
-        $this->client = $client;
-    }
+    
 
   
    
 
-    public function index(AdminListDataTable $dataTable,DeliveryClient $client)
-    {
-        $entry = $client->getEntry('2rGTE1RT8o37lLiPcnWngZ');               
+    public function index(AdminListDataTable $dataTable)
+    {   
        
-        $data['admin'] = $entry;
         $data['menu'] = 'Admin';
         $data['sub_menu'] = 'Admin';
         $data['page_title'] = __('Admins');
