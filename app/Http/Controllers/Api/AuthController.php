@@ -30,7 +30,9 @@ class AuthController extends Controller
             $user->uuid = Uuid::uuid4();
             $user->name = $request->name;
             $user->email = $request->email;
-            // $user->fcm_token = $request->fcm_token;
+            if ($request->has('fcm_token') && $request->fcm_token != '') {
+                $user->fcm_token = $request->fcm_token;
+            }
             $user->remember_token = Str::random(16);
             $user->save();
 
