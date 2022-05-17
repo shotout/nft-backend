@@ -225,8 +225,9 @@ class WebhookHandler extends ProcessWebhookJob
                         $theme->product_id = $product_id;
                         $theme->main_color = $entry->mainColor;
                         $theme->background_color = $entry->backgroundColor;
-                        $theme->gradient1_color = $entry->gradient1Color;;    
+                        $theme->gradient1_color = $entry->gradient1Color;
                         $theme->gradient2_color = $entry->gradient2Color;
+                        $theme->headline_color = $entry->headlineColor;
                         $theme->save();
 
                         $communities = new Communities();
