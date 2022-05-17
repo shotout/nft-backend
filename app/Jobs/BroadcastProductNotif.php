@@ -39,6 +39,7 @@ class BroadcastProductNotif implements ShouldQueue
             ->whereTime('nft_publish_date', '<=', $now)
             ->where('has_notif', false)
             ->first();
+        Log::info($product);
 
         if ($product) {
             // broadcast notif to firebase
@@ -49,8 +50,9 @@ class BroadcastProductNotif implements ShouldQueue
             $data = [
                 "registration_ids" => $firebaseToken,
                 "notification" => [
-                    "title" => 'test title',
-                    "body" => 'test body',  
+                    "title" => 'NFT Daily App',
+                    "body" => $product->nft_title,  
+                    "icon" => 'https://nftdaily.app/assets/logo/logo.png'
                 ]
             ];
 
