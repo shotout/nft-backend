@@ -75,6 +75,7 @@ class BlockchainsController extends Controller
                 $newblockchain->uuid = Uuid::uuid4();
                 $newblockchain->name = $request->blockchain_name;
                 $newblockchain->vektor = 'storage/blockchain_logo/'.$imageName;
+                $newblockchain->abbreviation = $request->abbreviation;
                 $newblockchain->created_at = date('Y-m-d H:i:s');
                 $newblockchain->save();
 

@@ -35,6 +35,13 @@
                     <span id="checkMsg" class="text-danger"></span>
                   </div>
                 </div>
+                <div class="form-group row ">
+                  <label class="col-sm-2 control-label require">{{ __('Blockchains abbreviation') }}</label>
+                  <div class="col-sm-8 pl-sm-3-custom">
+                    <input type="text" class="form-control" placeholder="{{ __('Blockchain Name')  }}" name="abbreviation" id="abbreviation" value="{{ old('Blockchain abbreviation') }}">
+                    <span id="checkMsg" class="text-danger"></span>
+                  </div>
+                </div>
                 <div class="form-group row mb-xs-2">
                   <label class="col-sm-2 control-label">{{ __('Blockchains Logo')  }}</label>
                   <div class="custom-file col-sm-8 pl-sm-3-custom">

@@ -90,11 +90,8 @@ class WebhookHandler extends ProcessWebhookJob
 
 
                         Image::make($path)->save('storage/blockchain_logo/'.$imagename);
-
-                        $dir = createDirectory("storage/blockchain_logo/thumbnail/");
                         $destination_path = 'storage/blockchain_logo/';
-                        $new_path = 'storage/blockchain_logo/thumbnail/';
-                        copy($destination_path.$imagename, $new_path.$imagename);
+                       
 
                         $find = Blockchain::where('uuid',$data['entityId'])->first();
                         if($find)
