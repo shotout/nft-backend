@@ -3,7 +3,11 @@
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
-        <title>App NFT - Email Verification</title>
+        @if ($flag === 'register')
+            <title>NFT Daily Account Activation</title> 
+        @else
+            <title>NFT Daily Sign In</title>
+        @endif
     </head>
     <body>
 
@@ -17,7 +21,17 @@
                             <div style="Margin:0 auto;max-width:560px;min-width:280px;width:280px;width:calc(28000% - 167440px)">
                             <div style="border-collapse:collapse;display:table;width:100%">
                                 <div style="display:table-cell;Float:left;font-size:12px;line-height:19px;max-width:280px;min-width:140px;width:140px;width:calc(14000% - 78120px);padding:10px 0 5px 0;color:#717a8a;font-family:sans-serif">
-                                <p style="Margin-top:0;Margin-bottom:0">App NFT - Email Verification</p>
+
+                                @if ($flag === 'register')
+                                    <p style="Margin-top:0;Margin-bottom:0">
+                                        NFT Daily Account Activation
+                                    </p>
+                                @else
+                                    <p style="Margin-top:0;Margin-bottom:0">
+                                        NFT Daily Sign In
+                                    </p>
+                                @endif
+
                                 </div>
                                 <div style="display:table-cell;Float:left;font-size:12px;line-height:19px;max-width:280px;min-width:139px;width:139px;width:calc(14100% - 78680px);padding:10px 0 5px 0;text-align:right;color:#717a8a;font-family:sans-serif">
                                 </div>
@@ -59,23 +73,37 @@
                                     </div>
                                     <div style="Margin-left:20px;Margin-right:20px">
                                     <div>
-                                        <h1 style="Margin-top:0;Margin-bottom:20px;font-style:normal;font-weight:normal;color:#111324;font-size:22px;line-height:31px;text-align:left">Thank you for registering at App NFT</h1>
+                                        @if ($flag === 'register')
+                                            <h1 style="Margin-top:0;Margin-bottom:20px;font-style:normal;font-weight:normal;color:#111324;font-size:22px;line-height:31px;text-align:left">Thank you for creating an account on the NFT Daily App</h1>
+                                        @endif
                                     </div>
                                     </div>
                                     <div style="Margin-left:20px;Margin-right:20px">
                                     <div>
-                                        <p style="Margin-top:0;Margin-bottom:20px">
-                                            Please verify your email, to activate your account.    
-                                        </p>
+                                        @if ($flag === 'register')
+                                            <p style="Margin-top:0;Margin-bottom:20px">
+                                                Click the button below to activate your account on NFT Daily and start minting!  
+                                            </p>
+                                        @else
+                                            <p style="Margin-top:0;Margin-bottom:20px">
+                                                Click the button below to sign in to your account on NFT Daily and start minting!
+                                            </p>
+                                        @endif
                                     </div>
                                     </div>
                                     <div style="Margin-left:20px;Margin-right:20px">
-                                    <div style="Margin-bottom:20px;text-align:left">
-                                        <a href="{{env('DEEP_URL')}}/auth/verify/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 24px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif"
-                                            target="_blank">Email Verification</a>
+                                        @if ($flag === 'register')
+                                            <div style="Margin-bottom:20px;text-align:left">
+                                                <a href="{{env('DEEP_URL')}}/auth/verify/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 24px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif"
+                                                    target="_blank">Activate Account</a>
+                                            </div>
+                                        @else
+                                            <div style="Margin-bottom:20px;text-align:left">
+                                                <a href="{{env('DEEP_URL')}}/auth/verify/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 24px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif"
+                                                    target="_blank">Sign In</a>
+                                            </div>
+                                        @endif
                                     </div>
-                                    </div>
-                                    
                                 </div>
                                 </div>
                             </div>
@@ -87,7 +115,7 @@
                                     <div style="Margin-left:20px;Margin-right:20px;Margin-top:10px;Margin-bottom:10px">
                                     <div style="font-size:12px;line-height:19px">
                                         <div>
-                                        <strong>App NFT</strong>
+                                        <strong>NFT Daily App</strong>
                                         </div>
                                     </div>
                                     <div style="font-size:12px;line-height:19px;Margin-top:18px"></div>
@@ -103,7 +131,6 @@
                 </table>
                 </div>
             </div>
-
     </body>
 </html>
         

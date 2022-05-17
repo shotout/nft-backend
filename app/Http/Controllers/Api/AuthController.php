@@ -46,7 +46,7 @@ class AuthController extends Controller
 
         if ($user) {
             // sending email verification
-            SendConfirmEmail::dispatch($user)->onQueue('apiNft');
+            SendConfirmEmail::dispatch($user, 'register')->onQueue('apiNft');
 
             // retun response
             return response()->json([
@@ -87,7 +87,7 @@ class AuthController extends Controller
         $user->update();
 
         // sending email verification
-        SendConfirmEmail::dispatch($user)->onQueue('apiNft');
+        SendConfirmEmail::dispatch($user, 'login')->onQueue('apiNft');
 
         // retun response
         return response()->json([
@@ -114,7 +114,7 @@ class AuthController extends Controller
         }
 
         $user->email_verified_at = now();
-        $user->remember_token = null;
+        // $user->remember_token = null;
         $user->update();
 
         // generate token api

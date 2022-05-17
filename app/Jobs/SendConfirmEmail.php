@@ -15,15 +15,17 @@ class SendConfirmEmail implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $user;
+    protected $flag;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $flag)
     {
         $this->user = $user;
+        $this->flag = $flag;
     }
 
     /**
@@ -34,9 +36,16 @@ class SendConfirmEmail implements ShouldQueue
     public function handle()
     {
         // send email verification
-        Mail::send('email.confirm', ['user' => $this->user], function($message) {
-            $message->to($this->user->email, $this->user->name)->subject('Email Verification');
-            $message->from(env('MAIL_FROM_ADDRESS'));
-        });
+        if ($this->flag === 'register') {
+            Mail::send('email.confirm', ['user' => $this->user, 'flag' => $this->flag], function($message) {
+                $message->to($this->user->email, $this->user->name)->subject('NFT Daily Account Activation');
+                $message->from(env('MAIL_FROM_ADDRESS'));
+            });
+        } else {
+            Mail::send('email.confirm', ['user' => $this->user, 'flag' => $this->flag], function($message) {
+                $message->to($this->user->email, $this->user->name)->subject('NFT Daily Sign In');
+                $message->from(env('MAIL_FROM_ADDRESS'));
+            });
+        }
     }
 }
