@@ -8,6 +8,7 @@ use App\Models\Collections;
 use App\Models\Communities;
 use App\Models\Faq;
 use App\Models\Product;
+use App\Models\UserWatchlist;
 use App\Models\Wallet;
 use Contentful\Core\Api\LinkResolverInterface;
 use Illuminate\Support\Facades\File;
@@ -195,6 +196,12 @@ class WebhookHandler extends ProcessWebhookJob
                                 $find2->delete();
                                 $theme = AppPreferance::where('product_id',$find->id)->first();
                                 $theme->delete();
+                                $communities = Communities::where('product_id',$find->id)->first();
+                                $communities->delete();
+                                $collection = Collections::whereIn('product_id',[$find->id])->delete();
+                                $collection->delete();
+                                $watchlist = UserWatchlist::where('product_id',$find->id)->delete();
+                                $watchlist->delete();
 
                             }
 
@@ -410,7 +417,10 @@ class WebhookHandler extends ProcessWebhookJob
                         $data  = $this->webhookCall->payload;
                         logger($data); 
 
-                        $delete = Product::where('uuid', $data['entityId'])->first();                       
+                        $delete = Product::where('uuid', $data['entityId'])->first();            
+                        
+                        $watchlist = UserWatchlist::where('product_id',$delete->id)->first();
+                        $watchlist->delete();
 
                         $theme = AppPreferance::where('product_id',$delete->id)->first();
                         $theme->delete();
@@ -420,6 +430,9 @@ class WebhookHandler extends ProcessWebhookJob
 
                         $collection = Collections::whereIn('product_id',[$delete->id])->delete();
                         $collection->delete();
+
+                        
+
                         $delete->delete();
                     }
                 
