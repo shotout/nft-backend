@@ -50,9 +50,13 @@ class AuthController extends Controller
             // sending email verification
             SendConfirmEmail::dispatch($user, 'register')->onQueue('apiNft');
 
+            // generate token
+            $token = $user->createToken('auth_token')->plainTextToken;
+
             // retun response
             return response()->json([
                 'status' => 'success',
+                'token' => $token,
                 'data' => $user
             ]);
         }
