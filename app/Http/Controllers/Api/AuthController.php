@@ -30,6 +30,7 @@ class AuthController extends Controller
             $user->uuid = Uuid::uuid4();
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->email_verified_at = now();
             if ($request->has('fcm_token') && $request->fcm_token != '') {
                 $user->fcm_token = $request->fcm_token;
             }
@@ -92,12 +93,16 @@ class AuthController extends Controller
         $user->remember_token = Str::random(16);
         $user->update();
 
+        // generate token
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         // sending email verification
         SendConfirmEmail::dispatch($user, 'login')->onQueue('apiNft');
 
         // retun response
         return response()->json([
             'status' => 'success',
+            'token' => $token,
             'data' => $user
         ]);
     }
