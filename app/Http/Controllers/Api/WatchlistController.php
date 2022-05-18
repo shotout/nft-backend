@@ -95,9 +95,19 @@ class WatchlistController extends Controller
 
     public function destroy($id)
     {
+        // find product
+        $product = Product::where('uuid', $id)->first();
+
+        if (!$product) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'product not found',
+            ]);
+        }
+
         // find watchlist
         $userWatchlist = UserWatchlist::where('user_id', auth('sanctum')->user()->id)
-            ->where('product_id', $id)
+            ->where('product_id', $product->id)
             ->first();
 
         if ($userWatchlist) {
