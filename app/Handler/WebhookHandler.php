@@ -20,6 +20,7 @@ use Contentful\RichText\RendererInterface;
 use Contentful\Delivery\Client as DeliveryClient;
 use Contentful\Delivery\LinkResolver;
 use Contentful\RichText\Parser;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use Ramsey\Uuid\Uuid;
 
 class WebhookHandler extends ProcessWebhookJob 
@@ -179,6 +180,7 @@ class WebhookHandler extends ProcessWebhookJob
                         
                         $this->client = $client;
                         $entry = $client->getEntry($data['entityId']);
+                        
 
                         $description1 = $entry->description;
                         $community1 = $entry->community;
@@ -186,189 +188,335 @@ class WebhookHandler extends ProcessWebhookJob
                         $renderer = new \Contentful\RichText\Renderer();
                         $description = $renderer->render($description1);                                            
                         $community = $renderer->render($community1);
-                       
+                        
+                        
+                        $blockchain = Blockchain::where('name',$entry->blockchain['name'])->first();
+                        $blockchain = $blockchain->id;
                       
-                       
-                        $find = Product::where('uuid',$data['entityId'])->count();
-                        if($find > 0)
+                        $find = Product::where('uuid',$data['entityId'])->first();
+
+                        $find2 = Product::where('uuid',$data['entityId'])->get();
+
+                        if($find2->count() == 1)
                             {
                                 $find2 = Product::where('uuid',$data['entityId'])->first();
-                                $find2->delete();
-                                $theme = AppPreferance::where('product_id',$find->id)->first();
-                                $theme->delete();
-                                $communities = Communities::where('product_id',$find->id)->first();
-                                $communities->delete();
-                                $collection = Collections::whereIn('product_id',[$find->id])->delete();
-                                $collection->delete();
-                                $watchlist = UserWatchlist::where('product_id',$find->id)->delete();
-                                $watchlist->delete();
+                                $find2->nft_title = $entry->title;
+                                $find2->nft_type =$entry->hype;
+                                $find2->nft_price = $entry->price;
+                                $find2->nft_mint = $entry->mint;
+                                $find2->nft_amount = $entry->amount;
+                                $find2->nft_description = $description;
+                                $find2->nft_community = $community;
+                                $find2->nft_publish_date = $entry->publish_date;
+                                $find2->nft_blockchain = $blockchain;
+                                $find2->nft_exp_promo = $entry->exp_promo;
+                                $find2->is_verified = $entry->is_verified;
+                                $find2->created_at = date('Y-m-d H:i:s');
+                                $find2->save();
+
+                                $updatetheme = AppPreferance::where('product_id',$find->id)->first();
+                                $updatetheme->main_color = $entry->mainColor;
+                                $updatetheme->background_color = $entry->backgroundColor;
+                                $updatetheme->gradient1_color = $entry->gradient1Color;
+                                $updatetheme->gradient2_color = $entry->gradient2Color;
+                                $updatetheme->headline_color = $entry->headlineColor;
+                                $updatetheme->badge_color = $entry->badgeColor;
+                                $updatetheme->save();
+
+                                $updatecommunities = Communities::where('product_id',$find->id)->first();
+                                $updatecommunities->twitter = $entry->twitterUserLink;
+                                $updatecommunities->discord = $entry->discordInvitationLink;
+                                $updatecommunities->telegram = $entry->telegramUserLink;
+                                $updatecommunities->instagram = $entry->instagramUserLink;
+                                $updatecommunities->opensea = $entry->openSeaUserLink;
+                                $updatecommunities->save();
+
+                                $updatecollection = Collections::where('product_id',$find->id)->first();
+                                $updatecollection->image = $destination_path.$imagename;
+                                $updatecollection->type = 0;
+                                $updatecollection->save();
+
+
+                                Collections::where('product_id',$find->id)->where('type',1)->delete();
+
+
+                                    if($data['collection1'])
+                                        {
+                                            $logoname1 = $data['collection1'];
+                                    
+                                            $response1 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname1.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                                    
+                                            $imagelink1 = 'Https:'.$response1['fields']['file']['url'];
+                                            $imagename1 = $response1['fields']['file']['fileName'];
+                    
+                                            $path = $imagelink1;
+                    
+                                            Image::make($path)->save('storage/collection/'.$imagename1);
+                    
+                                            $destination_path = 'storage/collection/';
+
+                                            $collection = new Collections();
+                                            $collection->uuid = Uuid::uuid4();
+                                            $collection->product_id = $find->id;
+                                            $collection->image = $destination_path.$imagename1;
+                                            $collection->type = 1;
+                                            $collection->save();
+                                        }     
+                                        
+                                    if($data['collection2'])
+                                        {
+                                            $logoname2 = $data['collection2'];
+                                    
+                                            $response2 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname2.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                                    
+                                            $imagelink2 = 'Https:'.$response2['fields']['file']['url'];
+                                            $imagename2 = $response2['fields']['file']['fileName'];
+                    
+                                            $path = $imagelink2;
+                    
+                                            Image::make($path)->save('storage/collection/'.$imagename2);
+                    
+                                            $destination_path = 'storage/collection/';
+
+                                            $collection = new Collections();
+                                            $collection->uuid = Uuid::uuid4();
+                                            $collection->product_id = $find->id;
+                                            $collection->image = $destination_path.$imagename2;
+                                            $collection->type = 1;
+                                            $collection->save();
+                                        } 
+                                    if($data['collection3'])
+                                        {
+                                            $logoname3 = $data['collection3'];
+                                    
+                                            $response3 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname3.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                                    
+                                            $imagelink3 = 'Https:'.$response3['fields']['file']['url'];
+                                            $imagename3 = $response3['fields']['file']['fileName'];
+                    
+                                            $path = $imagelink3;
+                    
+                                            Image::make($path)->save('storage/collection/'.$imagename3);
+                    
+                                            $destination_path = 'storage/collection/';
+
+                                            $collection = new Collections();
+                                            $collection->uuid = Uuid::uuid4();
+                                            $collection->product_id = $find->id;
+                                            $collection->image = $destination_path.$imagename3;
+                                            $collection->type = 1;
+                                            $collection->save();
+                                        } 
+                                    if($data['collection4'])
+                                        {
+                                            $logoname4 = $data['collection4'];
+                                    
+                                            $response4 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname4.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                                    
+                                            $imagelink4 = 'Https:'.$response4['fields']['file']['url'];
+                                            $imagename4 = $response4['fields']['file']['fileName'];
+                    
+                                            $path = $imagelink4;
+                    
+                                            Image::make($path)->save('storage/collection/'.$imagename4);
+                    
+                                            $destination_path = 'storage/collection/';
+
+                                            $collection = new Collections();
+                                            $collection->uuid = Uuid::uuid4();
+                                            $collection->product_id = $find->id;
+                                            $collection->image = $destination_path.$imagename4;
+                                            $collection->type = 1;
+                                            $collection->save();
+                                        } 
+                                    if($data['collection5'])
+                                        {
+                                            $logoname5 = $data['collection5'];
+                                    
+                                            $response5 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname5.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                                    
+                                            $imagelink5 = 'Https:'.$response5['fields']['file']['url'];
+                                            $imagename5 = $response5['fields']['file']['fileName'];
+                    
+                                            $path = $imagelink5;
+                    
+                                            Image::make($path)->save('storage/collection/'.$imagename5);
+                    
+                                            $destination_path = 'storage/collection/';
+
+                                            $collection = new Collections();
+                                            $collection->uuid = Uuid::uuid4();
+                                            $collection->product_id = $find->id;
+                                            $collection->image = $destination_path.$imagename5;
+                                            $collection->type = 1;
+                                            $collection->save();
+                                        } 
 
                             }
 
-                        $blockchain = Blockchain::where('name',$entry->blockchain['name'])->first();
-                        $blockchain = $blockchain->id;
+                        else {
+                                    $save = new Product();
+                                    $save->uuid = $data['entityId'];
+                                    $save->nft_title = $entry->title;
+                                    $save->nft_type =$entry->hype;
+                                    $save->nft_price = $entry->price;
+                                    $save->nft_mint = $entry->mint;
+                                    $save->nft_amount = $entry->amount;
+                                    $save->nft_description = $description;
+                                    $save->nft_community = $community;
+                                    $save->nft_publish_date = $entry->publish_date;
+                                    $save->nft_blockchain = $blockchain;
+                                    $save->nft_exp_promo = $entry->exp_promo;
+                                    $save->is_verified = $entry->is_verified;
+                                    $save->created_at = date('Y-m-d H:i:s');
+                                    $save->save();
+                                    
+                                    $product_id = Product::latest()->first();
+                                    $product_id = $product_id->id;
 
-                        $save = new Product();
-                        $save->uuid = $data['entityId'];
-                        $save->nft_title = $entry->title;
-                        $save->nft_type =$entry->hype;
-                        $save->nft_price = $entry->price;
-                        $save->nft_mint = $entry->mint;
-                        $save->nft_amount = $entry->amount;
-                        $save->nft_description = $description;
-                        $save->nft_community = $community;
-                        $save->nft_publish_date = $entry->publish_date;
-                        $save->nft_blockchain = $blockchain;
-                        $save->nft_exp_promo = $entry->exp_promo;
-                        $save->is_verified = $entry->is_verified;
-                        $save->created_at = date('Y-m-d H:i:s');
-                        $save->save();
-                        
-                        $product_id = Product::latest()->first();
-                        $product_id = $product_id->id;
+                                    $theme = new AppPreferance();
+                                    $theme->uuid = Uuid::uuid4();
+                                    $theme->product_id = $product_id;
+                                    $theme->main_color = $entry->mainColor;
+                                    $theme->background_color = $entry->backgroundColor;
+                                    $theme->gradient1_color = $entry->gradient1Color;
+                                    $theme->gradient2_color = $entry->gradient2Color;
+                                    $theme->headline_color = $entry->headlineColor;
+                                    $theme->badge_color = $entry->badgeColor;
+                                    $theme->save();
 
-                        $theme = new AppPreferance();
-                        $theme->uuid = Uuid::uuid4();
-                        $theme->product_id = $product_id;
-                        $theme->main_color = $entry->mainColor;
-                        $theme->background_color = $entry->backgroundColor;
-                        $theme->gradient1_color = $entry->gradient1Color;
-                        $theme->gradient2_color = $entry->gradient2Color;
-                        $theme->headline_color = $entry->headlineColor;
-                        $theme->badge_color = $entry->badgeColor;
-                        $theme->save();
+                                    $communities = new Communities();
+                                    $communities->uuid = Uuid::uuid4();
+                                    $communities->product_id = $product_id;
+                                    $communities->twitter = $entry->twitterUserLink;
+                                    $communities->discord = $entry->discordInvitationLink;
+                                    $communities->telegram = $entry->telegramUserLink;
+                                    $communities->instagram = $entry->instagramUserLink;
+                                    $communities->opensea = $entry->openSeaUserLink;
+                                    $communities->save();
 
-                        $communities = new Communities();
-                        $communities->uuid = Uuid::uuid4();
-                        $communities->product_id = $product_id;
-                        $communities->twitter = $entry->twitterUserLink;
-                        $communities->discord = $entry->discordInvitationLink;
-                        $communities->telegram = $entry->telegramUserLink;
-                        $communities->instagram = $entry->instagramUserLink;
-                        $communities->opensea = $entry->openSeaUserLink;
-                        $communities->save();
+                                    $collection = new Collections();
+                                    $collection->uuid = Uuid::uuid4();
+                                    $collection->product_id = $product_id;
+                                    $collection->image = $destination_path.$imagename;
+                                    $collection->type = 0;
+                                    $collection->save();
 
-                        $collection = new Collections();
-                        $collection->uuid = Uuid::uuid4();
-                        $collection->product_id = $product_id;
-                        $collection->image = $destination_path.$imagename;
-                        $collection->type = 0;
-                        $collection->save();
-
-                        logger($data['highlightNft']);    
+                                    logger($data['highlightNft']);    
 
 
-                        if($data['collection1'])
-                            {
-                                $logoname1 = $data['collection1'];
-                        
-                                $response1 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname1.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
-                                                        
-                                $imagelink1 = 'Https:'.$response1['fields']['file']['url'];
-                                $imagename1 = $response1['fields']['file']['fileName'];
-        
-                                $path = $imagelink1;
-        
-                                Image::make($path)->save('storage/collection/'.$imagename1);
-        
-                                $destination_path = 'storage/collection/';
+                                    if($data['collection1'])
+                                        {
+                                            $logoname1 = $data['collection1'];
+                                    
+                                            $response1 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname1.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                                    
+                                            $imagelink1 = 'Https:'.$response1['fields']['file']['url'];
+                                            $imagename1 = $response1['fields']['file']['fileName'];
+                    
+                                            $path = $imagelink1;
+                    
+                                            Image::make($path)->save('storage/collection/'.$imagename1);
+                    
+                                            $destination_path = 'storage/collection/';
 
-                                $collection = new Collections();
-                                $collection->uuid = Uuid::uuid4();
-                                $collection->product_id = $product_id;
-                                $collection->image = $destination_path.$imagename1;
-                                $collection->type = 1;
-                                $collection->save();
-                            }     
-                            
-                        if($data['collection2'])
-                            {
-                                $logoname2 = $data['collection2'];
-                        
-                                $response2 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname2.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
-                                                        
-                                $imagelink2 = 'Https:'.$response2['fields']['file']['url'];
-                                $imagename2 = $response2['fields']['file']['fileName'];
-        
-                                $path = $imagelink2;
-        
-                                Image::make($path)->save('storage/collection/'.$imagename2);
-        
-                                $destination_path = 'storage/collection/';
+                                            $collection = new Collections();
+                                            $collection->uuid = Uuid::uuid4();
+                                            $collection->product_id = $product_id;
+                                            $collection->image = $destination_path.$imagename1;
+                                            $collection->type = 1;
+                                            $collection->save();
+                                        }     
+                                        
+                                    if($data['collection2'])
+                                        {
+                                            $logoname2 = $data['collection2'];
+                                    
+                                            $response2 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname2.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                                    
+                                            $imagelink2 = 'Https:'.$response2['fields']['file']['url'];
+                                            $imagename2 = $response2['fields']['file']['fileName'];
+                    
+                                            $path = $imagelink2;
+                    
+                                            Image::make($path)->save('storage/collection/'.$imagename2);
+                    
+                                            $destination_path = 'storage/collection/';
 
-                                $collection = new Collections();
-                                $collection->uuid = Uuid::uuid4();
-                                $collection->product_id = $product_id;
-                                $collection->image = $destination_path.$imagename2;
-                                $collection->type = 1;
-                                $collection->save();
-                            } 
-                        if($data['collection3'])
-                            {
-                                $logoname3 = $data['collection3'];
-                        
-                                $response3 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname3.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
-                                                        
-                                $imagelink3 = 'Https:'.$response3['fields']['file']['url'];
-                                $imagename3 = $response3['fields']['file']['fileName'];
-        
-                                $path = $imagelink3;
-        
-                                Image::make($path)->save('storage/collection/'.$imagename3);
-        
-                                $destination_path = 'storage/collection/';
+                                            $collection = new Collections();
+                                            $collection->uuid = Uuid::uuid4();
+                                            $collection->product_id = $product_id;
+                                            $collection->image = $destination_path.$imagename2;
+                                            $collection->type = 1;
+                                            $collection->save();
+                                        } 
+                                    if($data['collection3'])
+                                        {
+                                            $logoname3 = $data['collection3'];
+                                    
+                                            $response3 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname3.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                                    
+                                            $imagelink3 = 'Https:'.$response3['fields']['file']['url'];
+                                            $imagename3 = $response3['fields']['file']['fileName'];
+                    
+                                            $path = $imagelink3;
+                    
+                                            Image::make($path)->save('storage/collection/'.$imagename3);
+                    
+                                            $destination_path = 'storage/collection/';
 
-                                $collection = new Collections();
-                                $collection->uuid = Uuid::uuid4();
-                                $collection->product_id = $product_id;
-                                $collection->image = $destination_path.$imagename3;
-                                $collection->type = 1;
-                                $collection->save();
-                            } 
-                        if($data['collection4'])
-                            {
-                                $logoname4 = $data['collection1'];
-                        
-                                $response4 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname4.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
-                                                        
-                                $imagelink4 = 'Https:'.$response4['fields']['file']['url'];
-                                $imagename4 = $response4['fields']['file']['fileName'];
-        
-                                $path = $imagelink4;
-        
-                                Image::make($path)->save('storage/collection/'.$imagename4);
-        
-                                $destination_path = 'storage/collection/';
+                                            $collection = new Collections();
+                                            $collection->uuid = Uuid::uuid4();
+                                            $collection->product_id = $product_id;
+                                            $collection->image = $destination_path.$imagename3;
+                                            $collection->type = 1;
+                                            $collection->save();
+                                        } 
+                                    if($data['collection4'])
+                                        {
+                                            $logoname4 = $data['collection4'];
+                                    
+                                            $response4 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname4.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                                    
+                                            $imagelink4 = 'Https:'.$response4['fields']['file']['url'];
+                                            $imagename4 = $response4['fields']['file']['fileName'];
+                    
+                                            $path = $imagelink4;
+                    
+                                            Image::make($path)->save('storage/collection/'.$imagename4);
+                    
+                                            $destination_path = 'storage/collection/';
 
-                                $collection = new Collections();
-                                $collection->uuid = Uuid::uuid4();
-                                $collection->product_id = $product_id;
-                                $collection->image = $destination_path.$imagename4;
-                                $collection->type = 1;
-                                $collection->save();
-                            } 
-                        if($data['collection5'])
-                            {
-                                $logoname5 = $data['collection1'];
-                        
-                                $response5 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname5.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
-                                                        
-                                $imagelink5 = 'Https:'.$response5['fields']['file']['url'];
-                                $imagename5 = $response5['fields']['file']['fileName'];
-        
-                                $path = $imagelink5;
-        
-                                Image::make($path)->save('storage/collection/'.$imagename5);
-        
-                                $destination_path = 'storage/collection/';
+                                            $collection = new Collections();
+                                            $collection->uuid = Uuid::uuid4();
+                                            $collection->product_id = $product_id;
+                                            $collection->image = $destination_path.$imagename4;
+                                            $collection->type = 1;
+                                            $collection->save();
+                                        } 
+                                    if($data['collection5'])
+                                        {
+                                            $logoname5 = $data['collection5'];
+                                    
+                                            $response5 = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname5.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                    
+                                                                    
+                                            $imagelink5 = 'Https:'.$response5['fields']['file']['url'];
+                                            $imagename5 = $response5['fields']['file']['fileName'];
+                    
+                                            $path = $imagelink5;
+                    
+                                            Image::make($path)->save('storage/collection/'.$imagename5);
+                    
+                                            $destination_path = 'storage/collection/';
 
-                                $collection = new Collections();
-                                $collection->uuid = Uuid::uuid4();
-                                $collection->product_id = $product_id;
-                                $collection->image = $destination_path.$imagename5;
-                                $collection->type = 1;
-                                $collection->save();
-                            } 
+                                            $collection = new Collections();
+                                            $collection->uuid = Uuid::uuid4();
+                                            $collection->product_id = $product_id;
+                                            $collection->image = $destination_path.$imagename5;
+                                            $collection->type = 1;
+                                            $collection->save();
+                                        } 
+                             }
 
                     }
             }
@@ -420,19 +568,24 @@ class WebhookHandler extends ProcessWebhookJob
 
                         $delete = Product::where('uuid', $data['entityId'])->first();            
                         
-                        $watchlist = UserWatchlist::where('product_id',$delete->id)->first();
-                        $watchlist->delete();
-
+                        if( UserWatchlist::all()->count() > 0 )
+                            {
+                                $user_watchlist = UserWatchlist::where('product_id', $delete->id)->get();
+                                foreach($user_watchlist as $user_watchlist)
+                                    {
+                                        $user_watchlist->delete();
+                                    }
+                            }
+                          
+                        
                         $theme = AppPreferance::where('product_id',$delete->id)->first();
                         $theme->delete();
 
                         $communities = Communities::where('product_id',$delete->id)->first();
                         $communities->delete();
 
-                        $collection = Collections::whereIn('product_id',[$delete->id])->delete();
-                        $collection->delete();
-
-                        
+                        $collection = Collections::where('product_id',$delete->id)->delete();
+                             
 
                         $delete->delete();
                     }
