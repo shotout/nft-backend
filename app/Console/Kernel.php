@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         // broadcast notif
-        // $schedule->job((new \App\Jobs\BroadcastProductNotif)->onQueue('apiNft'))->everyTwoHours();
+        $schedule->job((new \App\Jobs\BroadcastProductNotif)->onQueue('apiNft'))->everyTwoHours();
         // $schedule->job((new \App\Jobs\BroadcastProductNotif)->onQueue('apiNft'))->everyFiveMinutes();
     }
 
