@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Jobs\SendConfirmEmail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
@@ -33,6 +34,10 @@ class AuthController extends Controller
             $user->email_verified_at = now();
             if ($request->has('fcm_token') && $request->fcm_token != '') {
                 $user->fcm_token = $request->fcm_token;
+            }
+            if ($request->has('email_subscribe') && $request->email_subscribe == 'true') {
+                Log::info("nilai email_subscribe : ".$request->email_subscribe);
+                $user->email_subscribe = 1;
             }
             $user->remember_token = Str::random(16);
             $user->save();
