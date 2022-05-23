@@ -46,13 +46,17 @@ class BroadcastProductNotif implements ShouldQueue
             $firebaseToken = User::whereNotNull('fcm_token')->pluck('fcm_token')->all();
           
             $SERVER_API_KEY = env('FIREBASE_SERVER_API_KEY');
+
+            $desc = strip_tags($product->nft_description);
+            $descShort = substr($desc, 0, 100);
     
             $data = [
                 "registration_ids" => $firebaseToken,
                 "notification" => [
-                    "title" => 'NFT Daily App',
-                    "body" => $product->nft_title,  
-                    "icon" => 'https://nftdaily.app/assets/logo/logo.png'
+                    "title" => $product->nft_title,
+                    "body" => $descShort,  
+                    "icon" => 'https://nftdaily.app/assets/logo/logo.png',
+                    "image" => 'https://backend.nftdaily.app/'.$product->collections[0]->image
                 ]
             ];
 
