@@ -35,6 +35,8 @@ class BroadcastProductNotif implements ShouldQueue
     {
         // find product
         $now = \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->toDateTimeString(); 
+        // $now = \Carbon\Carbon::now()->toDateTimeString(); 
+
         $product = Product::whereDate('nft_publish_date', now())
             ->whereTime('nft_publish_date', '<=', $now)
             ->where('has_notif', false)
@@ -59,6 +61,8 @@ class BroadcastProductNotif implements ShouldQueue
                     "image" => 'https://backend.nftdaily.app/'.$product->collections[0]->image
                 ]
             ];
+
+            Log::info($data);
 
             $dataString = json_encode($data);
         
