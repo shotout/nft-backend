@@ -35,8 +35,7 @@ class AuthController extends Controller
             if ($request->has('fcm_token') && $request->fcm_token != '') {
                 $user->fcm_token = $request->fcm_token;
             }
-            if ($request->has('email_subscribe') && $request->email_subscribe == 'true') {
-                Log::info("nilai email_subscribe : ".$request->email_subscribe);
+            if ($request->has('email_subscribe') && $request->email_subscribe === true) {
                 $user->email_subscribe = 1;
             }
             $user->remember_token = Str::random(16);

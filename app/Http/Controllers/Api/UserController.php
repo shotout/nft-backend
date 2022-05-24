@@ -25,7 +25,7 @@ class UserController extends Controller
         }
 
         // parsing response
-        if ($user->email_subscribe == 1) {
+        if ($user->email_subscribe === 1) {
             $user->email_subscribe = true;
         } else {
             $user->email_subscribe = false;
@@ -73,11 +73,11 @@ class UserController extends Controller
         }
 
         // update email_subscribe
-        if ($request->has('email_subscribe') && $request->email_subscribe == 'true') {
+        if ($request->has('email_subscribe') && $request->email_subscribe === true) {
             $user->email_subscribe = 1;
             $user->update();
         }
-        if ($request->has('email_subscribe') && $request->email_subscribe == 'false') {
+        if ($request->has('email_subscribe') && $request->email_subscribe === false) {
             $user->email_subscribe = 0;
             $user->update();
         }
@@ -92,7 +92,7 @@ class UserController extends Controller
         $user = User::where('id', auth('sanctum')->user()->id)->with('wallets')->first();
 
         // parsing response
-        if ($user->email_subscribe == 1) {
+        if ($user->email_subscribe === 1) {
             $user->email_subscribe = true;
         } else {
             $user->email_subscribe = false;
