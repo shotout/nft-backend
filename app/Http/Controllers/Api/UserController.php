@@ -24,6 +24,13 @@ class UserController extends Controller
             ]);
         }
 
+        // parsing response
+        if ($user->email_subscribe == 1) {
+            $user->email_subscribe = true;
+        } else {
+            $user->email_subscribe = false;
+        }
+
         // retun response
         return response()->json([
             'status' => 'success',
@@ -65,6 +72,16 @@ class UserController extends Controller
             $user->wallets()->sync($wallets);
         }
 
+        // update email_subscribe
+        if ($request->has('email_subscribe') && $request->email_subscribe == 'true') {
+            $user->email_subscribe = 1;
+            $user->update();
+        }
+        if ($request->has('email_subscribe') && $request->email_subscribe == 'false') {
+            $user->email_subscribe = 0;
+            $user->update();
+        }
+
         // enable notif
         if ($request->has('fcm_token') && $request->fcm_token != '') {
             $user->fcm_token = $request->fcm_token;
@@ -73,6 +90,13 @@ class UserController extends Controller
 
         // update user content
         $user = User::where('id', auth('sanctum')->user()->id)->with('wallets')->first();
+
+        // parsing response
+        if ($user->email_subscribe == 1) {
+            $user->email_subscribe = true;
+        } else {
+            $user->email_subscribe = false;
+        }
 
         // retun response
         return response()->json([
