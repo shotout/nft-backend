@@ -172,10 +172,9 @@ class WebhookHandler extends ProcessWebhookJob
 
                         $path = $imagelink;
 
-
-                        Image::make($path)->save('storage/collection/'.$imagename);
-
                         $destination_path = 'storage/collection/';
+                        
+                        file_put_contents($destination_path.$imagename, file_get_contents($path));
 
                         
                         $this->client = $client;
@@ -221,6 +220,8 @@ class WebhookHandler extends ProcessWebhookJob
                                 $updatetheme->gradient2_color = $entry->gradient2Color;
                                 $updatetheme->headline_color = $entry->headlineColor;
                                 $updatetheme->badge_color = $entry->badgeColor;
+                                $updatetheme->timer_title = $entry->timerTitle;
+                                $updatetheme->button_label = $entry->buttonLabel;
                                 $updatetheme->save();
 
                                 $updatecommunities = Communities::where('product_id',$find->id)->first();
@@ -383,6 +384,8 @@ class WebhookHandler extends ProcessWebhookJob
                                     $theme->gradient2_color = $entry->gradient2Color;
                                     $theme->headline_color = $entry->headlineColor;
                                     $theme->badge_color = $entry->badgeColor;
+                                    $theme->timer_title = $entry->timerTitle;
+                                    $theme->button_label = $entry->buttonLabel;
                                     $theme->save();
 
                                     $communities = new Communities();
