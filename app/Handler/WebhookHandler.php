@@ -8,6 +8,7 @@ use App\Models\Collections;
 use App\Models\Communities;
 use App\Models\Faq;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\UserWatchlist;
 use App\Models\Wallet;
 use Contentful\Core\Api\LinkResolverInterface;
@@ -34,6 +35,18 @@ class WebhookHandler extends ProcessWebhookJob
 
         if($data['type'] == 'Entry')
             {
+
+                if($data['ContentType']== 'settings')
+                    {
+                        $data  = $this->webhookCall->payload;
+                        $entry = $client->getEntry($data['entityId']);
+
+                        $setting = Setting::where('id','1')->first();
+                        $setting->skip_button = $entry->skipButton;
+                        $setting->save();
+
+
+                    }
 
                 if($data['ContentType'] == 'wallets')
                     {

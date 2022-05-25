@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\WatchlistController;
+use App\Http\Controllers\Api\AppController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,5 +93,17 @@ Route::group(
         Route::get('/', [FaqController::class, 'list'])->name('listfaqs');
         Route::get('/show/{id}', [FaqController::class, 'show'])->name('showfaqs');
         Route::get('/{flag}', [FaqController::class, 'flag'])->name('flag');
+    }
+);
+
+
+
+Route::group(
+    [
+        'prefix' => 'v1/setting',
+        'name' => 'setting.'
+    ],
+    function() {
+        Route::get('/', [AppController::class, 'list'])->name('setinglist');
     }
 );
