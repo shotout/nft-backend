@@ -40,6 +40,12 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+        // validation
+        $request->validate([
+            'name' => 'nullable|string|max:100',
+            'email' => 'nullable|string|email|max:100|unique:users,email,'.auth('sanctum')->user()->id
+        ]);
+
         // find user
         $user = User::where('id', auth('sanctum')->user()->id)->with('wallets')->first();
 
