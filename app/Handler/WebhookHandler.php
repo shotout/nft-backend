@@ -43,6 +43,7 @@ class WebhookHandler extends ProcessWebhookJob
 
                         $setting = Setting::where('id','1')->first();
                         $setting->skip_button = $entry->skipButton;
+                        $setting->mint_button = $entry->mintButton;
                         $setting->save();
 
 
