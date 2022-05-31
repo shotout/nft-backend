@@ -56,8 +56,17 @@ class WebhookHandler extends ProcessWebhookJob
                         $entry = $client->getEntry($data['entityId']);
 
                         $version = Version::where('app_version',$entry->appsVersion)->first();
-                        $version->app_status = $entry->status;
-                        $version->save();
+                        if(!$version)
+                        {
+                            $version = new Version();
+                            $version->app_version = $entry->appsVersion;
+                            $version->save();
+                        }
+                        else{
+                            $version->app_status = $entry->status;
+                            $version->save();
+                        }
+                        
 
 
                     }
