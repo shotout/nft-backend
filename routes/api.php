@@ -105,5 +105,6 @@ Route::group(
     ],
     function() {
         Route::get('/', [AppController::class, 'list'])->name('setinglist');
+        Route::get('/version', [AppController::class, 'appVersion'])->name('version');
     }
 );

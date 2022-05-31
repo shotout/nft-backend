@@ -7,6 +7,7 @@ use Ramsey\Uuid\Uuid;
 use App\Models\Wallet;
 use App\Models\UserWallet;
 use Illuminate\Http\Request;
+use App\Jobs\SendConfirmEmail;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
@@ -65,8 +66,13 @@ class UserController extends Controller
 
         // update email
         if ($request->has('email') && $request->email != '') {
-            $user->email = $request->email;
-            $user->update();
+            if ($user->email != $request->email) {
+                $user->email = $request->email;
+                $user->update();
+
+                // sending email verification
+                SendConfirmEmail::dispatch($user, 'register')->onQueue('apiNft');
+            }
         }
 
         // update wallet
@@ -91,6 +97,12 @@ class UserController extends Controller
         // enable notif
         if ($request->has('fcm_token') && $request->fcm_token != '') {
             $user->fcm_token = $request->fcm_token;
+            $user->update();
+        }
+
+        // reset user notif counter
+        if ($request->has('notif_count') && $request->notif_count != '') {
+            $user->notif_count = 0;
             $user->update();
         }
 

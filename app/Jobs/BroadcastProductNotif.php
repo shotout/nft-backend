@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\User;
 use App\Models\Product;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -46,6 +47,9 @@ class BroadcastProductNotif implements ShouldQueue
         if ($product) {
             // broadcast notif to firebase
             $firebaseToken = User::whereNotNull('fcm_token')->pluck('fcm_token')->all();
+
+            // update counter notif user
+            User::whereNotNull('fcm_token')->increment('notif_count', 1);
           
             $SERVER_API_KEY = env('FIREBASE_SERVER_API_KEY');
 
