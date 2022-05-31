@@ -10,6 +10,7 @@ use App\Models\Faq;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\UserWatchlist;
+use App\Models\Version;
 use App\Models\Wallet;
 use Contentful\Core\Api\LinkResolverInterface;
 use Illuminate\Support\Facades\File;
@@ -49,6 +50,18 @@ class WebhookHandler extends ProcessWebhookJob
 
                     }
 
+                if($data['ContentType']== 'version')
+                    {
+                        $data  = $this->webhookCall->payload;
+                        $entry = $client->getEntry($data['entityId']);
+
+                        $version = Version::where('app_version',$entry->appsVersion)->first();
+                        $version->app_status = $entry->status;
+                        $version->save();
+
+
+                    }
+
                 if($data['ContentType'] == 'wallets')
                     {
                         logger('Store Data');
@@ -59,7 +72,7 @@ class WebhookHandler extends ProcessWebhookJob
                         $response = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                        
                         
                         $imagelink = 'Https:'.$response['fields']['file']['url'];
-                        $imagename = $response['fields']['file']['fileName'];
+                        $imagename = time().$response['fields']['file']['fileName'];
 
                         logger($imagelink);                        
 
@@ -98,16 +111,15 @@ class WebhookHandler extends ProcessWebhookJob
                         $response = Http::get('https://cdn.contentful.com/spaces/iekxawt54bzj/environments/master/assets/'.$logoname.'?access_token=PnEziYatZ-FrHJ-vus9Uxry0gJNXMU2g0dd-EB2xKOQ');                        
                         
                         $imagelink = 'Https:'.$response['fields']['file']['url'];
-                        $imagename = $response['fields']['file']['fileName'];
+                        $imagename = time().$response['fields']['file']['fileName'];
 
                         logger($imagelink);                        
 
                         $path = $imagelink;
 
-
-                        Image::make($path)->save('storage/blockchain_logo/'.$imagename);
                         $destination_path = 'storage/blockchain_logo/';
-                       
+
+                        file_put_contents($destination_path.$imagename, file_get_contents($path));
 
                         $find = Blockchain::where('uuid',$data['entityId'])->first();
                         if($find)
@@ -180,7 +192,7 @@ class WebhookHandler extends ProcessWebhookJob
                         
                         
                         $imagelink = 'Https:'.$response['fields']['file']['url'];
-                        $imagename = $response['fields']['file']['fileName'];
+                        $imagename = time().$response['fields']['file']['fileName'];
 
                         logger($imagelink);                        
 
