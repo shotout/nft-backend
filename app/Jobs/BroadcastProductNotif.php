@@ -46,46 +46,50 @@ class BroadcastProductNotif implements ShouldQueue
 
         if ($product) {
             // broadcast notif to firebase
-            $firebaseToken = User::whereNotNull('fcm_token')->pluck('fcm_token')->all();
+            // $firebaseToken = User::whereNotNull('fcm_token')->pluck('fcm_token')->all();
 
             // update counter notif user
             User::whereNotNull('fcm_token')->increment('notif_count', 1);
+            $users = User::whereNotNull('fcm_token')->get();
           
             $SERVER_API_KEY = env('FIREBASE_SERVER_API_KEY');
 
             $desc = strip_tags($product->nft_description);
             $descShort = substr($desc, 0, 100);
+
+            foreach ($users as $user) {
+                $data = [
+                    "to" => $user->fcm_token,
+                    "notification" => [
+                        "title" => $product->nft_title,
+                        "body" => $descShort,  
+                        "icon" => 'https://nftdaily.app/assets/logo/logo.png',
+                        "image" => 'https://backend.nftdaily.app/'.$product->collections[0]->image,
+                        "badge" => $user->notif_count
+                    ]
+                ];
     
-            $data = [
-                "registration_ids" => $firebaseToken,
-                "notification" => [
-                    "title" => $product->nft_title,
-                    "body" => $descShort,  
-                    "icon" => 'https://nftdaily.app/assets/logo/logo.png',
-                    "image" => 'https://backend.nftdaily.app/'.$product->collections[0]->image
-                ]
-            ];
-
-            Log::info($data);
-
-            $dataString = json_encode($data);
-        
-            $headers = [
-                'Authorization: key=' . $SERVER_API_KEY,
-                'Content-Type: application/json',
-            ];
-        
-            $ch = curl_init();
-      
-            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-                
-            $response = curl_exec($ch);
-            Log::info($response);
+                Log::info($data);
+    
+                $dataString = json_encode($data);
+            
+                $headers = [
+                    'Authorization: key=' . $SERVER_API_KEY,
+                    'Content-Type: application/json',
+                ];
+            
+                $ch = curl_init();
+          
+                curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+                    
+                $response = curl_exec($ch);
+                Log::info($response);
+            }
 
             // update status
             $product->has_notif = true;
