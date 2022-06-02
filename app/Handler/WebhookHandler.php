@@ -245,6 +245,8 @@ class WebhookHandler extends ProcessWebhookJob
                                 $find2->nft_blockchain = $blockchain;
                                 $find2->nft_exp_promo = $entry->exp_promo;
                                 $find2->is_verified = $entry->is_verified;
+                                $find2->nft_website = $entry->nftWebsite;
+                                $find2->nft_level = $entry->nftLevel;
                                 $find2->created_at = date('Y-m-d H:i:s');
                                 $find2->save();
 
@@ -403,6 +405,8 @@ class WebhookHandler extends ProcessWebhookJob
                                     $save->nft_publish_date = $entry->publish_date;
                                     $save->nft_blockchain = $blockchain;
                                     $save->nft_exp_promo = $entry->exp_promo;
+                                    $find2->nft_website = $entry->nftWebsite;
+                                    $find2->nft_level = $entry->nftLevel;
                                     $save->is_verified = $entry->is_verified;
                                     $save->created_at = date('Y-m-d H:i:s');
                                     $save->save();
