@@ -37,6 +37,11 @@ class ProductController extends Controller
             ->whereDate('nft_publish_date', '<=', now())
             ->orderBy($column, $dir);
 
+        // filter
+        if ($request->has('nft_level') && $request->input('nft_level') != '') {
+            $query->where('nft_level', $request->nft_level);
+        }
+
         // search
         if ($request->has('search') && $request->input('search') != '') {
             $query->where(function($q) use($request) {
