@@ -98,16 +98,23 @@ class WebhookHandler extends ProcessWebhookJob
                         $find = Wallet::where('uuid',$data['entityId'])->first();
                         if($find)
                             {
-                                $find->delete();
+                                $updatewallet = Wallet::where('uuid',$data['entityId'])->first();
+                                $updatewallet->image = $destination_path.$imagename;
+                                $updatewallet->name = $data['name'];
+                                $updatewallet->updated_at = date('Y-m-d H:i:s');
+                                $updatewallet->save();
                             }
+
+                        else{
                         
-                        $save = new Wallet();
-                        $save->uuid = $data['entityId'];
-                        $save->image = $destination_path.$imagename;
-                        $save->name = $data['name'];
-                        $save->created_at = date('Y-m-d H:i:s');
-                        $save->save();
-                    }
+                                $save = new Wallet();
+                                $save->uuid = $data['entityId'];
+                                $save->image = $destination_path.$imagename;
+                                $save->name = $data['name'];
+                                $save->created_at = date('Y-m-d H:i:s');
+                                $save->save();
+                           }
+                    }   
 
 
                 if($data['ContentType'] == 'blockchains')
@@ -133,17 +140,22 @@ class WebhookHandler extends ProcessWebhookJob
                         $find = Blockchain::where('uuid',$data['entityId'])->first();
                         if($find)
                             {
-                                $find->delete();
+                                $updateblockchain = Blockchain::where('uuid',$data['entityId'])->first();
+                                $updateblockchain->vektor = $destination_path.$imagename;
+                                $updateblockchain->name = $data['name'];
+                                $updateblockchain->abbreviation = $data['abbreviation'];
+                                $updateblockchain->updated_at = date('Y-m-d H:i:s');
+                                $updateblockchain->save();
                             }
-                        
-                        $save = new Blockchain();
-                        $save->uuid = $data['entityId'];
-                        $save->vektor = $destination_path.$imagename;
-                        $save->abbreviation = $data['abbreviation'];
-                        $save->name = $data['name'];
-
-                        $save->created_at = date('Y-m-d H:i:s');
-                        $save->save();
+                        else{
+                                $save = new Blockchain();
+                                $save->uuid = $data['entityId'];
+                                $save->vektor = $destination_path.$imagename;
+                                $save->abbreviation = $data['abbreviation'];
+                                $save->name = $data['name'];
+                                $save->created_at = date('Y-m-d H:i:s');
+                                $save->save();
+                            }
                     }
 
                 if($data['ContentType'] == 'faqs')
@@ -259,6 +271,7 @@ class WebhookHandler extends ProcessWebhookJob
                                 $updatetheme->badge_color = $entry->badgeColor;
                                 $updatetheme->timer_title = $entry->timerTitle;
                                 $updatetheme->button_label = $entry->buttonLabel;
+                                $updatetheme->expired_label = $entry->expiredLabel;
                                 $updatetheme->save();
 
                                 $updatecommunities = Communities::where('product_id',$find->id)->first();
@@ -425,6 +438,7 @@ class WebhookHandler extends ProcessWebhookJob
                                     $theme->badge_color = $entry->badgeColor;
                                     $theme->timer_title = $entry->timerTitle;
                                     $theme->button_label = $entry->buttonLabel;
+                                    $theme->expired_label = $entry->expiredLabel;
                                     $theme->save();
 
                                     $communities = new Communities();

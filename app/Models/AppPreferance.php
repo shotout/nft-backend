@@ -12,7 +12,7 @@ class AppPreferance extends Model
     protected $primaryKey = 'uuid';
     
     protected $fillable = [
-        'uuid','product_id','main_color','background_color','gradient1_color','gradient2_color','created_at','updated_at'
+        'uuid','product_id','main_color','background_color','gradient1_color','gradient2_color','badge_color','timer_title','button_label','expired_label','created_at','updated_at'
     ];
 
     public function product_id()
