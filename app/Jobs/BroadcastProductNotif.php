@@ -63,7 +63,7 @@ class BroadcastProductNotif implements ShouldQueue
                     "notification" => [
                         "title" => $product->nft_title,
                         "body" => $descShort,  
-                        "icon" => 'https://nftdaily.app/assets/logo/logo.png',
+                        "icon" => 'https://backend.nftdaily.app/assets/logo/logo.png',
                         "image" => 'https://backend.nftdaily.app/'.$product->collections[0]->image,
                         "badge" => $user->notif_count
                     ]

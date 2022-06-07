@@ -42,7 +42,7 @@
                             <div style="background-color:#ffffff">
                                 <div style="Margin:0 auto;max-width:600px;min-width:320px;width:320px;width:calc(28000% - 167400px);word-wrap:break-word;word-break:break-word">
                                     <div style="width: 100px;margin: 0 auto;">
-                                        <img src="https://nftdaily.app/assets/logo/logo-bg.png" style="margin-top: 50px;margin-bottom: 30%;width: 100%;text-align: center;">
+                                        <img src="https://backend.nftdaily.app/assets/logo/logo.png" style="margin-top: 50px;margin-bottom: 30%;width: 100%;text-align: center;">
                                     </div>
                                     <div style="border-collapse:collapse;display:table;width:100%">
                                         <div style="max-width:600px;min-width:320px;width:320px;width:calc(28000% - 167400px);text-align:left;color:#111324;font-size:16px;line-height:24px;font-family:sans-serif">
