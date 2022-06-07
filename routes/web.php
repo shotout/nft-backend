@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BlockchainsController;
-use App\Http\Controllers\FaqController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PromotionController;
-use App\Http\Controllers\WalletsController;
 use App\Models\Blockchain;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FaqController;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\WalletsController;
+use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\BlockchainsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,3 +88,6 @@ Route::get('/', [LoginController::class, 'index'])->name('logincms');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::webhooks('webhook-receiving-url');
+
+// apple url
+Route::get('/apple-app-site-association', [PageController::class, 'apple'])->name('apple');
