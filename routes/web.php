@@ -91,3 +91,4 @@ Route::webhooks('webhook-receiving-url');
 
 // apple url
 Route::get('/apple-app-site-association', [PageController::class, 'apple'])->name('apple');
+Route::get('/.well-known/assetlinks.json', [PageController::class, 'asset'])->name('asset');
