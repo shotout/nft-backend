@@ -68,6 +68,7 @@ class UserController extends Controller
         if ($request->has('email') && $request->email != '') {
             if ($user->email != $request->email) {
                 $user->email = $request->email;
+                $user->email_verified_at = null;
                 $user->update();
 
                 // sending email verification
