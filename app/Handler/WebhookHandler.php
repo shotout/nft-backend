@@ -50,7 +50,28 @@ class WebhookHandler extends ProcessWebhookJob
 
                     }
 
-                if($data['ContentType']== 'version' || $data['ContentType']== 'androidVersion')
+                if($data['ContentType']== 'version')
+                    {
+                        $data  = $this->webhookCall->payload;
+                        $entry = $client->getEntry($data['entityId']);
+
+                        $version = Version::where('app_version',$entry->appsVersion)->first();
+                        if(!$version)
+                        {
+                            $version = new Version();
+                            $version->app_version = $entry->appsVersion;
+                            $version->save();
+                        }
+                        else{
+                            $version->app_status = $entry->status;
+                            $version->save();
+                        }
+                        
+
+
+                    }
+
+                if($data['ContentType']== 'androidVersion')
                     {
                         $data  = $this->webhookCall->payload;
                         $entry = $client->getEntry($data['entityId']);
