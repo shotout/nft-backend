@@ -50,7 +50,7 @@ class WebhookHandler extends ProcessWebhookJob
 
                     }
 
-                if($data['ContentType']== 'version')
+                if($data['ContentType']== 'version' || $data['ContentType']== 'androidVersion')
                     {
                         $data  = $this->webhookCall->payload;
                         $entry = $client->getEntry($data['entityId']);
@@ -253,7 +253,6 @@ class WebhookHandler extends ProcessWebhookJob
                                 $find2->nft_amount = $entry->amount;
                                 $find2->nft_description = $description;
                                 $find2->nft_community = $community;
-                                $find2->nft_raffle = $entry->publish_date;
                                 $find2->nft_publish_date = $entry->publish_date;
                                 $find2->nft_blockchain = $blockchain;
                                 $find2->nft_exp_promo = $entry->exp_promo;
