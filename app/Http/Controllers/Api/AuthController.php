@@ -86,14 +86,15 @@ class AuthController extends Controller
         }
 
         // check if email has verify
-        if (!$user->email_verified_at) {
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'email account not verified',
-            ]);
-        }
+        // if (!$user->email_verified_at) {
+        //     return response()->json([
+        //         'status' => 'failed',
+        //         'message' => 'email account not verified',
+        //     ]);
+        // }
 
         // update user
+        $user->email_verified_at = now();
         $user->remember_token = Str::random(16);
         $user->update();
 
