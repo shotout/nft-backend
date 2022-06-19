@@ -52,24 +52,9 @@ class AuthController extends Controller
 
             // return user
             return $user;
-        });
-
-        if ($user) {
-            // sending email verification
-            SendConfirmEmail::dispatch($user, 'register')->onQueue('apiNft');
-
-            // generate token
-            $token = $user->createToken('auth_token')->plainTextToken;
-
-            // retun response
-            return response()->json([
-                'status' => 'success',
-                'token' => $token,
-                'data' => $user
-            ]);
 
 
-            $newuser = DB::table('users')
+             $newuser = DB::table('users')
                     ->leftjoin('user_wallets','users.id','=','user_id')
                     ->leftjoin('wallets','wallets.id','=','wallet_id')
                     ->select('users.id','users.name','users.email','users.email_verified_at','users.created_at')
@@ -97,6 +82,22 @@ class AuthController extends Controller
                 echo $exception->getMessage();
                 return redirect()->back()->withInput()->withErrors(['error' => $exception->getMessage()]);
             }
+            
+        });
+
+        if ($user) {
+            // sending email verification
+            SendConfirmEmail::dispatch($user, 'register')->onQueue('apiNft');
+
+            // generate token
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            // retun response
+            return response()->json([
+                'status' => 'success',
+                'token' => $token,
+                'data' => $user
+            ]);           
         }
     }
 
