@@ -12,8 +12,11 @@ use App\Jobs\SendConfirmEmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-
+use Contentful\Management\Client;
+use Contentful\Core\Api\Exception;
+use Contentful\Management\Resource\Entry;
 class AuthController extends Controller
+
 {
     public function register(Request $request)
     {
@@ -64,6 +67,36 @@ class AuthController extends Controller
                 'token' => $token,
                 'data' => $user
             ]);
+
+
+            $newuser = DB::table('users')
+                    ->leftjoin('user_wallets','users.id','=','user_id')
+                    ->leftjoin('wallets','wallets.id','=','wallet_id')
+                    ->select('users.id','users.name','users.email','users.email_verified_at','users.created_at')
+                    ->selectRaw(DB::raw('GROUP_CONCAT(wallets.name) AS wallets'))
+                    ->selectRaw(DB::raw('IF(users.email_subscribe = 0, "No", "Yes") AS email_subscribe'))
+                    ->where('users.email', $request->email)
+                    ->groupBy('users.email')
+                    ->first();
+
+            $client = New Client(env('CONTENTFUL_MANAGEMENT_ACCESS_TOKEN'));
+            $environment = $client->getEnvironmentProxy(env('CONTENTFUL_SPACE_ID'), 'master');
+
+
+            $entry = new Entry('users');
+            $entry->setField('name', 'en-US', $newuser->name);
+            $entry->setField('email', 'en-US', $newuser->email);
+            $entry->setField('accountCreatedTime', 'en-US', $newuser->created_at);
+            $entry->setField('verifiedTime', 'en-US', $newuser->email_verified_at);
+            $entry->setField('emailsubsribed', 'en-US', $newuser->email_subscribe);
+            $entry->setField('wallets', 'en-US', $newuser->wallets);
+
+            try {
+                $environment->create($entry);
+            } catch (Exception $exception) {
+                echo $exception->getMessage();
+                return redirect()->back()->withInput()->withErrors(['error' => $exception->getMessage()]);
+            }
         }
     }
 
@@ -110,6 +143,8 @@ class AuthController extends Controller
             'token' => $token,
             'data' => $user
         ]);
+
+
     }
 
     public function verify($token)

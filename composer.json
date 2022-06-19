@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "contentful/contentful-management": "^4.0",
         "contentful/laravel": "^8.2",
         "contentful/rich-text": "^3.3",
         "fruitcake/laravel-cors": "^2.0",

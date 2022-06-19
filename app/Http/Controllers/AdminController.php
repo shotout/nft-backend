@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Contentful\Management\Client;
+use Contentful\Core\Api\Exception;
+use Contentful\Management\Resource\Entry;
+
 
 class AdminController extends Controller
 {
@@ -65,7 +69,7 @@ class AdminController extends Controller
             return back()->withErrors($validator)->withInput();
         }
         try {
-            //simpan Data Dosen
+            
             DB::beginTransaction();
             $newAdmin = new Admins();
             $newAdmin->name = stripBeforeSave($request->admin_name);
@@ -73,19 +77,19 @@ class AdminController extends Controller
             $newAdmin->password = Hash::make($request->admin_password);
             $newAdmin->created_at = date('Y-m-d H:i:s');
             
-            $newAdmin->save();
-            
+            $newAdmin->save();           
+           
             DB::commit();
 
             Session::flash('success', __('Successfully Saved'));
 
             return redirect()->intended("admin/list");
-
              
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
+        
     }
 
 
