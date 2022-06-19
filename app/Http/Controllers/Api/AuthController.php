@@ -50,11 +50,9 @@ class AuthController extends Controller
             // add wallets
             $user->wallets()->sync($wallets);
 
-            // return user
-            return $user;
 
-
-             $newuser = DB::table('users')
+            //contentful write          
+            $newuser = DB::table('users')
                     ->leftjoin('user_wallets','users.id','=','user_id')
                     ->leftjoin('wallets','wallets.id','=','wallet_id')
                     ->select('users.id','users.name','users.email','users.email_verified_at','users.created_at')
@@ -82,7 +80,9 @@ class AuthController extends Controller
                 echo $exception->getMessage();
                 return redirect()->back()->withInput()->withErrors(['error' => $exception->getMessage()]);
             }
-            
+
+            // return user
+            return $user;
         });
 
         if ($user) {
