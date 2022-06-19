@@ -78,12 +78,15 @@ class AdminController extends Controller
             $newAdmin->created_at = date('Y-m-d H:i:s');
             
             $newAdmin->save();           
-           
             DB::commit();
 
             Session::flash('success', __('Successfully Saved'));
 
             return redirect()->intended("admin/list");
+
+
+
+
              
         } catch (\Exception $e) {
             DB::rollBack();
