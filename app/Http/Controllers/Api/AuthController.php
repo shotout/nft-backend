@@ -69,8 +69,8 @@ class AuthController extends Controller
             $entry = new Entry('users');
             $entry->setField('name', 'en-US', $newuser->name);
             $entry->setField('email', 'en-US', $newuser->email);
-            $entry->setField('accountCreatedTime', 'en-US', $newuser->created_at);
-            $entry->setField('verifiedTime', 'en-US', $newuser->email_verified_at);
+            $entry->setField('accountCreatedTime', 'en-US', date('d-m-Y H:i:s',$newuser->created_at));
+            $entry->setField('verifiedTime', 'en-US', date('d-m-Y H:i:s',$newuser->email_verified_at));
             $entry->setField('emailsubsribed', 'en-US', $newuser->email_subscribe);
             $entry->setField('wallets', 'en-US', $newuser->wallets);
 
