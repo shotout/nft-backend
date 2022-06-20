@@ -9,6 +9,10 @@ use App\Models\UserWallet;
 use Illuminate\Http\Request;
 use App\Jobs\SendConfirmEmail;
 use App\Http\Controllers\Controller;
+use Contentful\Management\Client;
+use Illuminate\Support\Facades\DB;
+use Contentful\Management\Resource\Entry;
+use Exception;
 
 class UserController extends Controller
 {
@@ -109,6 +113,32 @@ class UserController extends Controller
 
         // update user content
         $user = User::where('id', auth('sanctum')->user()->id)->with('wallets')->first();
+
+        //update contentful data
+            $updateuser = User::where('id', auth('sanctum')->user()->id)->first();
+
+            $newuserdata = DB::table('users')
+                    ->leftjoin('user_wallets','users.id','=','user_id')
+                    ->leftjoin('wallets','wallets.id','=','wallet_id')
+                    ->select('users.id','users.name','users.email','users.email_verified_at','users.created_at')
+                    ->selectRaw(DB::raw('GROUP_CONCAT(wallets.name) AS wallets'))
+                    ->selectRaw(DB::raw('IF(users.email_subscribe = 0, "No", "Yes") AS email_subscribe'))
+                    ->where('users.email', $updateuser->email)
+                    ->groupBy('users.email')
+                    ->first();
+
+            $client = New Client(env('CONTENTFUL_MANAGEMENT_ACCESS_TOKEN'));
+            $environment = $client->getEnvironmentProxy(env('CONTENTFUL_SPACE_ID'), 'master');
+
+            $entry = $environment->getEntry('<entryId>');
+            $entry->setField('name', 'en-US', $newuserdata->name);
+            $entry->setField('email', 'en-US', $newuserdata->email);
+            $entry->setField('accountCreatedTime', 'en-US', $newuserdata->created_at);
+            $entry->setField('verifiedTime', 'en-US', $newuserdata->email_verified_at);
+            $entry->setField('emailsubsribed', 'en-US', $newuserdata->email_subscribe);
+            $entry->setField('wallets', 'en-US', $newuserdata->wallets);
+
+            $entry->update();
 
         // parsing response
         if ($user->email_subscribe === 1) {
