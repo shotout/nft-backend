@@ -130,7 +130,7 @@ class UserController extends Controller
             $client = New Client(env('CONTENTFUL_MANAGEMENT_ACCESS_TOKEN'));
             $environment = $client->getEnvironmentProxy(env('CONTENTFUL_SPACE_ID'), 'master');
 
-            $entry = $environment->getEntry('<entryId>');
+            $entry = $environment->getEntry($updateuser->entry_id);
             $entry->setField('name', 'en-US', $newuserdata->name);
             $entry->setField('email', 'en-US', $newuserdata->email);
             $entry->setField('accountCreatedTime', 'en-US', $newuserdata->created_at);
