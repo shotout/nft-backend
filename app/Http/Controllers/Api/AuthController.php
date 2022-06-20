@@ -51,7 +51,7 @@ class AuthController extends Controller
             $user->wallets()->sync($wallets);
 
 
-            //contentful write          
+            //adding data to contentful          
             $newuser = DB::table('users')
                     ->leftjoin('user_wallets','users.id','=','user_id')
                     ->leftjoin('wallets','wallets.id','=','wallet_id')
@@ -77,9 +77,13 @@ class AuthController extends Controller
             try {
                 $environment->create($entry);
             } catch (Exception $exception) {
-                echo $exception->getMessage();
-                return redirect()->back()->withInput()->withErrors(['error' => $exception->getMessage()]);
+                log( $exception->getMessage());                
             }
+
+            $entry_id = $entry->getId();
+            $updateuser = User::where('email', $request->email)->first();
+            $updateuser->entry_id = $entry_id;
+            $updateuser->save();
 
             // return user
             return $user;
