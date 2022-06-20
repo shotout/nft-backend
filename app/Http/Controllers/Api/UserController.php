@@ -117,7 +117,7 @@ class UserController extends Controller
         //update contentful data
             $updateuser = User::where('id', auth('sanctum')->user()->id)->first();
 
-            if($updateuser->entry_id != null){
+            if($updateuser->entry_id != null and $updateuser->entry_id !=''){
 
             $newuserdata = DB::table('users')
                     ->leftjoin('user_wallets','users.id','=','user_id')
