@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
 use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use App\Models\Wallet;
 use App\Models\UserWallet;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Jobs\SendConfirmEmail;
-use App\Http\Controllers\Controller;
 use Contentful\Management\Client;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\UserWatchlist;
 use Contentful\Management\Resource\Entry;
-use Exception;
 
 class UserController extends Controller
 {
@@ -156,5 +158,60 @@ class UserController extends Controller
             'status' => 'success',
             'data' => $user
         ]);
+    }
+
+    public function destroy()
+    {
+        // find user
+        $user = User::where('id', auth('sanctum')->user()->id)->first();
+
+        // if not found
+        if (!$user) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'user not found',
+            ]);
+        }
+
+        // update user
+        $user->remember_token = Str::random(16);
+        $user->update();
+
+        // sending email verification
+        SendConfirmEmail::dispatch($user, 'unregister')->onQueue('apiNft');
+
+        // retun response
+        return response()->json([
+            'status' => 'success',
+            'data' => $user
+        ]);
+    }
+
+    public function destroyConfirm($token)
+    {
+        // check email token
+        $user = User::where('remember_token', $token)->first();
+
+        if (!$user) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'token expired'
+            ]);
+        }
+
+        // delete user
+        if ($user->delete()) {
+            // delete watchlist
+            UserWatchlist::where('user_id', $user->id)->delete();
+
+            // delete wallet
+            UserWallet::where('user_id', $user->id)->delete();
+
+            // retun response
+            return response()->json([
+                'status' => 'success',
+                'message' => 'user account deleted'
+            ]);
+        }
     }
 }

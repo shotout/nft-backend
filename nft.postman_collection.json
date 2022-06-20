@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "12d14186-51a3-4931-ac2e-538cbe4caef5",
-		"name": "nft",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "d0115d13-7d9e-4625-b8a7-aadee2616027",
+		"name": "nft contentful php",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12074833"
 	},
 	"item": [
 		{
@@ -351,7 +352,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|t9lM8iTizvBJFilRSQaxuRRh9HPKEiUVBX5s00Pv",
+									"value": "1|GmiaY0Sz1MgaAYxDiDxKMfopuA6oj8RbHrBXF0QX",
 									"type": "string"
 								}
 							]
@@ -365,14 +366,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/faqs/show/ffd2ab24-9877-4688-92f9-2ed28d05237f",
+							"raw": "{{base_url}}/faqs/show/3tv0CDgs3JwVR1xPHTvdbW",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"faqs",
 								"show",
-								"ffd2ab24-9877-4688-92f9-2ed28d05237f"
+								"3tv0CDgs3JwVR1xPHTvdbW"
 							]
 						}
 					},
@@ -386,7 +387,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|t9lM8iTizvBJFilRSQaxuRRh9HPKEiUVBX5s00Pv",
+									"value": "1|GmiaY0Sz1MgaAYxDiDxKMfopuA6oj8RbHrBXF0QX",
 									"type": "string"
 								}
 							]
@@ -425,7 +426,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
+									"value": "3|cpUo915TM4hiDOvr92XbWffWTsETiFAHOOQdtMT2",
 									"type": "string"
 								}
 							]
@@ -451,6 +452,25 @@
 					"response": []
 				},
 				{
+					"name": "deleteConfirm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/unregister/rtrrty",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"unregister",
+								"rtrrty"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "update",
 					"request": {
 						"auth": {
@@ -458,7 +478,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
+									"value": "7|QXDaErlPhI6qxTBvlWskz95BWUuJs9pyewnbxI8J",
 									"type": "string"
 								}
 							]
@@ -473,7 +493,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"wallet\" : [\"59786eda-58c4-483f-adfa-59d5719e420c\", \"945b20fc-4285-47c5-a488-c2c06eb6543c\"]\n}",
+							"raw": "{\n    \"email\" : \"update@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -487,6 +507,164 @@
 							],
 							"path": [
 								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "3|cpUo915TM4hiDOvr92XbWffWTsETiFAHOOQdtMT2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rating",
+			"item": [
+				{
+					"name": "check",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|eQTchS8jVmBXyBe9px93BBx1HFMPmwwwggek7VI5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/ratings/check",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ratings",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|eQTchS8jVmBXyBe9px93BBx1HFMPmwwwggek7VI5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rate\": 5,\n    \"comment\": \"nice app\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ratings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "setting",
+			"item": [
+				{
+					"name": "appVersion",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"app_version\" : \"3.0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/setting/version",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"setting",
+								"version"
 							]
 						}
 					},

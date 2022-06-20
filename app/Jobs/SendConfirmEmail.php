@@ -37,13 +37,23 @@ class SendConfirmEmail implements ShouldQueue
     {
         // send email verification
         if ($this->flag === 'register') {
+            $this->user->email_message = 'NFT Daily Account Activation';
             Mail::send('email.confirm', ['user' => $this->user, 'flag' => $this->flag], function($message) {
-                $message->to($this->user->email, $this->user->name)->subject('NFT Daily Account Activation');
+                $message->to($this->user->email, $this->user->name)->subject($this->user->email_message);
                 $message->from(env('MAIL_FROM_ADDRESS'));
             });
-        } else {
+        }
+        if ($this->flag === 'login') {
+            $this->user->email_message = 'NFT Daily Sign In';
             Mail::send('email.confirm', ['user' => $this->user, 'flag' => $this->flag], function($message) {
-                $message->to($this->user->email, $this->user->name)->subject('NFT Daily Sign In');
+                $message->to($this->user->email, $this->user->name)->subject($this->user->email_message);
+                $message->from(env('MAIL_FROM_ADDRESS'));
+            });
+        }
+        if ($this->flag === 'unregister') {
+            $this->user->email_message = 'NFT Daily Delete Account';
+            Mail::send('email.confirm', ['user' => $this->user, 'flag' => $this->flag], function($message) {
+                $message->to($this->user->email, $this->user->name)->subject($this->user->email_message);
                 $message->from(env('MAIL_FROM_ADDRESS'));
             });
         }

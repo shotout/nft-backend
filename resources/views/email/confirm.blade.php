@@ -3,11 +3,7 @@
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
-        @if ($flag === 'register')
-            <title>NFT Daily Account Activation</title> 
-        @else
-            <title>NFT Daily Sign In</title>
-        @endif
+        <title>{{$user->email_message}}</title> 
     </head>
     <body>
 
@@ -87,9 +83,15 @@
                                             <p style="Margin-top:0;Margin-bottom:20px">
                                                 Click the button below to <span style="font-weight: bold;">activate your account</span> on NFT Daily and make sure that you <span style="font-weight: bold;">won't miss out on the newest drops!</span>  
                                             </p>
-                                        @else
+                                        @endif
+                                        @if ($flag === 'login')
                                             <p style="Margin-top:0;Margin-bottom:20px">
                                                 Click the button below to <span style="font-weight: bold;">sign in to your account</span> on NFT Daily and make sure that you <span style="font-weight: bold;">won't miss out on the newest drops!</span>  
+                                            </p>
+                                        @endif
+                                        @if ($flag === 'unregister')
+                                            <p style="Margin-top:0;Margin-bottom:20px">
+                                                Click the button below to <span style="font-weight: bold;">delete your account</span> on NFT Daily.
                                             </p>
                                         @endif
                                     </div>
@@ -100,10 +102,17 @@
                                                 <a href="{{env('DEEP_URL')}}/auth/verify/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 54px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif;text-transform: uppercase;"
                                                     target="_blank">Activate Account</a>
                                             </div>
-                                        @else
+                                        @endif
+                                        @if ($flag === 'login')
                                             <div style="Margin-bottom:20px;text-align:center">
                                                 <a href="{{env('DEEP_URL')}}/auth/verify/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 84px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif;text-transform: uppercase;"
                                                     target="_blank">Sign In</a>
+                                            </div>
+                                        @endif
+                                        @if ($flag === 'unregister')
+                                            <div style="Margin-bottom:20px;text-align:center">
+                                                <a href="{{env('DEEP_URL')}}/users/unregister/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 54px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif;text-transform: uppercase;"
+                                                    target="_blank">Delete Account</a>
                                             </div>
                                         @endif
                                     </div>

@@ -133,6 +133,9 @@ class AuthController extends Controller
 
         // update user
         $user->email_verified_at = now();
+        if ($request->has('fcm_token') && $request->fcm_token != '') {
+            $user->fcm_token = $request->fcm_token;
+        }
         $user->remember_token = Str::random(16);
         $user->update();
 

@@ -55,6 +55,8 @@ Route::group(
     function() {
         Route::get('/', [UserController::class, 'show'])->name('show');
         Route::patch('/', [UserController::class, 'update'])->name('update');
+        Route::delete('/', [UserController::class, 'destroy'])->name('destroy');
+        Route::get('/unregister/{token}', [UserController::class, 'destroyConfirm'])->name('destroyConfirm');
     }
 );
 
