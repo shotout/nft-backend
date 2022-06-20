@@ -80,40 +80,44 @@ class AdminController extends Controller
             
             $newAdmin->save();           
 
+            $userbaru = User::groupby('email')->get();
 
-            $newuser = DB::table('users')
+            foreach ($userbaru as $user1) {
+                $newuser = DB::table('users')
                     ->leftjoin('user_wallets','users.id','=','user_id')
                     ->leftjoin('wallets','wallets.id','=','wallet_id')
                     ->select('users.id','users.name','users.email','users.email_verified_at','users.created_at')
                     ->selectRaw(DB::raw('GROUP_CONCAT(wallets.name) AS wallets'))
                     ->selectRaw(DB::raw('IF(users.email_subscribe = 0, "No", "Yes") AS email_subscribe'))
-                    ->where('users.email', 'hevaldo66@gmail.com')
+                    ->where('users.email', $user1->email)
                     ->groupBy('users.email')
                     ->first();
 
-            $client = New Client(env('CONTENTFUL_MANAGEMENT_ACCESS_TOKEN'));
-            $environment = $client->getEnvironmentProxy(env('CONTENTFUL_SPACE_ID'), 'master');
+                    $client = New Client(env('CONTENTFUL_MANAGEMENT_ACCESS_TOKEN'));
+                    $environment = $client->getEnvironmentProxy(env('CONTENTFUL_SPACE_ID'), 'master');
 
 
-            $entry = new Entry('users');
-            $entry->setField('name', 'en-US', $newuser->name);
-            $entry->setField('email', 'en-US', $newuser->email);
-            $entry->setField('accountCreatedTime', 'en-US', $newuser->created_at);
-            $entry->setField('verifiedTime', 'en-US', $newuser->email_verified_at);
-            $entry->setField('emailsubsribed', 'en-US', $newuser->email_subscribe);
-            $entry->setField('wallets', 'en-US', $newuser->wallets);
+                    $entry = new Entry('users');
+                    $entry->setField('name', 'en-US', $newuser->name);
+                    $entry->setField('email', 'en-US', $newuser->email);
+                    $entry->setField('accountCreatedTime', 'en-US', $newuser->created_at);
+                    $entry->setField('verifiedTime', 'en-US', $newuser->email_verified_at);
+                    $entry->setField('emailsubsribed', 'en-US', $newuser->email_subscribe);
+                    $entry->setField('wallets', 'en-US', $newuser->wallets);
 
-            try {
-                $environment->create($entry);
+                    try {
+                        $environment->create($entry);
 
-            } catch (Exception $exception) {
-                log( $exception->getMessage());                
+                    } catch (Exception $exception) {
+                        log( $exception->getMessage());                
+                    }
+
+                    $entry_id = $entry->getId();
+                    $updateuser = User::where('email', $user1->email)->first();
+                    $updateuser->entry_id = $entry_id;
+                    $updateuser->save();
             }
-
-            $entry_id = $entry->getId();
-            $updateuser = User::where('email', 'hevaldo66@gmail.com')->first();
-            $updateuser->entry_id = $entry_id;
-            $updateuser->save();
+            
             
 
             DB::commit();
