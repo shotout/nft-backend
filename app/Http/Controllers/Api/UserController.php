@@ -117,6 +117,8 @@ class UserController extends Controller
         //update contentful data
             $updateuser = User::where('id', auth('sanctum')->user()->id)->first();
 
+            if($updateuser->entry_id != null){
+
             $newuserdata = DB::table('users')
                     ->leftjoin('user_wallets','users.id','=','user_id')
                     ->leftjoin('wallets','wallets.id','=','wallet_id')
@@ -139,6 +141,8 @@ class UserController extends Controller
             $entry->setField('wallets', 'en-US', $newuserdata->wallets);
 
             $entry->update();
+            
+            }
 
         // parsing response
         if ($user->email_subscribe === 1) {
