@@ -208,10 +208,11 @@ class UserController extends Controller
             UserWallet::where('user_id', $user->id)->delete();
 
             // retun response
-            return response()->json([
-                'status' => 'success',
-                'message' => 'user account deleted'
-            ]);
+            return redirect('https://nftdaily.app/account-deletion');
+            // return response()->json([
+            //     'status' => 'success',
+            //     'message' => 'user account deleted'
+            // ]);
         }
     }
 }
