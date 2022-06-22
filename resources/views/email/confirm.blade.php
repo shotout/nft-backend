@@ -75,6 +75,9 @@
                                         @if ($flag === 'register')
                                             <h1 style="Margin-top:0;Margin-bottom:20px;font-style:normal;font-weight:normal;color:#111324;font-size:16px;line-height:31px;text-align:left">Thank you for creating an account on the NFT Daily App!</h1>
                                         @endif
+                                        @if ($flag === 'unregister')
+                                            <h1 style="Margin-top:0;Margin-bottom:20px;font-style:normal;font-weight:normal;color:#111324;font-size:16px;line-height:31px;text-align:left">We are sad to see you go!</h1>
+                                        @endif
                                     </div>
                                     </div>
                                     <div style="Margin-left:20px;Margin-right:20px">
@@ -91,7 +94,7 @@
                                         @endif
                                         @if ($flag === 'unregister')
                                             <p style="Margin-top:0;Margin-bottom:20px">
-                                                Click the button below to <span style="font-weight: bold;">delete your account</span> on NFT Daily.
+                                                To delete your account on NFT Daily, please click the link below. But be aware – <span style="font-weight: bold;">you will not be informed about the newest drops, projects and exciting collections anymore!</span>
                                             </p>
                                         @endif
                                     </div>
@@ -111,7 +114,7 @@
                                         @endif
                                         @if ($flag === 'unregister')
                                             <div style="Margin-bottom:20px;text-align:center">
-                                                <a href="{{env('DEEP_URL')}}/users/unregister/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 54px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif;text-transform: uppercase;"
+                                                <a href="{{env('DEEP_URL')}}/users/unregister/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 54px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#E04F46;font-family:sans-serif;text-transform: uppercase;"
                                                     target="_blank">Delete Account</a>
                                             </div>
                                         @endif
