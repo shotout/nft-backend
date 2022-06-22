@@ -51,7 +51,7 @@ class SendConfirmEmail implements ShouldQueue
             });
         }
         if ($this->flag === 'unregister') {
-            $this->user->email_message = 'NFT Daily Delete Account';
+            $this->user->email_message = 'NFT Daily Account Deletion';
             Mail::send('email.confirm', ['user' => $this->user, 'flag' => $this->flag], function($message) {
                 $message->to($this->user->email, $this->user->name)->subject($this->user->email_message);
                 $message->from(env('MAIL_FROM_ADDRESS'));

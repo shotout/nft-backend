@@ -113,7 +113,7 @@
                                             </div>
                                         @endif
                                         @if ($flag === 'unregister')
-                                            <div style="Margin-bottom:20px;text-align:center">
+                                            <div style="Margin-top:30px;Margin-bottom:20px;text-align:center">
                                                 <a href="{{env('DEEP_URL')}}/users/unregister/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 54px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#E04F46;font-family:sans-serif;text-transform: uppercase;"
                                                     target="_blank">Delete Account</a>
                                             </div>
