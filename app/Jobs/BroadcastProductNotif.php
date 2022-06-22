@@ -55,7 +55,8 @@ class BroadcastProductNotif implements ShouldQueue
             $SERVER_API_KEY = env('FIREBASE_SERVER_API_KEY');
 
             $desc = strip_tags($product->nft_description);
-            $descShort = substr($desc, 0, 100);
+            $filterDesc = html_entity_decode($desc);
+            $descShort = substr($filterDesc, 0, 100);
 
             foreach ($users as $user) {
                 $data = [
