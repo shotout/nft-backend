@@ -301,6 +301,7 @@ class WebhookHandler extends ProcessWebhookJob
                                 $updatecommunities->telegram = $entry->telegramUserLink;
                                 $updatecommunities->instagram = $entry->instagramUserLink;
                                 $updatecommunities->opensea = $entry->openSeaUserLink;
+                                $updatecommunities->rarible = $entry->raribleUserLink;
                                 $updatecommunities->save();
 
                                 $updatecollection = Collections::where('product_id',$find->id)->first();
@@ -470,6 +471,7 @@ class WebhookHandler extends ProcessWebhookJob
                                     $communities->telegram = $entry->telegramUserLink;
                                     $communities->instagram = $entry->instagramUserLink;
                                     $communities->opensea = $entry->openSeaUserLink;
+                                    $communities->rarible = $entry->raribleUserLink;
                                     $communities->save();
 
                                     $collection = new Collections();
