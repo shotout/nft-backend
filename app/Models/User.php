@@ -42,6 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'wallet_connect' => 'json',
     ];
 
     public function wallets()

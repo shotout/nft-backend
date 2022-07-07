@@ -215,4 +215,68 @@ class UserController extends Controller
             // ]);
         }
     }
+
+    public function getRememberToken()
+    {
+        // find user
+        $user = User::where('id', auth('sanctum')->user()->id)->first();
+
+        // if not found
+        if (!$user) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'user not found',
+            ]);
+        }
+
+        // update user
+        $user->remember_token = Str::random(16);
+        $user->update();
+ 
+        // retun response
+        return response()->json([
+            'status' => 'success',
+            'data' => $user->remember_token
+        ]);
+    }
+
+    public function walletConnect(Request $request, $token)
+    {
+        // check remember token
+        $user = User::where('remember_token', $token)->first();
+
+        // return response
+        if (!$user) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'token expired'
+            ]);
+        }
+
+        // add wallet connect
+        if ($user->wallet_connect) {
+            $oldWallet = array();
+            foreach ($user->wallet_connect as $wc) {
+                if ($wc['walletAddress'] != $request->walletAddress) {
+                    $oldWallet[] = $wc;
+                }
+            }
+            $oldWallet[] = $request->all();
+
+            $user->wallet_connect = $oldWallet;
+            $user->save();
+        } else {
+            $newWallet = array();
+            $newWallet[] = $request->all();
+
+            $user->wallet_connect = $newWallet;
+            $user->save();
+        }
+
+        // return response
+        return response()->json([
+            'status' => 'success',
+            'data' => $user->wallet_connect
+        ]);
+    }
 }

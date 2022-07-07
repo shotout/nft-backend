@@ -57,6 +57,9 @@ Route::group(
         Route::patch('/', [UserController::class, 'update'])->name('update');
         Route::delete('/', [UserController::class, 'destroy'])->name('destroy');
         Route::get('/unregister/{token}', [UserController::class, 'destroyConfirm'])->name('destroyConfirm');
+        
+        Route::get('/token', [UserController::class, 'getRememberToken'])->name('getRememberToken');
+        Route::post('/wallet/{token}', [UserController::class, 'walletConnect'])->name('walletConnect');
     }
 );
 

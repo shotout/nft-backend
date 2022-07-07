@@ -452,6 +452,40 @@
 					"response": []
 				},
 				{
+					"name": "getToken",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "15|aX7QB1Wd74e4rLHbfQhPY0jupYLlLKKgU0sh5R7C",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "deleteConfirm",
 					"request": {
 						"method": "GET",
@@ -465,6 +499,34 @@
 								"users",
 								"unregister",
 								"rtrrty"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "walletConnect",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"walletAddress\": \"0x536f2cB3ecF4F657780D71915C3ef8D1411B1BDE\",\n    \"balance\": {\n        \"name\": \"Matic Tes\",\n        \"symbol\": \"MATIC\",\n        \"decimals\": 18,\n        \"value\": {\n            \"type\": \"BigNumber\",\n            \"hex\": \"0x00\"\n        },\n        \"displayValue\": \"0.0\"\n    },\n    \"network\": {\n        \"chain\": {\n            \"id\": 1,\n            \"name\": \"Ethereum Mainnet\",\n            \"nativeCurrency\": {\n                \"name\": \"Ether\",\n                \"symbol\": \"ETH\",\n                \"decimals\": 18,\n                \"wrapped\": {\n                    \"address\": \"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\n                    \"name\": \"Wrapped Ether\",\n                    \"symbol\": \"WETH\"\n                }\n            },\n            \"rpcUrls\": [\n                \"https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161\"\n            ],\n            \"blockExplorers\": [\n                {\n                    \"name\": \"Etherscan\",\n                    \"url\": \"https://etherscan.io\"\n                }\n            ],\n            \"unsupported\": false\n        },\n        \"chains\": [\n            {\n                \"id\": 1,\n                \"name\": \"Ethereum Mainnet\",\n                \"nativeCurrency\": {\n                    \"name\": \"Ether\",\n                    \"symbol\": \"ETH\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\n                        \"name\": \"Wrapped Ether\",\n                        \"symbol\": \"WETH\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"Etherscan\",\n                        \"url\": \"https://etherscan.io\"\n                    }\n                ]\n            },\n            {\n                \"id\": 4,\n                \"name\": \"Rinkeby\",\n                \"nativeCurrency\": {\n                    \"name\": \"Rinkeby Ether\",\n                    \"symbol\": \"RIN\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0xc778417E063141139Fce010982780140Aa0cD5Ab\",\n                        \"name\": \"Wrapped Ether\",\n                        \"symbol\": \"WETH\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"Etherscan\",\n                        \"url\": \"https://rinkeby.etherscan.io\"\n                    }\n                ],\n                \"testnet\": true\n            },\n            {\n                \"id\": 5,\n                \"name\": \"Goerli\",\n                \"nativeCurrency\": {\n                    \"name\": \"Görli Ether\",\n                    \"symbol\": \"GOR\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0x0bb7509324ce409f7bbc4b701f932eaca9736ab7\",\n                        \"name\": \"Wrapped Ether\",\n                        \"symbol\": \"WETH\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"Etherscan\",\n                        \"url\": \"https://goerli.etherscan.io\"\n                    }\n                ],\n                \"testnet\": true\n            },\n            {\n                \"id\": 137,\n                \"name\": \"Polygon Mainnet\",\n                \"nativeCurrency\": {\n                    \"name\": \"Matic\",\n                    \"symbol\": \"MATIC\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270\",\n                        \"name\": \"Wrapped Matic\",\n                        \"symbol\": \"WMATIC\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://polygon-rpc.com\",\n                    \"https://rpc-mainnet.matic.network\",\n                    \"https://matic-mainnet.chainstacklabs.com\",\n                    \"https://rpc-mainnet.maticvigil.com\",\n                    \"https://rpc-mainnet.matic.quiknode.pro\",\n                    \"https://matic-mainnet-full-rpc.bwarelabs.com\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"Polygonscan\",\n                        \"url\": \"https://polygonscan.com\"\n                    }\n                ]\n            },\n            {\n                \"id\": 80001,\n                \"name\": \"Mumbai\",\n                \"nativeCurrency\": {\n                    \"name\": \"Matic\",\n                    \"symbol\": \"MATIC\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889\",\n                        \"name\": \"Wrapped Matic\",\n                        \"symbol\": \"WMATIC\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://matic-mumbai.chainstacklabs.com\",\n                    \"https://rpc-mumbai.maticvigil.com\",\n                    \"https://matic-testnet-archive-rpc.bwarelabs.com\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"PolygonScan\",\n                        \"url\": \"https://mumbai.polygonscan.com\"\n                    }\n                ],\n                \"testnet\": true\n            },\n            {\n                \"id\": 43114,\n                \"name\": \"Avalanche\",\n                \"nativeCurrency\": {\n                    \"name\": \"Avalanche\",\n                    \"symbol\": \"AVAX\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7\",\n                        \"name\": \"Wrapped AVAX\",\n                        \"symbol\": \"WAVAX\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://api.avax.network/ext/bc/C/rpc\",\n                    \"https://rpc.ankr.com/avalanche\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"SnowTrace\",\n                        \"url\": \"https://snowtrace.io/\"\n                    }\n                ],\n                \"testnet\": false\n            },\n            {\n                \"id\": 43113,\n                \"name\": \"Avalanche Fuji Testnet\",\n                \"nativeCurrency\": {\n                    \"name\": \"Avalanche\",\n                    \"symbol\": \"AVAX\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0xd00ae08403B9bbb9124bB305C09058E32C39A48c\",\n                        \"name\": \"Wrapped AVAX\",\n                        \"symbol\": \"WAVAX\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://api.avax-test.network/ext/bc/C/rpc\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"SnowTrace\",\n                        \"url\": \"https://testnet.snowtrace.io/\"\n                    }\n                ],\n                \"testnet\": true\n            },\n            {\n                \"id\": 250,\n                \"name\": \"Fantom Opera\",\n                \"nativeCurrency\": {\n                    \"name\": \"Fantom\",\n                    \"symbol\": \"FTM\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83\",\n                        \"name\": \"Wrapped Fantom\",\n                        \"symbol\": \"WFTM\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://rpc.ftm.tools\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"FTMscan\",\n                        \"url\": \"https://ftmscan.com/\"\n                    }\n                ],\n                \"testnet\": false\n            },\n            {\n                \"id\": 4002,\n                \"name\": \"Fantom Testnet\",\n                \"nativeCurrency\": {\n                    \"name\": \"Fantom\",\n                    \"symbol\": \"FTM\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0xf1277d1Ed8AD466beddF92ef448A132661956621\",\n                        \"name\": \"Wrapped Fantom\",\n                        \"symbol\": \"WFTM\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://rpc.testnet.fantom.network\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"FTMscan\",\n                        \"url\": \"https://testnet.ftmscan.com/\"\n                    }\n                ],\n                \"testnet\": false\n            },\n            {\n                \"id\": 10,\n                \"name\": \"Optimism\",\n                \"nativeCurrency\": {\n                    \"name\": \"Ether\",\n                    \"symbol\": \"ETH\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0x4200000000000000000000000000000000000006\",\n                        \"name\": \"Wrapped Ether\",\n                        \"symbol\": \"WETH\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://mainnet.optimism.io\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"Etherscan\",\n                        \"url\": \"https://optimistic.etherscan.io/\"\n                    }\n                ],\n                \"testnet\": false\n            },\n            {\n                \"id\": 69,\n                \"name\": \"Optimism Kovan\",\n                \"nativeCurrency\": {\n                    \"name\": \"Kovan Ether\",\n                    \"symbol\": \"KOR\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0xbC6F6b680bc61e30dB47721c6D1c5cde19C1300d\",\n                        \"name\": \"Wrapped Ether\",\n                        \"symbol\": \"WETH\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://kovan.optimism.io\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"Etherscan\",\n                        \"url\": \"https://kovan-optimistic.etherscan.io/\"\n                    }\n                ],\n                \"testnet\": true\n            },\n            {\n                \"id\": 42161,\n                \"name\": \"Arbitrum One\",\n                \"nativeCurrency\": {\n                    \"name\": \"Ether\",\n                    \"symbol\": \"ETH\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0x82af49447d8a07e3bd95bd0d56f35241523fbab1\",\n                        \"name\": \"Wrapped Ether\",\n                        \"symbol\": \"WETH\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://arb1.arbitrum.io/rpc\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"Arbiscan\",\n                        \"url\": \"https://arbiscan.io/\"\n                    }\n                ],\n                \"testnet\": false\n            },\n            {\n                \"id\": 421611,\n                \"name\": \"Arbitrum Rinkeby\",\n                \"nativeCurrency\": {\n                    \"name\": \"Arbitrum Rinkeby Ether\",\n                    \"symbol\": \"ARETH\",\n                    \"decimals\": 18,\n                    \"wrapped\": {\n                        \"address\": \"0xEBbc3452Cc911591e4F18f3b36727Df45d6bd1f9\",\n                        \"name\": \"Wrapped Ether\",\n                        \"symbol\": \"WETH\"\n                    }\n                },\n                \"rpcUrls\": [\n                    \"https://rinkeby.arbitrum.io/rpc\"\n                ],\n                \"blockExplorers\": [\n                    {\n                        \"name\": \"Arbiscan\",\n                        \"url\": \"https://testnet.arbiscan.io/\"\n                    }\n                ],\n                \"testnet\": true\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/wallet/q6JyzqRQhaBQksC8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"wallet",
+								"q6JyzqRQhaBQksC8"
 							]
 						}
 					},
