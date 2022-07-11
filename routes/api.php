@@ -60,6 +60,7 @@ Route::group(
         
         Route::get('/token', [UserController::class, 'getRememberToken'])->name('getRememberToken');
         Route::post('/wallet/{token}', [UserController::class, 'walletConnect'])->name('walletConnect');
+        Route::post('/mint/{id}', [UserController::class, 'mintingWithEmail'])->name('mintingWithEmail');
     }
 );
 

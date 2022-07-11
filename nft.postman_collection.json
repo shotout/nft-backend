@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "d0115d13-7d9e-4625-b8a7-aadee2616027",
-		"name": "nft contentful php",
+		"_postman_id": "3bccbf84-447d-4a65-a813-4fd747dea010",
+		"name": "nft live",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12074833"
 	},
@@ -352,7 +352,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|GmiaY0Sz1MgaAYxDiDxKMfopuA6oj8RbHrBXF0QX",
+									"value": "1|t9lM8iTizvBJFilRSQaxuRRh9HPKEiUVBX5s00Pv",
 									"type": "string"
 								}
 							]
@@ -366,14 +366,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/faqs/show/3tv0CDgs3JwVR1xPHTvdbW",
+							"raw": "{{base_url}}/faqs/show/ffd2ab24-9877-4688-92f9-2ed28d05237f",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"faqs",
 								"show",
-								"3tv0CDgs3JwVR1xPHTvdbW"
+								"ffd2ab24-9877-4688-92f9-2ed28d05237f"
 							]
 						}
 					},
@@ -387,7 +387,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|GmiaY0Sz1MgaAYxDiDxKMfopuA6oj8RbHrBXF0QX",
+									"value": "1|t9lM8iTizvBJFilRSQaxuRRh9HPKEiUVBX5s00Pv",
 									"type": "string"
 								}
 							]
@@ -418,39 +418,6 @@
 		{
 			"name": "user",
 			"item": [
-				{
-					"name": "show",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "3|cpUo915TM4hiDOvr92XbWffWTsETiFAHOOQdtMT2",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/users",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "getToken",
 					"request": {
@@ -486,25 +453,6 @@
 					"response": []
 				},
 				{
-					"name": "deleteConfirm",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/users/unregister/rtrrty",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users",
-								"unregister",
-								"rtrrty"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "walletConnect",
 					"request": {
 						"method": "POST",
@@ -533,6 +481,39 @@
 					"response": []
 				},
 				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "update",
 					"request": {
 						"auth": {
@@ -540,7 +521,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "7|QXDaErlPhI6qxTBvlWskz95BWUuJs9pyewnbxI8J",
+									"value": "1|O7ZlzvaXYF8u9WuMG35tgZU3bdcLgUsuZlyQUREW",
 									"type": "string"
 								}
 							]
@@ -555,7 +536,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"update@gmail.com\"\n}",
+							"raw": "{\n    \"wallet\" : [\"59786eda-58c4-483f-adfa-59d5719e420c\", \"945b20fc-4285-47c5-a488-c2c06eb6543c\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -575,158 +556,29 @@
 					"response": []
 				},
 				{
-					"name": "delete",
+					"name": "mintingWithEmail",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "3|cpUo915TM4hiDOvr92XbWffWTsETiFAHOOQdtMT2",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/users",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "rating",
-			"item": [
-				{
-					"name": "check",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|eQTchS8jVmBXyBe9px93BBx1HFMPmwwwggek7VI5",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/ratings/check",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"ratings",
-								"check"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "add",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|eQTchS8jVmBXyBe9px93BBx1HFMPmwwwggek7VI5",
+									"value": "16|tb2ilBZTAVMKmkyz9W82ErPoMcqF8u4EqimeIr2Y",
 									"type": "string"
 								}
 							]
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"rate\": 5,\n    \"comment\": \"nice app\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
+						"header": [],
 						"url": {
-							"raw": "{{base_url}}/ratings",
+							"raw": "{{base_url}}/users/mint/{id}",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"ratings"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "setting",
-			"item": [
-				{
-					"name": "appVersion",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"app_version\" : \"3.0\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/setting/version",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"setting",
-								"version"
+								"users",
+								"mint",
+								"{id}"
 							]
 						}
 					},
@@ -758,7 +610,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://nft.test/api/v1",
+			"value": "https://backend.nftdaily.app/api/v1",
 			"type": "string"
 		}
 	]

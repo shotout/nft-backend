@@ -6,14 +6,16 @@ use Exception;
 use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use App\Models\Wallet;
+use App\Models\Product;
 use App\Models\UserWallet;
+use App\Jobs\SendMintEmail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\UserWatchlist;
 use App\Jobs\SendConfirmEmail;
 use Contentful\Management\Client;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\UserWatchlist;
 use Contentful\Management\Resource\Entry;
 
 class UserController extends Controller
@@ -110,6 +112,12 @@ class UserController extends Controller
         // reset user notif counter
         if ($request->has('notif_count') && $request->notif_count != '') {
             $user->notif_count = 0;
+            $user->update();
+        }
+
+        // app rating
+        if ($request->has('app_rating') && $request->app_rating != '') {
+            $user->app_rating = $request->app_rating;
             $user->update();
         }
 
@@ -277,6 +285,42 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $user->wallet_connect
+        ]);
+    }
+
+    public function mintingWithEmail($id)
+    {
+        // find user
+        $user = User::where('id', auth('sanctum')->user()->id)->first();
+
+        // if not found
+        if (!$user) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'user not found',
+            ]);
+        }
+
+        // find product
+        $product = Product::with('collections','blockchain','preferance','community')
+            ->where('uuid', $id)
+            ->first();
+
+        // if not found
+        if (!$product) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'nft not found',
+            ]);
+        }
+
+        // sending email
+        SendMintEmail::dispatch($user)->onQueue('apiNft');
+
+        // return response
+        return response()->json([
+            'status' => 'success',
+            'message' => 'email minting send',
         ]);
     }
 }
