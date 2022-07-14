@@ -26,11 +26,11 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/test', function () {
-    $user = \App\Models\User::first();
-    $product = \App\Models\Product::with('collections','blockchain','preferance','community')->first();
-    return view('email.minting', ['user' => $user, 'product' => $product]);
-});
+// Route::get('/test', function () {
+//     $user = \App\Models\User::first();
+//     $product = \App\Models\Product::with('collections','blockchain','preferance','community')->first();
+//     return view('email.minting', ['user' => $user, 'product' => $product]);
+// });
 
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
