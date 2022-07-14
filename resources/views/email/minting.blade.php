@@ -55,7 +55,7 @@
                                     </div>
                                     <div style="Margin-left:20px;Margin-right:20px">
                                     <div>
-                                        <p style="Margin-top:0;Margin-bottom:20px">
+                                        <p style="Margin-top:0;Margin-bottom:20px;color:#111324;">
                                             You requested the link to mint <span style="font-weight: bold;">{{$product->nft_title}}</span> on NFT Daily. Click on the button below and <span style="font-weight: bold;">start minting before it’s too late!</span> 
                                         </p>
                                     </div>
