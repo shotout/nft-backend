@@ -315,7 +315,7 @@ class UserController extends Controller
         }
 
         // sending email
-        SendMintEmail::dispatch($user)->onQueue('apiNft');
+        SendMintEmail::dispatch($user, $product)->onQueue('apiNft');
 
         // return response
         return response()->json([

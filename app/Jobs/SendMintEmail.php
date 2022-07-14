@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
@@ -15,15 +16,17 @@ class SendMintEmail implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $user;
+    protected $product;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, Product $product)
     {
         $this->user = $user;
+        $this->product = $product;
     }
 
     /**
@@ -33,8 +36,8 @@ class SendMintEmail implements ShouldQueue
      */
     public function handle()
     {
-        $this->user->email_message = 'NFT Daily Minting';
-        Mail::send('email.minting', ['user' => $this->user], function($message) {
+        $this->user->email_message = "Mint now : ".$this->product->nft_title;
+        Mail::send('email.minting', ['user' => $this->user, 'product' => $this->product], function($message) {
             $message->to($this->user->email, $this->user->name)->subject($this->user->email_message);
             $message->from(env('MAIL_FROM_ADDRESS'));
         });

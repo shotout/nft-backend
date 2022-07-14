@@ -4,6 +4,14 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
         <title>{{$user->email_message}}</title> 
+
+        <style>
+            @media screen and (min-width:600px) {
+                .c--width {
+                    width: 300px !important;
+                }
+            }
+        </style>
     </head>
     <body>
             <div style="overflow: hidden;">
@@ -56,14 +64,19 @@
                                     <div style="Margin-left:20px;Margin-right:20px">
                                     <div>
                                         <p style="Margin-top:0;Margin-bottom:20px">
-                                            Click the button below to <span style="font-weight: bold;">activate your account</span> on NFT Daily and make sure that you <span style="font-weight: bold;">won't miss out on the newest drops!</span>  
+                                            You requested the link to mint <span style="font-weight: bold;">{{$product->nft_title}}</span> on NFT Daily. Click on the button below and <span style="font-weight: bold;">start minting before it’s too late!</span> 
                                         </p>
                                     </div>
                                     </div>
+
                                     <div style="Margin-left:20px;Margin-right:20px">
-                                        <div style="Margin-bottom:20px;text-align:center">
-                                            <a href="{{env('DEEP_URL')}}/auth/verify/{{$user->remember_token}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:12px 54px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#7856ff;font-family:sans-serif;text-transform: uppercase;"
-                                                target="_blank">Minting</a>
+                                        <div style="Margin-bottom:20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid gray;border-radius: 15px; padding: 10px;">
+                                            <img src="{{'https://backend.nftdaily.app/'.$product->collections[0]->image}}" style="width: 100px; border-radius:10px;">
+
+                                            <div>
+                                                <h4 style="text-align:center; margin: 0 0 10px 0;">{{$product->nft_title}}</h4>
+                                                <a class="c--width" href="{{$product->nft_mint}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:5px 20px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#29AAE1;font-family:sans-serif;text-transform: uppercase;" target="_blank">Mint Now</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
