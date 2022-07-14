@@ -6,6 +6,17 @@
         <title>{{$user->email_message}}</title> 
 
         <style>
+            .c--box {
+                margin-bottom:20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                border: 1px solid gray;
+                border-radius: 15px;
+                padding: 10px;
+            }
+
             @media screen and (min-width:600px) {
                 .c--width {
                     width: 300px !important;
@@ -70,7 +81,7 @@
                                     </div>
 
                                     <div style="Margin-left:20px;Margin-right:20px">
-                                        <div style="Margin-bottom:20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid gray;border-radius: 15px; padding: 10px;">
+                                        <div class="c--box">
                                             <img src="{{'https://backend.nftdaily.app/'.$product->collections[0]->image}}" style="width: 100px; border-radius:10px;">
 
                                             <div>
