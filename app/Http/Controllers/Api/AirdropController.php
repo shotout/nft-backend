@@ -49,6 +49,7 @@ class AirdropController extends Controller
             $airdrop->Uuid = Uuid::uuid4();
             $airdrop->user_id = $user->id;
             $airdrop->product_id = $product->id;
+            $airdrop->save();
 
             return response()->json([
                 'status' => 'success',
