@@ -16,7 +16,9 @@ use App\Jobs\SendConfirmEmail;
 use Contentful\Management\Client;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\UserAirdrop;
 use Contentful\Management\Resource\Entry;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -323,4 +325,7 @@ class UserController extends Controller
             'message' => 'email minting send',
         ]);
     }
+
+    
+   
 }

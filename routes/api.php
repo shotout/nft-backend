@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AirdropController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FaqController;
@@ -112,5 +113,17 @@ Route::group(
     function() {
         Route::get('/', [AppController::class, 'list'])->name('setinglist');
         Route::get('/version', [AppController::class, 'appVersion'])->name('version');
+    }
+);
+
+
+
+Route::group(
+    [
+        'prefix' => 'v1/airdrop',
+        'name' => 'airdrop.'
+    ],
+    function() {
+        Route::post('/store', [AirdropController::class, 'store'])->name('store');
     }
 );
