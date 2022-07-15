@@ -35,10 +35,25 @@ class AirdropController extends Controller
                 ]);
             }
 
+            $airdrop = UserAirdrop::where('user_id', $user->id)->where('product_id', $product->id)->first();
+
+            if($airdrop)
+            {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'You have already airdropped this product'
+                ]);
+            }
+
             $airdrop = new UserAirdrop();
             $airdrop->Uuid = Uuid::uuid4();
             $airdrop->user_id = $user->id;
             $airdrop->product_id = $product->id;
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Users Airdrop created successfully'
+            ]);
         }
         catch (\Exception $e)
             {
