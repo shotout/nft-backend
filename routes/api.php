@@ -120,10 +120,12 @@ Route::group(
 
 Route::group(
     [
+        'middleware' => 'auth:sanctum',
         'prefix' => 'v1/airdrop',
         'name' => 'airdrop.'
     ],
     function() {
+        Route::post('/check', [AirdropController::class, 'check'])->name('checkairdrop');
         Route::post('/store', [AirdropController::class, 'store'])->name('store');
     }
 );

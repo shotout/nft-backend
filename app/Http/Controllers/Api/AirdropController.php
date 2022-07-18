@@ -12,20 +12,12 @@ use Ramsey\Uuid\Uuid;
 
 class AirdropController extends Controller
 {
-    public function store(Request $request)
+    public function store($id)
     {
        try
         {
-            //validate
-            $validator = Validator::make($request->all(), [
-                'product_id' => 'required',
-                'user_id' => 'required',
-            ]);
-
-            $validator->validate();
-
-            $user = User::find($request->user_id);
-            $product = Product::find($request->product_id);
+            $user = User::where('id', auth('sanctum')->user()->id)->first();
+            $product = Product::find($id);
 
             if(!$user || !$product)
             {
@@ -55,6 +47,42 @@ class AirdropController extends Controller
                 'status' => 'success',
                 'message' => 'Users Airdrop created successfully'
             ]);
+        }
+        catch (\Exception $e)
+            {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $e->getMessage()
+                ]);
+            }
+    }
+
+    public function check ($id)
+    {
+        try
+        {
+        
+            $user = User::where('id',auth('sanctum')->user()->id)->first();
+            
+            //check if user has airdroped this product
+            $check = UserAirdrop::where('user_id', $user->id)->where('product_id', $id)->first();
+
+            if($check)
+            {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'User has airdropped this product'
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'User has not airdropped this product'
+                ]);
+            }
+
+            
         }
         catch (\Exception $e)
             {
