@@ -125,7 +125,7 @@ Route::group(
         'name' => 'airdrop.'
     ],
     function() {
-        Route::post('/check', [AirdropController::class, 'check'])->name('checkairdrop');
-        Route::post('/store', [AirdropController::class, 'store'])->name('store');
+        Route::post('/check/{id}', [AirdropController::class, 'check'])->name('checkairdrop');
+        Route::post('/store/{id}', [AirdropController::class, 'store'])->name('store');
     }
 );

@@ -7,7 +7,6 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\UserAirdrop;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
 class AirdropController extends Controller
@@ -17,19 +16,29 @@ class AirdropController extends Controller
        try
         {
             $user = User::where('id', auth('sanctum')->user()->id)->first();
-            $product = Product::find($id);
+            $product = Product::where('id', $id)->first();
 
-            if(!$user || !$product)
+            //check user
+            if(!$user)
             {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'User or Product not found'
+                    'message' => 'User not found'
                 ]);
             }
 
-            $airdrop = UserAirdrop::where('user_id', $user->id)->where('product_id', $product->id)->first();
+            //check product
+            if(!$product)
+            {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Product not found'
+                ]);
+            }
 
-            if($airdrop)
+            $checkairdrop = UserAirdrop::where('user_id', $user->id)->where('product_id', $product->id)->first();
+
+            if($checkairdrop)
             {
                 return response()->json([
                     'status' => 'error',
