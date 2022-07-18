@@ -290,7 +290,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function mintingWithEmail($id)
+    public function mintingWithEmail(Request $request, $id)
     {
         // find user
         $user = User::where('id', auth('sanctum')->user()->id)->first();
@@ -317,7 +317,7 @@ class UserController extends Controller
         }
 
         // sending email
-        SendMintEmail::dispatch($user, $product)->onQueue('apiNft');
+        SendMintEmail::dispatch($user, $product, $request->email)->onQueue('apiNft');
 
         // return response
         return response()->json([
