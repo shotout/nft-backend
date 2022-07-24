@@ -280,6 +280,9 @@ class WebhookHandler extends ProcessWebhookJob
                                 $find2->is_verified = $entry->is_verified;
                                 $find2->nft_website = $entry->nftWebsite;
                                 $find2->nft_level = $entry->nftLevel;
+                                $find2->is_airdrop = $entry->nft_airdrop;
+                                $find2->minting_type = $entry->nft_minting_type;
+                                $find2->cta_link = $entry->nft_cta;
                                 $find2->created_at = date('Y-m-d H:i:s');
                                 $find2->save();
 
@@ -440,9 +443,12 @@ class WebhookHandler extends ProcessWebhookJob
                                     $save->nft_publish_date = $entry->publish_date;
                                     $save->nft_blockchain = $blockchain;
                                     $save->nft_exp_promo = $entry->exp_promo;
-                                    $find2->nft_website = $entry->nftWebsite;
-                                    $find2->nft_level = $entry->nftLevel;
+                                    $save->nft_website = $entry->nftWebsite;
+                                    $save->nft_level = $entry->nftLevel;
                                     $save->is_verified = $entry->is_verified;
+                                    $save->is_airdrop = $entry->nft_airdrop;
+                                    $save->minting_type = $entry->nft_minting_type;
+                                    $save->cta_link = $entry->nft_cta;
                                     $save->created_at = date('Y-m-d H:i:s');
                                     $save->save();
                                     
