@@ -47,7 +47,12 @@
                                     <div style="line-height:2px;font-size:1px">
                                         &nbsp;
                                     </div>
-                                    </div>                                   
+                                    </div>
+                                    <div style="Margin-left:20px;Margin-right:20px">
+                                    <div>
+                                        <h1 style="Margin-top:0;Margin-bottom:20px;font-style:normal;font-weight:normal;color:#111324;font-size:16px;line-height:31px;text-align:left">Thank you for minting on the NFT Daily App!</h1>
+                                    </div>
+                                    </div>
                                     <div style="Margin-left:20px;Margin-right:20px">
                                     <div>
                                         <p style="Margin-top:0;Margin-bottom:20px;color:#111324;">
@@ -60,7 +65,7 @@
                                         <div style="margin-bottom:20px; border: 1px solid gray; border-radius: 15px; padding: 10px;text-align:center;">
                                             <h4 style="text-align:center; margin: 0 0 10px 0;">{{$product->nft_title}}</h4>
 
-                                            <img src="{{'https://backend.nftdaily.app/'.$product->collections[0]->image}}" style="width: 100px; border-radius:10px; margin-bottom:10px;">
+                                            <img src="{{'https://backend.nftdaily.app/'.$product->collections[0]->image}}" style="width: 200px; border-radius:10px; margin-bottom:10px;">
 
                                             <div>
                                                 <a href="{{$product->nft_mint}}" style="border-radius:4px;display:inline-block;font-size:14px;font-weight:bold;line-height:24px;padding:5px 20px;text-align:center;text-decoration:none!important;color:#ffffff!important;background-color:#29AAE1;font-family:sans-serif;text-transform: uppercase;" target="_blank">Mint now</a>
