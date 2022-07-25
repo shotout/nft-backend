@@ -38,7 +38,7 @@ class SendMintEmail implements ShouldQueue
      */
     public function handle()
     {
-        $this->user->email_message = "Mint Now : ".$this->product->nft_title;
+        $this->user->email_message = "Mint now : ".$this->product->nft_title;
         Mail::send('email.minting', ['user' => $this->user, 'product' => $this->product], function($message) {
             $message->to($this->emailTo, $this->user->name)->subject($this->user->email_message);
             $message->from(env('MAIL_FROM_ADDRESS'));
