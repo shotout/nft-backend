@@ -53,13 +53,13 @@
                                                     </div>
                                                 </div>
 
-                                                <div style="Margin-left:10px;Margin-right:20px; margin-top:5px; margin-bottom:20px;">
+                                                <div style="Margin-left:10px;Margin-right:20px; margin-top:5px; margin-bottom:10px;">
                                                     <div style="margin-bottom:0px; border: 1px solid gray; border-radius: 15px; margin-left:3px; overflow: hidden;">
                                                         <div>
                                                             <a href="{{$product->nft_mint}}" target="_blank"><img src="{{'https://backend.nftdaily.app/'.$product->collections[0]->image}}" style="width: 100px; height: 100px; border-radius:15px; margin-left:15px; float: left; margin-right:10px; margin-bottom:10px; padding-bottom:5px;"></a>
 
-                                                            <h4 style="padding-top:13px; font-size: 16px; font-weight: 700; fill: #FFFFFF; text-align:center;  margin-top: 20px; margin-bottom:10px; "><a style="color:#000000; text-decoration:none !important;" href="{{$product->nft_mint}}" target="_blank"> {{$product->nft_title}} </a> </h4>
-                                                            <h3 style = "text-align:center; border-radius:4px; background-color:#29AAE1; color:#FFFFFF; padding:5px; font-size:14px; font-weight:bold;line-height:24px; margin-left:140px; margin-right:20px; margin-top:5px; " ><a style = "text-decoration:none !important; color:#FFFFFF;" href="{{$product->nft_mint}}" target="_blank">MINT NOW</a></h3>
+                                                            <h4 style="padding-top:20px; font-size: 16px; font-weight: 700; fill: #FFFFFF; text-align:center;  margin-top: 20px; margin-bottom:10px; "><a style="color:#000000; text-decoration:none !important;" href="{{$product->nft_mint}}" target="_blank"> {{$product->nft_title}} </a> </h4>
+                                                            <h3 style = "text-align:center; border-radius:4px; background-color:#29AAE1; color:#FFFFFF; padding:5px; font-size:14px; font-weight:bold;line-height:24px; margin-left:180px; margin-right:60px; margin-top:5px; " ><a style = "text-decoration:none !important; color:#FFFFFF;" href="{{$product->nft_mint}}" target="_blank">MINT NOW</a></h3>
 
                                                         </div>
                                                     </div>
