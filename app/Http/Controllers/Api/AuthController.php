@@ -180,11 +180,12 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         // retun response
-        // return response()->json([
-        //     'status' => 'success',
-        //     'token' => $token,
-        //     'data' => $user
-        // ]);
-        return redirect('https://nftdaily.app');
+        return response()->json([
+            'status' => 'success',
+            'token' => $token,
+            'data' => $user
+        ]);
+
+        // return redirect('https://nftdaily.app');
     }
 }
