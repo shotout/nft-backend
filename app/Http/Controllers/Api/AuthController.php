@@ -15,9 +15,10 @@ use App\Http\Controllers\Controller;
 use Contentful\Management\Client;
 use Contentful\Core\Api\Exception;
 use Contentful\Management\Resource\Entry;
+use hisorange\BrowserDetect\Facade as Browser;
 
 class AuthController extends Controller
-  
+
 
 {
     public function register(Request $request)
@@ -55,16 +56,16 @@ class AuthController extends Controller
 
             //adding data to contentful          
             $newuser = DB::table('users')
-                    ->leftjoin('user_wallets','users.id','=','user_id')
-                    ->leftjoin('wallets','wallets.id','=','wallet_id')
-                    ->select('users.id','users.name','users.email','users.email_verified_at','users.created_at')
-                    ->selectRaw(DB::raw('GROUP_CONCAT(wallets.name) AS wallets'))
-                    ->selectRaw(DB::raw('IF(users.email_subscribe = 0, "No", "Yes") AS email_subscribe'))
-                    ->where('users.email', $request->email)
-                    ->groupBy('users.email')
-                    ->first();
+                ->leftjoin('user_wallets', 'users.id', '=', 'user_id')
+                ->leftjoin('wallets', 'wallets.id', '=', 'wallet_id')
+                ->select('users.id', 'users.name', 'users.email', 'users.email_verified_at', 'users.created_at')
+                ->selectRaw(DB::raw('GROUP_CONCAT(wallets.name) AS wallets'))
+                ->selectRaw(DB::raw('IF(users.email_subscribe = 0, "No", "Yes") AS email_subscribe'))
+                ->where('users.email', $request->email)
+                ->groupBy('users.email')
+                ->first();
 
-            $client = New Client(env('CONTENTFUL_MANAGEMENT_ACCESS_TOKEN'));
+            $client = new Client(env('CONTENTFUL_MANAGEMENT_ACCESS_TOKEN'));
             $environment = $client->getEnvironmentProxy(env('CONTENTFUL_SPACE_ID'), 'master');
 
 
@@ -79,7 +80,7 @@ class AuthController extends Controller
             try {
                 $environment->create($entry);
             } catch (Exception $exception) {
-                log( $exception->getMessage());                
+                log($exception->getMessage());
             }
 
             $entry_id = $entry->getId();
@@ -103,7 +104,7 @@ class AuthController extends Controller
                 'status' => 'success',
                 'token' => $token,
                 'data' => $user
-            ]);           
+            ]);
         }
     }
 
@@ -153,8 +154,6 @@ class AuthController extends Controller
             'token' => $token,
             'data' => $user
         ]);
-
-
     }
 
     public function verify($token)
@@ -181,12 +180,19 @@ class AuthController extends Controller
         // generate token api
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        // retun response
-        return response()->json([
-            'status' => 'success',
-            'token' => $token,
-            'data' => $user
-        ]);
+
+        if (Browser::isDesktop()) {
+            return redirect('https://nftdaily.app');
+        } else {
+            // retun response
+            return response()->json([
+                'status' => 'success',
+                'token' => $token,
+                'data' => $user
+            ]);
+        }
+
+
 
         // return redirect('https://nftdaily.app');
 
