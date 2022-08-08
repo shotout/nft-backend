@@ -15,7 +15,7 @@ use App\Http\Controllers\Controller;
 use Contentful\Management\Client;
 use Contentful\Core\Api\Exception;
 use Contentful\Management\Resource\Entry;
-use Browser;
+use hisorange\BrowserDetect\Parser as Browser;
 
 class AuthController extends Controller
   
@@ -182,15 +182,22 @@ class AuthController extends Controller
         // generate token api
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        // retun response
-        return response()->json([
+
+        if(Browser::isDekstop()===true){
+            return redirect('https://nftdaily.app');
+        }
+        else{   
+                 // retun response
+            return response()->json([
             'status' => 'success',
             'token' => $token,
             'data' => $user
         ]);
-
+        }
     
 
-        // return redirect('https://nftdaily.app');
+
+        
+
     }
 }

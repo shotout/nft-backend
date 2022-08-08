@@ -1,7 +1,7 @@
 @extends('layouts.app2')
 @section('content')
 <form action="{{ url('/authenticate') }}" method="post" id="signInform">
-    {!! csrf_field() !!}
+    @csrf {!! csrf_field() !!}
     <div class="input-group mb-3">
         <input type="email" id="email"  class="form-control" value="{{ old('email') }}" name="email" placeholder="Email">
     </div>
