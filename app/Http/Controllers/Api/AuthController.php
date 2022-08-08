@@ -16,8 +16,6 @@ use Contentful\Management\Client;
 use Contentful\Core\Api\Exception;
 use Contentful\Management\Resource\Entry;
 use Browser;
-use DeviceDetector\Parser\Client\Browser as ClientBrowser;
-use hisorange\BrowserDetect\Stages\BrowserDetect;
 
 class AuthController extends Controller
   
@@ -184,21 +182,14 @@ class AuthController extends Controller
         // generate token api
         $token = $user->createToken('auth_token')->plainTextToken;
 
-       
-        if(Browser::isMobile()){
-
-              // retun response
+        // retun response
         return response()->json([
             'status' => 'success',
             'token' => $token,
             'data' => $user
         ]);
 
-        }else{
-            return redirect('https://nftdaily.app');
-        }
-
-
+    
 
         // return redirect('https://nftdaily.app');
     }
