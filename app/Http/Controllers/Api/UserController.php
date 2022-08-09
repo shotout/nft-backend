@@ -287,16 +287,17 @@ class UserController extends Controller
         if($request->walletAddress)
         {
             $user->wallet_address = $request->walletAddress;
+            $user->save();
 
             $walletdata = Http::get('http://api.etherscan.io/api?module=account&action=txlist&address='.$user->wallet_address.'&startblock=0&endblock=99999999&apikey='.env('ETHERSCAN_API_KEY'))->json();
             
-            if($walletdata){
+            if($walletdata['status'] == '1'){
 
                 $user->wallet_transaction = $walletdata['result'];
                 $user->save();
             }
 
-            $user->save();
+            
         }
 
         
