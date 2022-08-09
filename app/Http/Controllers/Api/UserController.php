@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\UserAirdrop;
 use Contentful\Management\Resource\Entry;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -286,8 +287,21 @@ class UserController extends Controller
         if($request->walletAddress)
         {
             $user->wallet_address = $request->walletAddress;
+
+            $walletdata = Http::get('http://api.etherscan.io/api?module=account&action=txlist&address='.$user->wallet_address.'&startblock=0&endblock=99999999&apikey='.env('ETHERSCAN_API_KEY'))->json();
+            
+            if($walletdata){
+
+                $user->wallet_transaction = $walletdata['result'];
+                $user->save();
+            }
+
             $user->save();
         }
+
+        
+
+       
        
         // return response
         return response()->json([
