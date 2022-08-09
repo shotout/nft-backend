@@ -283,6 +283,12 @@ class UserController extends Controller
             $user->save();
         }
 
+        if($request->walletAddress)
+        {
+            $user->wallet_address = $request->walletAddress;
+            $user->save();
+        }
+       
         // return response
         return response()->json([
             'status' => 'success',
