@@ -181,19 +181,19 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
 
-        if (Browser::isDesktop() === true) {
-            return redirect('https://nftdaily.app');
-        } 
-        if (Browser::isMobile() === true) {
-            // retun response
-            return response()->json([
-                'status' => 'success',
-                'token' => $token,
-                'data' => $user
-            ]);
-        }
+        // if (Browser::isDesktop() === true) {
+        //     return redirect('https://nftdaily.app');
+        // } 
+        // if (Browser::isMobile() === true) {
+        //     // retun response
+           
+        // }
 
-
+        return response()->json([
+            'status' => 'success',
+            'token' => $token,
+            'data' => $user
+        ]);
 
         // return redirect('https://nftdaily.app');
 
