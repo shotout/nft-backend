@@ -167,10 +167,19 @@ class AuthController extends Controller
         $user = User::where('remember_token', $token)->first();
 
         if (!$user) {
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'token expired',
-            ]);
+
+            if (Browser::platformFamily() == 'Windows' || Browser::platformFamily() == 'Mac') {
+                return redirect('https://nftdaily.app');
+            } 
+            else {
+                
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'token expired',
+                ]);
+        
+            }
+            
         }
 
         $user->email_verified_at = now();
