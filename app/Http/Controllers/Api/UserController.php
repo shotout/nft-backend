@@ -296,6 +296,11 @@ class UserController extends Controller
                 $user->wallet_transaction = $walletdata['result'];
                 $user->save();
             }
+            else
+            {
+                $user->wallet_transaction = $walletdata['message'];
+                $user->save();
+            }
 
             
         }
