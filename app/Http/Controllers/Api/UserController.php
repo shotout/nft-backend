@@ -289,18 +289,20 @@ class UserController extends Controller
             $user->wallet_address = $request->walletAddress;
             $user->save();
 
-            $walletdata = Http::get('http://api.etherscan.io/api?module=account&action=txlist&address=0x7546606C48d34C242E52342D39Ca3D16e4eF0Ea1&startblock=0&endblock=99999999&apikey=19THKFNXEKHYVN7TA3UFAY6FXVZU9FV9UT')->json();
+            $data = User::where('remember_token', $token)->first();
+
+            $walletdata = Http::get('http://api.etherscan.io/api?module=account&action=txlist&address='.$data->wallet_address.'&startblock=0&endblock=99999999&apikey='.env('ETHERSCAN_API_KEY'))->json();
             
             if($walletdata['status'] == '1'){
 
-                $user->wallet_transaction = $walletdata['result'];
-                $user->save();
+                $data->wallet_transaction = $walletdata['result'];
+                $data->save();
             }
             
             if($walletdata['status'] == '0')
             {
-                $user->wallet_transaction = $walletdata['message'];
-                $user->save();
+                $data->wallet_transaction = $walletdata['message'];
+                $data->save();
             }
 
             
