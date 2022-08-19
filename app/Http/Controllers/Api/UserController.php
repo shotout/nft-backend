@@ -292,10 +292,12 @@ class UserController extends Controller
             $data = User::where('remember_token', $token)->first();
 
             $walletdata = Http::get('http://api.etherscan.io/api?module=account&action=txlist&address='.$data->wallet_address.'&startblock=0&endblock=99999999&apikey='.env('ETHERSCAN_API_KEY'))->json();
+            $walletbalance = Http::get('http://api.etherscan.io/api?module=account&action=balance&address='.$data->wallet_address.'&tag=latest&apikey='.env('ETHERSCAN_API_KEY'))->json();
             
             if($walletdata['status'] == '1'){
 
                 $data->wallet_transaction = $walletdata['result'];
+                $data->wallet_balance = $walletbalance['result'];
                 $data->save();
             }
             
