@@ -15,7 +15,7 @@ use App\Http\Controllers\Controller;
 use Contentful\Management\Client;
 use Contentful\Core\Api\Exception;
 use Contentful\Management\Resource\Entry;
-use hisorange\BrowserDetect\Facade as Browser;
+use hisorange\BrowserDetect\Parser as Browser;
 
 class AuthController extends Controller
 
@@ -188,7 +188,7 @@ class AuthController extends Controller
 
         // generate token api
         $token = $user->createToken('auth_token')->plainTextToken;
-
+        
 
         if (Browser::platformFamily() == 'Windows' || Browser::platformFamily() == 'Mac') {
             return redirect('https://nftdaily.app');
