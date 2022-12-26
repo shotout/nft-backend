@@ -188,19 +188,25 @@ class AuthController extends Controller
 
         // generate token api
         $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'status' => 'success',
+            'token' => $token,
+            'data' => $user
+        ]);
         
 
-        if (Browser::platformFamily() == 'Windows' || Browser::platformFamily() == 'Mac') {
-            return redirect('https://nftdaily.app');
-        } 
-        else {
-            return response()->json([
-                'status' => 'success',
-                'token' => $token,
-                'data' => $user
-            ]);
+        // if (Browser::platformFamily() == 'Windows' || Browser::platformFamily() == 'Mac') {
+        //     return redirect('https://nftdaily.app');
+        // } 
+        // else {
+        //     return response()->json([
+        //         'status' => 'success',
+        //         'token' => $token,
+        //         'data' => $user
+        //     ]);
     
-        }
+        // }
       
     }
 }
